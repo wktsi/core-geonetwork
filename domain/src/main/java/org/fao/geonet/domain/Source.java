@@ -55,9 +55,11 @@ import javax.persistence.Transient;
 @Table(name = "Sources")
 @EntityListeners(SourceEntityListenerManager.class)
 public class Source extends Localized {
-    private String _uuid;
+    
+	private static final long serialVersionUID = 4181461781798647674L;
+	private String _uuid;
     private String _name;
-    private char _local = Constants.YN_TRUE;
+    private Character _local = Constants.YN_TRUE;
 
     /**
      * Default constructor.  Required by framework.
@@ -72,7 +74,8 @@ public class Source extends Localized {
      * @param name  the name
      * @param local if the source is the local system
      */
-    public Source(String uuid, String name, Map<String, String> translations, boolean local) {
+    public Source(String uuid, String name, Map<String, String> translations, 
+    		boolean local) {
         this._uuid = uuid;
         setName(name);
         if (translations != null && translations.size() != 0) {
@@ -140,7 +143,7 @@ public class Source extends Localized {
      */
     @Column(name = "isLocal", nullable = false, length = 1)
     @JsonIgnore
-    protected char getIsLocal_JpaWorkaround() {
+    protected Character getIsLocal_JpaWorkaround() {
         return _local;
     }
 
@@ -149,7 +152,7 @@ public class Source extends Localized {
      *
      * @param local Constants.YN_ENABLED or Constants.YN_DISABLED
      */
-    protected void setIsLocal_JpaWorkaround(char local) {
+    protected void setIsLocal_JpaWorkaround(Character local) {
         _local = local;
     }
 

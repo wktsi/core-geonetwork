@@ -34,8 +34,8 @@ import java.io.Serializable;
 public class UserSavedSelectionId implements Serializable {
     private static final long serialVersionUID = 758566280699819800L;
 
-    private int _userId;
-    private int _selectionId;
+    private Integer _userId;
+    private Integer _selectionId;
     private String _metadataUuid;
 
     public UserSavedSelectionId() {
@@ -56,7 +56,7 @@ public class UserSavedSelectionId implements Serializable {
      *
      * @return the id of the user.
      */
-    public int getUserId() {
+    public Integer getUserId() {
         return _userId;
     }
 
@@ -66,7 +66,7 @@ public class UserSavedSelectionId implements Serializable {
      * @param userId the id of the user.
      * @return this id object
      */
-    public UserSavedSelectionId setUserId(int userId) {
+    public UserSavedSelectionId setUserId(Integer userId) {
         this._userId = userId;
         return this;
     }
@@ -76,7 +76,7 @@ public class UserSavedSelectionId implements Serializable {
      *
      * @return the selection id.
      */
-    public int getSelectionId() {
+    public Integer getSelectionId() {
         return _selectionId;
     }
 
@@ -86,7 +86,7 @@ public class UserSavedSelectionId implements Serializable {
      * @param selectionId the selection id
      * @return this id object
      */
-    public UserSavedSelectionId setSelectionId(int selectionId) {
+    public UserSavedSelectionId setSelectionId(Integer selectionId) {
         this._selectionId = selectionId;
         return this;
     }

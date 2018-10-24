@@ -23,18 +23,21 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.Source;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.fao.geonet.domain.Source;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link Source} entities.
  *
  * @author Jesse
  */
-public interface SourceRepository extends GeonetRepository<Source, String>, JpaSpecificationExecutor<Source> {
+public interface SourceRepository extends GeonetRepository<Source, String>, CrudRepository<Source, String>,
+		JpaRepository<Source, String>, JpaSpecificationExecutor<Source> {
     /**
      * Find the source with the provided Name.
      *

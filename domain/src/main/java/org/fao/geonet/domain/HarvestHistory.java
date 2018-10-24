@@ -23,6 +23,25 @@
 
 package org.fao.geonet.domain;
 
+import java.io.IOException;
+import java.util.IdentityHashMap;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.fao.geonet.entitylistener.HarvestHistoryEntityListenerManager;
 import org.fao.geonet.utils.Log;
 import org.fao.geonet.utils.Xml;
@@ -30,13 +49,6 @@ import org.hibernate.annotations.Type;
 import org.jdom.Content;
 import org.jdom.Element;
 import org.jdom.JDOMException;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.persistence.*;
-
-import java.io.IOException;
-import java.util.IdentityHashMap;
 
 /**
  * An entity representing a harvesting task that may have been completed or possibly ending in
@@ -50,14 +62,15 @@ import java.util.IdentityHashMap;
 @EntityListeners(HarvestHistoryEntityListenerManager.class)
 @SequenceGenerator(name = HarvestHistory.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class HarvestHistory extends GeonetEntity {
-    static final String ID_SEQ_NAME = "harvest_history_id_seq";
-    private int _id;
+	private static final long serialVersionUID = 127836548237L;
+	static final String ID_SEQ_NAME = "harvest_history_id_seq";
+    private Integer _id;
     private ISODate _harvestDate;
-    private int _elapsedTime;
+    private Integer _elapsedTime;
     private String _harvesterUuid;
     private String _harvesterName;
     private String _harvesterType;
-    private char _deleted = Constants.YN_FALSE;
+    private Character _deleted = Constants.YN_FALSE;
     private String _info;
     private String _params;
 
@@ -70,7 +83,7 @@ public class HarvestHistory extends GeonetEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -82,7 +95,7 @@ public class HarvestHistory extends GeonetEntity {
      * @param id the new id
      * @return this entity object
      */
-    public HarvestHistory setId(int id) {
+    public HarvestHistory setId(Integer id) {
         this._id = id;
         return this;
     }
@@ -115,7 +128,7 @@ public class HarvestHistory extends GeonetEntity {
      * @return the time taken for the harvest.
      */
     @Column(name = "elapsedtime")
-    public int getElapsedTime() {
+    public Integer getElapsedTime() {
         return _elapsedTime;
     }
 
@@ -125,7 +138,7 @@ public class HarvestHistory extends GeonetEntity {
      * @param elapsedTime the elapsed time
      * @return this entity object
      */
-    public HarvestHistory setElapsedTime(int elapsedTime) {
+    public HarvestHistory setElapsedTime(Integer elapsedTime) {
         this._elapsedTime = elapsedTime;
         return this;
     }
@@ -201,11 +214,11 @@ public class HarvestHistory extends GeonetEntity {
      * controlling how types are mapped to the database.
      */
     @Column(name = "deleted", nullable = false, length = 1)
-    protected char getDeleted_JpaWorkaround() {
+    protected Character getDeleted_JpaWorkaround() {
         return _deleted;
     }
 
-    protected char setDeleted_JpaWorkaround(char deleted) {
+    protected Character setDeleted_JpaWorkaround(Character deleted) {
         return _deleted = deleted;
     }
 
@@ -236,7 +249,7 @@ public class HarvestHistory extends GeonetEntity {
      * @return the harvester info.
      */
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     // this is a work around for postgres so postgres can correctly load clobs
     public String getInfo() {
         return _info;
@@ -293,7 +306,7 @@ public class HarvestHistory extends GeonetEntity {
      * @return the parameters used for performing the harvesting.
      */
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     // this is a work around for postgres so postgres can correctly load clobs
     public String getParams() {
         return _params;

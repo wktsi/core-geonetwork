@@ -39,9 +39,9 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CswConfigurationResponse implements Serializable {
     private static final long serialVersionUID = -4426385060234828544L;
-    private boolean cswEnabled;
-    private boolean cswMetadataPublic;
-    private int cswContactId;
+    private Boolean cswEnabled;
+    private Boolean cswMetadataPublic;
+    private Integer cswContactId;
     @XmlElement(name = "record")
     private List<CswCapabilitiesInfoField> capabilitiesInfoFields;
 
@@ -49,7 +49,7 @@ public class CswConfigurationResponse implements Serializable {
         return cswEnabled;
     }
 
-    public void setCswEnabled(boolean cswEnabled) {
+    public void setCswEnabled(Boolean cswEnabled) {
         this.cswEnabled = cswEnabled;
     }
 
@@ -57,7 +57,7 @@ public class CswConfigurationResponse implements Serializable {
         return cswMetadataPublic;
     }
 
-    public void setCswMetadataPublic(boolean cswMetadataPublic) {
+    public void setCswMetadataPublic(Boolean cswMetadataPublic) {
         this.cswMetadataPublic = cswMetadataPublic;
     }
 
@@ -65,7 +65,7 @@ public class CswConfigurationResponse implements Serializable {
         return cswContactId;
     }
 
-    public void setCswContactId(int cswContactId) {
+    public void setCswContactId(Integer cswContactId) {
         this.cswContactId = cswContactId;
     }
 

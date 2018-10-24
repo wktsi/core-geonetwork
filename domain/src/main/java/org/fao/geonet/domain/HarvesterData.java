@@ -46,8 +46,12 @@ import javax.persistence.*;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(name = "HarvesterData")
-public class HarvesterData {
-    private HarvesterDataId id;
+@Cacheable
+public class HarvesterData extends GeonetEntity {
+	@Transient
+	private static final long serialVersionUID = -5464135646968959741L;
+	
+	private HarvesterDataId id;
     private String value;
 
     /**
@@ -152,6 +156,7 @@ public class HarvesterData {
     }
 
     @Override
+    @Transient
     public String toString() {
         return "HarvesterData{" +
             "id=" + id +
@@ -160,6 +165,7 @@ public class HarvesterData {
     }
 
     @Override
+    @Transient
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -173,6 +179,7 @@ public class HarvesterData {
     }
 
     @Override
+    @Transient
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + value.hashCode();

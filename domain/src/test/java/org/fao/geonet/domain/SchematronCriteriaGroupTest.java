@@ -82,7 +82,7 @@ public class SchematronCriteriaGroupTest {
         assertEquals(criteria.getValue(), criteriaEl.getChildText("value"));
 
         assertEquals(group.getId().getName(), xml.getChild("id").getChildText("name"));
-        assertEquals(group.getId().getSchematronId(), Integer.parseInt(xml.getChild("id").getChildText("schematronid")));
+        assertEquals(group.getId().getSchematronId(), new Integer(xml.getChild("id").getChildText("schematronid")));
         assertEquals(group.getRequirement().name(), xml.getChildText("requirement"));
 
         Element schematronEl = xml.getChild("schematron");

@@ -29,45 +29,51 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.fao.geonet.domain.Metadata;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Data Access object for the {@link Metadata} entities.
  * 
- * The use of this class is discouraged, you should use IMetadataUtils or IMetadataManager instead.
+ * The use of this class is discouraged, you should use IMetadataUtils or
+ * IMetadataManager instead.
  *
  * @author Jesse
  */
 public interface MetadataRepository extends GeonetRepository<Metadata, Integer>, MetadataRepositoryCustom<Metadata>,
-    JpaSpecificationExecutor<Metadata> {
-    /**
-     * Find one metadata by the metadata's uuid.
-     *
-     * @param uuid the uuid of the metadata to find
-     * @return one metadata or null.
-     */
-    @Nullable
-    Metadata findOneByUuid(@Nonnull String uuid);
+		CrudRepository<Metadata, Integer>, JpaRepository<Metadata, Integer>, JpaSpecificationExecutor<Metadata> {
+	/**
+	 * Find one metadata by the metadata's uuid.
+	 *
+	 * @param uuid
+	 *            the uuid of the metadata to find
+	 * @return one metadata or null.
+	 */
+	@Nullable
+	Metadata findOneByUuid(@Nonnull String uuid);
 
-    /**
-     * Find all metadata harvested by the identified harvester.
-     *
-     * @param uuid the uuid of the harvester
-     * @return all metadata harvested by the identified harvester.
-     */
-    @Nonnull
-    List<Metadata> findAllByHarvestInfo_Uuid(@Nonnull String uuid);
+	/**
+	 * Find all metadata harvested by the identified harvester.
+	 *
+	 * @param uuid
+	 *            the uuid of the harvester
+	 * @return all metadata harvested by the identified harvester.
+	 */
+	@Nonnull
+	List<Metadata> findAllByHarvestInfo_Uuid(@Nonnull String uuid);
 
-    /**
-     * Increment popularity of metadata by 1.
-     *
-     * @param mdId the id of the metadata
-     */
-    @Modifying
-    @Transactional
-    @Query("UPDATE " + Metadata.TABLENAME + " m SET m.dataInfo.popularity = m.dataInfo.popularity + 1 WHERE m.id = ?1")
-    void incrementPopularity(int mdId);
+	/**
+	 * Increment popularity of metadata by 1.
+	 *
+	 * @param mdId
+	 *            the id of the metadata
+	 */
+	@Modifying
+	@Transactional
+	@Query("UPDATE " + Metadata.TABLENAME + " m SET m.dataInfo.popularity = m.dataInfo.popularity + 1 WHERE m.id = ?1")
+	void incrementPopularity(int mdId);
 }

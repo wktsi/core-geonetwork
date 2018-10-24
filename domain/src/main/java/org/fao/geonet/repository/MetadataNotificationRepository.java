@@ -25,6 +25,9 @@ package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.MetadataNotification;
 import org.fao.geonet.domain.MetadataNotificationId;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link MetadataNotification} entities.
@@ -32,6 +35,7 @@ import org.fao.geonet.domain.MetadataNotificationId;
  * @author Jesse
  */
 public interface MetadataNotificationRepository extends GeonetRepository<MetadataNotification, MetadataNotificationId>,
-    MetadataNotificationRepositoryCustom {
+		MetadataNotificationRepositoryCustom, CrudRepository<MetadataNotification, MetadataNotificationId>,
+		JpaRepository<MetadataNotification, MetadataNotificationId>, JpaSpecificationExecutor<MetadataNotification> {
 
 }

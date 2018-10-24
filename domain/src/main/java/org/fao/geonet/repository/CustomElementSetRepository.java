@@ -24,11 +24,15 @@
 package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.CustomElementSet;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link CustomElementSet} entities.
  *
  * @author Jesse
  */
-public interface CustomElementSetRepository extends GeonetRepository<CustomElementSet, Integer> {
+public interface CustomElementSetRepository extends GeonetRepository<CustomElementSet, Integer>,
+		CrudRepository<CustomElementSet, Integer>, JpaRepository<CustomElementSet, Integer>, JpaSpecificationExecutor<CustomElementSet> {
 }

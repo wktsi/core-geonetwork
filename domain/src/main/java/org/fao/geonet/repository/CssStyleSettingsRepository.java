@@ -24,11 +24,14 @@ package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.CssStyleSetting;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
- * Data Access object for accessing {@link org.fao.geonet.domain.CssStyleSetting}
- * entities.
+ * Data Access object for accessing
+ * {@link org.fao.geonet.domain.CssStyleSetting} entities.
  */
-public interface CssStyleSettingsRepository  extends JpaRepository<CssStyleSetting, String>  {
+public interface CssStyleSettingsRepository extends CrudRepository<CssStyleSetting, String>,
+		JpaRepository<CssStyleSetting, String>, JpaSpecificationExecutor<CssStyleSetting> {
 
 }

@@ -35,42 +35,11 @@
   <name>GeoNetwork health monitor</name>
 
   <dependencies>
-
-    <dependency>
-      <groupId>org.geonetwork-opensource</groupId>
-      <artifactId>core</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>csw-server</artifactId>
-      <version>${project.version}</version>
-    </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>harvesters</artifactId>
       <version>${project.version}</version>
     </dependency>
-
-    <!-- Monitoring libraries -->
-    <dependency>
-      <groupId>com.yammer.metrics</groupId>
-      <artifactId>metrics-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.yammer.metrics</groupId>
-      <artifactId>metrics-servlet</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.yammer.metrics</groupId>
-      <artifactId>metrics-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.yammer.metrics</groupId>
-      <artifactId>metrics-log4j</artifactId>
-    </dependency>
-
   </dependencies>
 
   <profiles>

@@ -46,11 +46,12 @@ import javax.persistence.*;
 @EntityListeners(SettingEntityListenerManager.class)
 @JsonSerialize(using = SettingToObjectSerializer.class)
 public class Setting extends GeonetEntity {
-    private String name;
+	private static final long serialVersionUID = 7729221113509298057L;
+	private String name;
     private String value;
     private SettingDataType dataType = SettingDataType.STRING;
-    private int position = 0;
-    private char internal = Constants.YN_TRUE;
+    private Integer position = 0;
+    private Character internal = Constants.YN_TRUE;
 
     @Id
     @Column(name = "name", nullable = false, length = 255/* mysql cannot accept it any bigger if it is to be the id */)
@@ -65,7 +66,7 @@ public class Setting extends GeonetEntity {
 
     @Lob
     @Column(name = "value", nullable = true)
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     // this is a work around for postgres so postgres can correctly load clobs
     public String getValue() {
         return value;
@@ -87,11 +88,11 @@ public class Setting extends GeonetEntity {
     }
 
     @Column(name = "position", nullable = false, columnDefinition = "int default 0")
-    public int getPosition() {
+    public Integer getPosition() {
         return position;
     }
 
-    public Setting setPosition(int position) {
+    public Setting setPosition(Integer position) {
         this.position = position;
         return this;
     }
@@ -102,7 +103,7 @@ public class Setting extends GeonetEntity {
      * controlling how types are mapped to the database.
      */
     @Column(name = "internal", nullable = false, length = 1, columnDefinition = "char default 'y'")
-    protected char getInternal_JpaWorkaround() {
+    protected Character getInternal_JpaWorkaround() {
         return internal;
     }
 
@@ -112,7 +113,7 @@ public class Setting extends GeonetEntity {
      * @param internalValue the column value. Constants.YN_ENABLED for true Constants.YN_DISABLED
      *                      for false.
      */
-    protected void setInternal_JpaWorkaround(char internalValue) {
+    protected void setInternal_JpaWorkaround(Character internalValue) {
         internal = internalValue;
     }
 

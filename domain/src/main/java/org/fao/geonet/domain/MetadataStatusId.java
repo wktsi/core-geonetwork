@@ -35,11 +35,12 @@ import java.io.Serializable;
 @Embeddable
 @Access(AccessType.PROPERTY)
 public class MetadataStatusId implements Serializable {
+    @Transient
     private static final long serialVersionUID = -4395314364468537427L;
     private ISODate _changedate;
-    private int _metadataId;
-    private int _statusId;
-    private int _userId;
+    private Integer _metadataId;
+    private Integer _statusId;
+    private Integer _userId;
 
     /**
      * Get the date of the status change in string form.
@@ -66,7 +67,7 @@ public class MetadataStatusId implements Serializable {
      *
      * @return the id of the metadata the status is related to.
      */
-    public int getMetadataId() {
+    public Integer getMetadataId() {
         return _metadataId;
     }
 
@@ -76,7 +77,7 @@ public class MetadataStatusId implements Serializable {
      * @param metadataId the id of the metadata the status is related to.
      * @return this id object
      */
-    public MetadataStatusId setMetadataId(int metadataId) {
+    public MetadataStatusId setMetadataId(Integer metadataId) {
         this._metadataId = metadataId;
         return this;
     }
@@ -86,7 +87,7 @@ public class MetadataStatusId implements Serializable {
      *
      * @return the id of the new status.
      */
-    public int getStatusId() {
+    public Integer getStatusId() {
         return _statusId;
     }
 
@@ -96,7 +97,7 @@ public class MetadataStatusId implements Serializable {
      * @param statusId the id of the new status.
      * @return this id object
      */
-    public MetadataStatusId setStatusId(int statusId) {
+    public MetadataStatusId setStatusId(Integer statusId) {
         this._statusId = statusId;
         return this;
     }
@@ -106,7 +107,7 @@ public class MetadataStatusId implements Serializable {
      *
      * @return the user who is responsible for changing the status.
      */
-    public int getUserId() {
+    public Integer getUserId() {
         return _userId;
     }
 
@@ -116,12 +117,13 @@ public class MetadataStatusId implements Serializable {
      * @param userId the user who is responsible for changing the status.
      * @return this id object
      */
-    public MetadataStatusId setUserId(int userId) {
+    public MetadataStatusId setUserId(Integer userId) {
         this._userId = userId;
         return this;
     }
 
     @Override
+    @Transient
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -133,6 +135,7 @@ public class MetadataStatusId implements Serializable {
     }
 
     @Override
+    @Transient
     public boolean equals(Object obj) {
         if (this == obj)
             return true;

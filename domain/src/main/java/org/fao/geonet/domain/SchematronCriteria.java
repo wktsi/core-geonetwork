@@ -44,11 +44,12 @@ import java.util.List;
 @Access(AccessType.PROPERTY)
 @SequenceGenerator(name = SchematronCriteria.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class SchematronCriteria extends GeonetEntity {
-    static final String ID_SEQ_NAME = "schematron_criteria_id_seq";
+	private static final long serialVersionUID = 139875387456L;
+	static final String ID_SEQ_NAME = "schematron_criteria_id_seq";
     static final String EL_UI_TYPE = "uitype";
     static final String EL_UI_VALUE = "uivalue";
 
-    private int id;
+    private Integer id;
     private SchematronCriteriaType type;
     private String value;
     private String uiType;
@@ -60,14 +61,14 @@ public class SchematronCriteria extends GeonetEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * Set the unique id for the schematron criteria object
      */
-    public SchematronCriteria setId(int id) {
+    public SchematronCriteria setId(Integer id) {
         this.id = id;
         return this;
     }

@@ -50,7 +50,7 @@ public class CswCapabilitiesInfoField extends GeonetEntity implements Serializab
     private static final int ID_COLUMN_LENGTH = 10;
     private static final int LANG_ID_COLUMN_LENGTH = 5;
     private static final int FIELD_NAME_COLUMN_LENGTH = 32;
-    private int _id = 0;
+    private Integer _id = 0;
     private String _langId;
     private String _fieldName;
     private String _value;
@@ -61,7 +61,7 @@ public class CswCapabilitiesInfoField extends GeonetEntity implements Serializab
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
     @Column(name = "idfield", length = ID_COLUMN_LENGTH)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -73,7 +73,7 @@ public class CswCapabilitiesInfoField extends GeonetEntity implements Serializab
      * @param id the id.
      * @return this object
      */
-    public CswCapabilitiesInfoField setId(final int id) {
+    public CswCapabilitiesInfoField setId(final Integer id) {
         this._id = id;
         return this;
     }
@@ -133,7 +133,7 @@ public class CswCapabilitiesInfoField extends GeonetEntity implements Serializab
      */
     @Lob
     @Column(name = "label")
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     // this is a work around for postgres so postgres can correctly load clobs
     public String getValue() {
         return _value;

@@ -58,7 +58,8 @@ import javax.persistence.UniqueConstraint;
 @Access(AccessType.PROPERTY)
 @SequenceGenerator(name = Schematron.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class Schematron extends Localized {
-    public static final Comparator<? super Schematron> DISPLAY_PRIORITY_COMPARATOR = new Comparator<Schematron>() {
+	private static final long serialVersionUID = 2017678962159867318L;
+	public static final Comparator<? super Schematron> DISPLAY_PRIORITY_COMPARATOR = new Comparator<Schematron>() {
         @Override
         public int compare(Schematron o1, Schematron o2) {
             return Integer.compare(o1.getDisplayPriority(), o2.getDisplayPriority());
@@ -77,19 +78,19 @@ public class Schematron extends Localized {
         }
     }
 
-    private int id;
+    private Integer id;
     private String schemaName;
     private String file;
-    private int displayPriority = 0;
+    private Integer displayPriority = 0;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
     @Column(nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public Schematron setId(int id) {
+    public Schematron setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -145,11 +146,11 @@ public class Schematron extends Localized {
      *
      * 0 is highest priority and should be first in the list.
      */
-    public int getDisplayPriority() {
+    public Integer getDisplayPriority() {
         return displayPriority;
     }
 
-    public void setDisplayPriority(int displayPriority) {
+    public void setDisplayPriority(Integer displayPriority) {
         this.displayPriority = displayPriority;
     }
 

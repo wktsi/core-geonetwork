@@ -38,7 +38,6 @@
   <!-- =========================================================== -->
   <!-- Module Description -->
   <!-- =========================================================== -->
-  <groupId>org.geonetwork-opensource</groupId>
   <artifactId>cachingxslt</artifactId>
   <packaging>jar</packaging>
   <name>Caching xslt module</name>
@@ -55,14 +54,6 @@
   </licenses>
 
   <dependencies>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>net.sf.saxon</groupId>
-      <artifactId>saxon</artifactId>
-    </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>common</artifactId>

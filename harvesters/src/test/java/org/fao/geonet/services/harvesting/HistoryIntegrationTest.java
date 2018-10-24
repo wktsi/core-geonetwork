@@ -73,11 +73,11 @@ public class HistoryIntegrationTest extends AbstractHarvesterServiceIntegrationT
         final List<Element> harvestHistory = results.getChild("harvesthistory").getChildren();
         assertEquals(3, harvestHistory.size());
         assertEquals(history2.getHarvestDate(), new ISODate(harvestHistory.get(0).getChildText("harvestdate")));
-        assertEquals(history2.getId(), Integer.parseInt(harvestHistory.get(0).getChildText("id")));
+        assertEquals(history2.getId(), Integer.valueOf(harvestHistory.get(0).getChildText("id")));
         assertEquals(history.getHarvestDate(), new ISODate(harvestHistory.get(1).getChildText("harvestdate")));
-        assertEquals(history.getId(), Integer.parseInt(harvestHistory.get(1).getChildText("id")));
+        assertEquals(history.getId(), Integer.valueOf(harvestHistory.get(1).getChildText("id")));
         assertEquals(history3.getHarvestDate(), new ISODate(harvestHistory.get(2).getChildText("harvestdate")));
-        assertEquals(history3.getId(), Integer.parseInt(harvestHistory.get(2).getChildText("id")));
+        assertEquals(history3.getId(), Integer.valueOf(harvestHistory.get(2).getChildText("id")));
     }
 
     @Test

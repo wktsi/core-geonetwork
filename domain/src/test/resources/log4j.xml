@@ -32,6 +32,9 @@
   <category name="org.springframework.aop.framework.CglibAopProxy">
     <priority value="ERROR"/>
   </category>
+  <category name="org.springframework">
+    <priority value="TRACE"/>
+  </category>
   <category name="net.sf.ehcache.config.ConfigurationFactory">
     <priority value="ERROR"/>
   </category>
@@ -57,7 +60,7 @@
     <priority value="OFF"/>
   </category>
   <root>
-    <level value="WARN"/>
+    <level value="TRACE"/>
     <appender-ref ref="CA"/>
   </root>
 </log4j:configuration>

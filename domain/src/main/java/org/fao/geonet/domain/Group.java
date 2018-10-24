@@ -23,8 +23,6 @@
 
 package org.fao.geonet.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +51,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import org.fao.geonet.domain.converter.BooleanToYNConverter;
 
+import org.fao.geonet.domain.converter.BooleanToYNConverter;
 import org.fao.geonet.entitylistener.GroupEntityListenerManager;
 
 /**
@@ -72,9 +70,11 @@ import org.fao.geonet.entitylistener.GroupEntityListenerManager;
 @EntityListeners(GroupEntityListenerManager.class)
 @SequenceGenerator(name = Group.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class Group extends Localized implements Serializable {
-    static final String ID_SEQ_NAME = "group_id_seq";
+	private static final long serialVersionUID = -3653736011044518011L;
 
-    private int _id;
+	static final String ID_SEQ_NAME = "group_id_seq";
+
+    private Integer _id;
     private String _name;
     private String _description;
     private String _email;
@@ -96,7 +96,7 @@ public class Group extends Localized implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
     @Column(nullable = false)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -109,7 +109,7 @@ public class Group extends Localized implements Serializable {
      * @param id the id of the group.
      * @return this group object
      */
-    public Group setId(int id) {
+    public Group setId(Integer id) {
         this._id = id;
         return this;
     }

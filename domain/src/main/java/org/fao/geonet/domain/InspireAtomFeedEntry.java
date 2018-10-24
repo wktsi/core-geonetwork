@@ -37,7 +37,9 @@ import java.io.Serializable;
 @Embeddable
 @Access(AccessType.PROPERTY)
 public class InspireAtomFeedEntry implements Serializable {
-    private int _id;
+
+	private static final long serialVersionUID = 1885847877887474916L;
+	private Integer _id;
     private String _title;
 
     private String _lang;
@@ -46,11 +48,11 @@ public class InspireAtomFeedEntry implements Serializable {
 
     private String _url;
 
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this._id = id;
     }
 

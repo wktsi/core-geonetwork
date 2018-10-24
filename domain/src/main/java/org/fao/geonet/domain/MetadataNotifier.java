@@ -23,13 +23,27 @@
 
 package org.fao.geonet.domain;
 
-import org.fao.geonet.entitylistener.MetadataNotifierEntityListenerManager;
-
-import javax.annotation.Nullable;
-import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.fao.geonet.entitylistener.MetadataNotifierEntityListenerManager;
 
 /**
  * An entity representing a service that desires to be notified when a metadata is modified.
@@ -42,12 +56,15 @@ import java.util.List;
 @EntityListeners(MetadataNotifierEntityListenerManager.class)
 @SequenceGenerator(name = MetadataNotifier.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class MetadataNotifier extends GeonetEntity {
-    static final String ID_SEQ_NAME = "metadata_notifier_id_seq";
 
-    private int _id;
+	private static final long serialVersionUID = 577241799890955421L;
+
+	static final String ID_SEQ_NAME = "metadata_notifier_id_seq";
+
+    private Integer _id;
     private String _name;
     private String _url;
-    private char _enabled = Constants.YN_FALSE;
+    private Character _enabled = Constants.YN_FALSE;
     private String _username;
     private char[] _password;
     private List<MetadataNotification> _notifications = new ArrayList<MetadataNotification>();
@@ -60,7 +77,7 @@ public class MetadataNotifier extends GeonetEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -70,7 +87,7 @@ public class MetadataNotifier extends GeonetEntity {
      *
      * @param id the id of this notifier
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this._id = id;
     }
 
@@ -118,7 +135,7 @@ public class MetadataNotifier extends GeonetEntity {
      * controlling how types are mapped to the database.
      */
     @Column(name = "enabled", length = 1, nullable = false)
-    protected char getEnabled_JPAWorkaround() {
+    protected Character getEnabled_JPAWorkaround() {
         return _enabled;
     }
 
@@ -127,7 +144,7 @@ public class MetadataNotifier extends GeonetEntity {
      *
      * @param enabled either Constants.YN_ENABLED for true or Constants.YN_DISABLED for false
      */
-    protected void setEnabled_JPAWorkaround(char enabled) {
+    protected void setEnabled_JPAWorkaround(Character enabled) {
         this._enabled = enabled;
     }
 
@@ -195,7 +212,7 @@ public class MetadataNotifier extends GeonetEntity {
         if (password == null) {
             this._password = null;
         } else {
-            this._password = password.toCharArray().clone();
+            this._password = password.toCharArray();
         }
     }
 

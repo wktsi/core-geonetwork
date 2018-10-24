@@ -51,7 +51,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CswVirtualServiceResponse implements Serializable {
     private static final long serialVersionUID = 5342900799858099051L;
 
-    private int id;
+    private Integer id;
     private String name;
     private String description;
     private String explicitQuery;
@@ -85,11 +85,11 @@ public class CswVirtualServiceResponse implements Serializable {
         this.parameter = parameter;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

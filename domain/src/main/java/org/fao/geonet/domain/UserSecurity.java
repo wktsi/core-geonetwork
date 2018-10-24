@@ -23,18 +23,21 @@
 
 package org.fao.geonet.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.jdom.Element;
-
-import javax.annotation.Nonnull;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.jdom.Element;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Encapsulates security information about the user. This is a JPA Embeddable object that is
@@ -44,7 +47,8 @@ import java.util.Set;
  */
 @Embeddable
 public class UserSecurity extends GeonetEntity implements Serializable {
-    private char[] _password;
+	private static final long serialVersionUID = -598069701641399822L;
+	private char[] _password;
     private Set<UserSecurityNotification> _securityNotifications = new HashSet<UserSecurityNotification>();
     private String _authType;
     private String _nodeId;

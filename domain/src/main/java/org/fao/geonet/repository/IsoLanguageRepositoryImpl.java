@@ -26,14 +26,16 @@ package org.fao.geonet.repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.fao.geonet.domain.IsoLanguage;
+
 /**
  * The implementation for the IsoLanguageRepository custom method.
  * <p/>
  * User: Jesse Date: 9/9/13 Time: 5:37 PM
  */
-public class IsoLanguageRepositoryImpl {
+public class IsoLanguageRepositoryImpl extends GeonetRepositoryImpl<IsoLanguage, Integer> {
 
-    @PersistenceContext
-    private EntityManager _entityManager;
+	@PersistenceContext
+	private EntityManager _entityManager;
 
 }

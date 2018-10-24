@@ -37,8 +37,8 @@ import java.io.Serializable;
 public class MetadataRelationId implements Serializable {
     private static final long serialVersionUID = -2705273953015744638L;
 
-    private int _metadataId;
-    private int _relatedId;
+    private Integer _metadataId;
+    private Integer _relatedId;
 
     /**
      * Default constructor, needed by JPA.
@@ -63,7 +63,7 @@ public class MetadataRelationId implements Serializable {
      * @return the id of the first metadata.
      */
     @Column(name = "id")
-    public int getMetadataId() {
+    public Integer getMetadataId() {
         return _metadataId;
     }
 
@@ -72,7 +72,7 @@ public class MetadataRelationId implements Serializable {
      *
      * @param metadataId the id of the first metadata.
      */
-    public void setMetadataId(int metadataId) {
+    public void setMetadataId(Integer metadataId) {
         this._metadataId = metadataId;
     }
 
@@ -82,7 +82,7 @@ public class MetadataRelationId implements Serializable {
      * @return the id of the second metadata.
      */
     @Column(name = "relatedId")
-    public int getRelatedId() {
+    public Integer getRelatedId() {
         return _relatedId;
     }
 
@@ -91,7 +91,7 @@ public class MetadataRelationId implements Serializable {
      *
      * @param relatedId the id of the second metadata.
      */
-    public void setRelatedId(int relatedId) {
+    public void setRelatedId(Integer relatedId) {
         this._relatedId = relatedId;
     }
 

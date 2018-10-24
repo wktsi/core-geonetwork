@@ -331,7 +331,7 @@ public class UserUpdateIntegrationTest extends AbstractServiceIntegrationTest {
         updatingUser.setUsername("updater");
         updatingUser = _userRepo.save(updatingUser);
 
-        _userGroupRepository.save(Arrays.asList(
+        _userGroupRepository.saveAll(Arrays.asList(
             new UserGroup().setProfile(Profile.Editor)
                 .setUser(toUpdateUser).setGroup(one), new UserGroup()
                 .setProfile(Profile.UserAdmin).setUser(updatingUser)
@@ -430,7 +430,7 @@ public class UserUpdateIntegrationTest extends AbstractServiceIntegrationTest {
         updatingUser.setUsername("updater");
         updatingUser = _userRepo.save(updatingUser);
 
-        _userGroupRepository.save(Arrays.asList(
+        _userGroupRepository.saveAll(Arrays.asList(
             new UserGroup().setProfile(Profile.Editor)
                 .setUser(toUpdateUser).setGroup(one), new UserGroup()
                 .setProfile(Profile.UserAdmin).setUser(updatingUser)
@@ -463,7 +463,7 @@ public class UserUpdateIntegrationTest extends AbstractServiceIntegrationTest {
         updatingUser.setUsername("updater");
         updatingUser = _userRepo.save(updatingUser);
 
-        _userGroupRepository.save(Arrays.asList(
+        _userGroupRepository.saveAll(Arrays.asList(
             new UserGroup().setProfile(Profile.Editor)
                 .setUser(toUpdateUser).setGroup(one), new UserGroup()
                 .setProfile(Profile.UserAdmin).setUser(updatingUser)

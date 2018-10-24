@@ -56,7 +56,7 @@ public class User extends GeonetEntity implements UserDetails {
     public static final String NODE_APPLICATION_CONTEXT_KEY = "jeevesNodeApplicationContext_";
     static final String ID_SEQ_NAME = "user_id_seq";
     private static final long serialVersionUID = 2589607276443866650L;
-    private int _id;
+    private Integer _id;
     private String _username;
     private String _surname;
     private String _name;
@@ -82,7 +82,7 @@ public class User extends GeonetEntity implements UserDetails {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -94,7 +94,7 @@ public class User extends GeonetEntity implements UserDetails {
      * @return this user object
      */
     @Nonnull
-    public User setId(int id) {
+    public User setId(Integer id) {
         this._id = id;
         return this;
     }
@@ -130,7 +130,7 @@ public class User extends GeonetEntity implements UserDetails {
     @Override
     @JsonIgnore
     public String getPassword() {
-        return new String(getSecurity().getPassword());
+        return String.valueOf(getSecurity().getPassword());
     }
 
     /**

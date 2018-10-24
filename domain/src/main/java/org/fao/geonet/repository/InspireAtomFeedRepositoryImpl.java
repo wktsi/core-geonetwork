@@ -23,92 +23,95 @@
 
 package org.fao.geonet.repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.fao.geonet.domain.InspireAtomFeed;
 import org.fao.geonet.domain.InspireAtomFeed_;
 import org.fao.geonet.domain.Metadata;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.criteria.*;
+public class InspireAtomFeedRepositoryImpl extends GeonetRepositoryImpl<InspireAtomFeed, Integer>
+		implements InspireAtomFeedRepositoryCustom {
 
+	@PersistenceContext
+	private EntityManager _entityManager;
 
-public class InspireAtomFeedRepositoryImpl implements InspireAtomFeedRepositoryCustom {
-    @PersistenceContext
-    private EntityManager _entityManager;
+	@Override
+	public String retrieveDatasetUuidFromIdentifierNs(String datasetIdCode, String datasetIdNs) {
 
+		String metadataUuid = "";
 
-    @Override
-    public String retrieveDatasetUuidFromIdentifierNs(String datasetIdCode, String datasetIdNs) {
+		/*
+		 * "SELECT m.uuid FROM Metadata m " +
+		 * "LEFT JOIN inspireatomfeed f ON m.id = f.metadataId " +
+		 * "WHERE f.atomdatasetid = ? and f.atomdatasetns = ?"
+		 */
+		final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
+		final CriteriaQuery<InspireAtomFeed> cbQuery = cb.createQuery(InspireAtomFeed.class);
+		final Root<InspireAtomFeed> root = cbQuery.from(InspireAtomFeed.class);
 
-        String metadataUuid = "";
+		Path<String> datasetIdCodeAttributePath = root.get(InspireAtomFeed_.atomDatasetid);
+		Path<String> datasetIdNsAttributePath = root.get(InspireAtomFeed_.atomDatasetns);
 
-        /*
-        "SELECT m.uuid FROM Metadata m " +
-                    "LEFT JOIN inspireatomfeed f ON m.id = f.metadataId " +
-                    "WHERE f.atomdatasetid = ? and f.atomdatasetns = ?"
-         */
-        final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
-        final CriteriaQuery<InspireAtomFeed> cbQuery = cb.createQuery(InspireAtomFeed.class);
-        final Root<InspireAtomFeed> root = cbQuery.from(InspireAtomFeed.class);
+		Predicate datasetIdCodePredicate = cb.equal(datasetIdCodeAttributePath, datasetIdCode);
+		Predicate datasetIdNsPredicate = cb.equal(datasetIdNsAttributePath, datasetIdNs);
 
-        Path<String> datasetIdCodeAttributePath = root.get(InspireAtomFeed_.atomDatasetid);
-        Path<String> datasetIdNsAttributePath = root.get(InspireAtomFeed_.atomDatasetns);
+		cbQuery.where(cb.and(datasetIdCodePredicate, datasetIdNsPredicate));
 
-        Predicate datasetIdCodePredicate = cb.equal(datasetIdCodeAttributePath, datasetIdCode);
-        Predicate datasetIdNsPredicate = cb.equal(datasetIdNsAttributePath, datasetIdNs);
+		InspireAtomFeed feed = null;
 
-        cbQuery.where(cb.and(datasetIdCodePredicate, datasetIdNsPredicate));
+		try {
+			feed = _entityManager.createQuery(cbQuery).getSingleResult();
+		} catch (NoResultException nre) {
+			// Ignore this
+		}
 
-        InspireAtomFeed feed = null;
+		if (feed != null) {
+			Metadata md = _entityManager.find(Metadata.class, feed.getMetadataId());
+			metadataUuid = md.getUuid();
+		}
 
-        try {
-            feed = _entityManager.createQuery(cbQuery).getSingleResult();
-        } catch (NoResultException nre) {
-            //Ignore this
-        }
+		return metadataUuid;
+	}
 
-        if (feed != null) {
-            Metadata md = _entityManager.find(Metadata.class, feed.getMetadataId());
-            metadataUuid = md.getUuid();
-        }
+	@Override
+	public String retrieveDatasetUuidFromIdentifier(final String datasetIdCode) {
+		String metadataUuid = "";
 
-        return metadataUuid;
-    }
+		/*
+		 * "SELECT m.uuid FROM Metadata m " +
+		 * "LEFT JOIN inspireatomfeed f ON m.id = f.metadataId " +
+		 * "WHERE f.atomdatasetid = ?";
+		 */
 
-    @Override
-    public String retrieveDatasetUuidFromIdentifier(final String datasetIdCode) {
-        String metadataUuid = "";
+		final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
+		final CriteriaQuery<InspireAtomFeed> cbQuery = cb.createQuery(InspireAtomFeed.class);
+		final Root<InspireAtomFeed> root = cbQuery.from(InspireAtomFeed.class);
 
-        /*
-        "SELECT m.uuid FROM Metadata m " +
-                "LEFT JOIN inspireatomfeed f ON m.id = f.metadataId " +
-                "WHERE f.atomdatasetid = ?";
-         */
+		Path<String> datasetIdCodeAttributePath = root.get(InspireAtomFeed_.atomDatasetid);
 
-        final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
-        final CriteriaQuery<InspireAtomFeed> cbQuery = cb.createQuery(InspireAtomFeed.class);
-        final Root<InspireAtomFeed> root = cbQuery.from(InspireAtomFeed.class);
+		Predicate datasetIdCodePredicate = cb.equal(datasetIdCodeAttributePath, datasetIdCode);
 
-        Path<String> datasetIdCodeAttributePath = root.get(InspireAtomFeed_.atomDatasetid);
+		cbQuery.where(datasetIdCodePredicate);
 
-        Predicate datasetIdCodePredicate = cb.equal(datasetIdCodeAttributePath, datasetIdCode);
+		InspireAtomFeed feed = null;
+		try {
+			feed = _entityManager.createQuery(cbQuery).getSingleResult();
+		} catch (NoResultException nre) {
+			// Ignore this
+		}
 
-        cbQuery.where(datasetIdCodePredicate);
+		if (feed != null) {
+			Metadata md = _entityManager.find(Metadata.class, feed.getMetadataId());
+			metadataUuid = md.getUuid();
+		}
 
-        InspireAtomFeed feed = null;
-        try {
-            feed = _entityManager.createQuery(cbQuery).getSingleResult();
-        } catch (NoResultException nre) {
-            //Ignore this
-        }
-
-        if (feed != null) {
-            Metadata md = _entityManager.find(Metadata.class, feed.getMetadataId());
-            metadataUuid = md.getUuid();
-        }
-
-        return metadataUuid;
-    }
+		return metadataUuid;
+	}
 }

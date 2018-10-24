@@ -23,11 +23,13 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.MetadataIdentifierTemplate;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.fao.geonet.domain.MetadataIdentifierTemplate;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for the {@link MetadataIdentifierTemplate} entities.
@@ -35,8 +37,8 @@ import javax.annotation.Nullable;
  * @author Jose García
  */
 public interface MetadataIdentifierTemplateRepository extends
-    GeonetRepository<MetadataIdentifierTemplate, Integer>,
-    JpaSpecificationExecutor<MetadataIdentifierTemplate> {
+		GeonetRepository<MetadataIdentifierTemplate, Integer>, CrudRepository<MetadataIdentifierTemplate, Integer>,
+		JpaRepository<MetadataIdentifierTemplate, Integer>, JpaSpecificationExecutor<MetadataIdentifierTemplate> {
     /**
      * Look up a metadata identifier template by its name.
      *

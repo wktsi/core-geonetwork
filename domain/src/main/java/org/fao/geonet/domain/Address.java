@@ -23,12 +23,18 @@
 
 package org.fao.geonet.domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
 import org.apache.commons.lang.StringUtils;
 import org.fao.geonet.entitylistener.AddressEntityListenerManager;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
 
 /**
  * Represents an address. This is a JPA Entity object and is contained in a database table.
@@ -39,11 +45,14 @@ import java.io.Serializable;
 @Access(AccessType.PROPERTY)
 @EntityListeners(AddressEntityListenerManager.class)
 @SequenceGenerator(name = Address.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
-public class Address extends GeonetEntity implements Serializable {
-    static final String ID_SEQ_NAME = "address_id_seq";
+public class Address extends GeonetEntity {
+
+	private static final long serialVersionUID = 3285014361833311263L;
+
+	static final String ID_SEQ_NAME = "address_id_seq";
 
     private static final int ZIP_COLUMN_LENGTH = 16;
-    private int _id;
+    private Integer _id;
     private String _address;
     private String _city;
     private String _state;
@@ -56,7 +65,7 @@ public class Address extends GeonetEntity implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -67,7 +76,7 @@ public class Address extends GeonetEntity implements Serializable {
      * @param id the id
      * @return this address object
      */
-    public Address setId(final int id) {
+    public Address setId(final Integer id) {
         this._id = id;
         return this;
     }
@@ -204,7 +213,7 @@ public class Address extends GeonetEntity implements Serializable {
 
         Address address = (Address) o;
 
-        if (_id != address._id) return false;
+        if (!_id.equals(address._id)) return false;
         if (_address != null ? !_address.equals(address._address) : address._address != null)
             return false;
         if (_city != null ? !_city.equals(address._city) : address._city != null) return false;
@@ -218,7 +227,10 @@ public class Address extends GeonetEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = _id;
+        Integer result = _id;
+        if(result == null) {
+        	result = -1;
+        }
         result = 31 * result + (_address != null ? _address.hashCode() : 0);
         result = 31 * result + (_city != null ? _city.hashCode() : 0);
         result = 31 * result + (_state != null ? _state.hashCode() : 0);

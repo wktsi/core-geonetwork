@@ -248,7 +248,7 @@ public class DefaultStatusActions implements StatusActions {
         ArrayList<String> fields = new ArrayList<String>();
 
         Matcher m = metadataLuceneField.matcher(statusMetadataDetails);
-        Iterable<Metadata> mds = this.context.getBean(MetadataRepository.class).findAll(metadata);
+        Iterable<Metadata> mds = this.context.getBean(MetadataRepository.class).findAllById(metadata);
 
         while (m.find()) {
             fields.add(m.group(1));
@@ -319,7 +319,7 @@ public class DefaultStatusActions implements StatusActions {
         );
         String mdChanged = buildMetadataChangedMessage(metadataIds);
 
-        Iterable<Metadata> metadata = this.context.getBean(MetadataRepository.class).findAll(metadataIds);
+        Iterable<Metadata> metadata = this.context.getBean(MetadataRepository.class).findAllById(metadataIds);
         List<User> owners = new ArrayList<User>();
         UserRepository userRepo = this.context.getBean(UserRepository.class);
 

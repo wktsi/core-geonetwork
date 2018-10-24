@@ -36,9 +36,9 @@ import java.io.Serializable;
 public class OperationAllowedId implements Serializable {
     private static final long serialVersionUID = -5759713154514715316L;
 
-    private int _metadataId;
-    private int _groupId;
-    private int _operationId;
+    private Integer _metadataId;
+    private Integer _groupId;
+    private Integer _operationId;
 
     /**
      * Default constructor. Setters must be used to initialize object.
@@ -54,7 +54,7 @@ public class OperationAllowedId implements Serializable {
      * @param groupId     the group id
      * @param operationId the operation id
      */
-    public OperationAllowedId(int metadataId, int groupId, int operationId) {
+    public OperationAllowedId(Integer metadataId, Integer groupId, Integer operationId) {
         this._metadataId = metadataId;
         this._groupId = groupId;
         this._operationId = operationId;
@@ -65,7 +65,7 @@ public class OperationAllowedId implements Serializable {
      *
      * @return the id of the metadata this OperationAllowed is references to.
      */
-    public int getMetadataId() {
+    public Integer getMetadataId() {
         return _metadataId;
     }
 
@@ -75,7 +75,7 @@ public class OperationAllowedId implements Serializable {
      * @param newMetadataId the id of the metadata this OperationAllowed is references to.
      * @return this id object
      */
-    public OperationAllowedId setMetadataId(int newMetadataId) {
+    public OperationAllowedId setMetadataId(Integer newMetadataId) {
         this._metadataId = newMetadataId;
         return this;
     }
@@ -85,7 +85,7 @@ public class OperationAllowedId implements Serializable {
      *
      * @return the id of the group this OperationAllowed is references to.
      */
-    public int getGroupId() {
+    public Integer getGroupId() {
         return _groupId;
     }
 
@@ -95,7 +95,7 @@ public class OperationAllowedId implements Serializable {
      * @param newGroupId the id of the group this OperationAllowed is references to.
      * @return this id object
      */
-    public OperationAllowedId setGroupId(int newGroupId) {
+    public OperationAllowedId setGroupId(Integer newGroupId) {
         this._groupId = newGroupId;
         return this;
     }
@@ -105,7 +105,7 @@ public class OperationAllowedId implements Serializable {
      *
      * @return the id of the operation this OperationAllowed is references to.
      */
-    public int getOperationId() {
+    public Integer getOperationId() {
         return _operationId;
     }
 
@@ -115,7 +115,7 @@ public class OperationAllowedId implements Serializable {
      * @param newOperationId the id of the operation this OperationAllowed is references to.
      * @return this id object
      */
-    public OperationAllowedId setOperationId(int newOperationId) {
+    public OperationAllowedId setOperationId(Integer newOperationId) {
         this._operationId = newOperationId;
         return this;
     }
@@ -139,11 +139,11 @@ public class OperationAllowedId implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         OperationAllowedId other = (OperationAllowedId) obj;
-        if (_groupId != other._groupId)
+        if (!_groupId.equals(other._groupId))
             return false;
-        if (_metadataId != other._metadataId)
+        if (!_metadataId.equals(other._metadataId))
             return false;
-        if (_operationId != other._operationId)
+        if (!_operationId.equals(other._operationId))
             return false;
         return true;
     }

@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CswVirtualServiceForList implements Serializable {
     private static final long serialVersionUID = 5342900799858099051L;
 
-    private int id;
+    private Integer id;
     private String name;
     @XmlElement(name = "classname")
     private String className;
@@ -69,7 +69,7 @@ public class CswVirtualServiceForList implements Serializable {
         }
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -25,6 +25,8 @@ package org.fao.geonet.domain;
 
 import org.fao.geonet.entitylistener.MetadataValidationEntityListenerManager;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 import javax.persistence.*;
 
@@ -37,11 +39,13 @@ import javax.persistence.*;
 @Access(AccessType.PROPERTY)
 @Table(name = "Validation")
 @EntityListeners(MetadataValidationEntityListenerManager.class)
-public class MetadataValidation extends GeonetEntity {
-    private MetadataValidationId id;
+public class MetadataValidation extends GeonetEntity implements Serializable {
+	
+	private static final long serialVersionUID = -4454833353608783731L;
+	private MetadataValidationId id;
     private MetadataValidationStatus status;
-    private int numTests = 0;
-    private int numFailures = 0;
+    private Integer numTests = 0;
+    private Integer numFailures = 0;
     private ISODate validationDate = new ISODate();
     private Boolean required = Boolean.TRUE;
 
@@ -148,7 +152,7 @@ public class MetadataValidation extends GeonetEntity {
      * Get the number of tests executed.
      */
     @Column(name = "tested")
-    public int getNumTests() {
+    public Integer getNumTests() {
         return numTests;
     }
 
@@ -157,7 +161,7 @@ public class MetadataValidation extends GeonetEntity {
      *
      * @return this entity object
      */
-    public MetadataValidation setNumTests(int numTests) {
+    public MetadataValidation setNumTests(Integer numTests) {
         this.numTests = numTests;
         return this;
     }
@@ -166,7 +170,7 @@ public class MetadataValidation extends GeonetEntity {
      * Get the number of assertion/test failures.
      */
     @Column(name = "failed")
-    public int getNumFailures() {
+    public Integer getNumFailures() {
         return numFailures;
     }
 
@@ -175,7 +179,7 @@ public class MetadataValidation extends GeonetEntity {
      *
      * @return this entity object
      */
-    public MetadataValidation setNumFailures(int numFailures) {
+    public MetadataValidation setNumFailures(Integer numFailures) {
         this.numFailures = numFailures;
         return this;
     }
@@ -190,4 +194,29 @@ public class MetadataValidation extends GeonetEntity {
             ", required=" + required +
             '}';
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MetadataValidation other = (MetadataValidation) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

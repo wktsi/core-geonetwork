@@ -75,10 +75,11 @@ import com.google.common.collect.Sets;
 @EntityListeners(HarvesterSettingEntityListenerManager.class)
 @SequenceGenerator(name = HarvesterSetting.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class HarvesterSetting extends GeonetEntity {
-    static final String ID_SEQ_NAME = "harvester_setting_id_seq";
+	private static final long serialVersionUID = -4577449199299736996L;
+	static final String ID_SEQ_NAME = "harvester_setting_id_seq";
     private static final HashSet<String> EXCLUDE_FROM_XML = Sets.newHashSet("valueAsBool", "valueAsInt");
 
-    private int _id;
+    private Integer _id;
     private HarvesterSetting _parent;
     private String _name;
     private String _value;
@@ -92,7 +93,7 @@ public class HarvesterSetting extends GeonetEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -103,7 +104,7 @@ public class HarvesterSetting extends GeonetEntity {
      * @param id the setting id
      * @return this setting object
      */
-    public HarvesterSetting setId(int id) {
+    public HarvesterSetting setId(Integer id) {
         this._id = id;
         return this;
     }
@@ -111,7 +112,7 @@ public class HarvesterSetting extends GeonetEntity {
     /**
      * Get the parent setting object. This is a nullable property.
      */
-    @OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "parentid")
     @OnDelete(action=OnDeleteAction.CASCADE)
     public
@@ -163,7 +164,7 @@ public class HarvesterSetting extends GeonetEntity {
      */
     @Lob
     @Column(name = "value", nullable = true)
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     // this is a work around for postgres so postgres can correctly load clobs
     public
     @Nullable
@@ -233,4 +234,31 @@ public class HarvesterSetting extends GeonetEntity {
     public String toString() {
         return "Setting [id=" + _id + ", name=" + _name + ", value=" + _value + "]";
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HarvesterSetting other = (HarvesterSetting) obj;
+		if (_id == null) {
+			if (other._id != null)
+				return false;
+		} else if (!_id.equals(other._id))
+			return false;
+		return true;
+	}
+    
+    
 }

@@ -41,30 +41,39 @@ import javax.persistence.*;
 @Table(name = "MetadataStatus")
 @EntityListeners(MetadataStatus.EntityListener.class)
 public class MetadataStatus extends GeonetEntity {
-    /**
+    @Transient
+	private static final long serialVersionUID = 283778569461L;
+	/**
      * The Root element of the xml returned by {@link #getAsXml}.
      */
+    @Transient
     public static final String EL_METADATA_STATUS = "metadataStatus";
     /**
      * One of the child elements of the xml returned by {@link #getAsXml}.
      */
+    @Transient
     public static final String EL_STATUS_ID = "statusId";
     /**
      * One of the child elements of the xml returned by {@link #getAsXml}.
      */
+    @Transient
     public static final String EL_USER_ID = "userId";
     /**
      * One of the child elements of the xml returned by {@link #getAsXml}.
      */
+    @Transient
     public static final String EL_CHANGE_DATE = "changeDate";
     /**
      * One of the child elements of the xml returned by {@link #getAsXml}.
      */
+    @Transient
     public static final String EL_CHANGE_MESSAGE = "changeMessage";
     /**
      * One of the child elements of the xml returned by {@link #getAsXml}.
      */
+    @Transient
     public static final String EL_NAME = "name";
+    
     private MetadataStatusId id = new MetadataStatusId();
     private String changeMessage;
     private StatusValue statusValue;
@@ -111,7 +120,6 @@ public class MetadataStatus extends GeonetEntity {
 
     @ManyToOne
     @JoinColumn(name = "statusId", nullable = false, insertable = false, updatable = false)
-    @MapsId("statusId")
     public StatusValue getStatusValue() {
         return statusValue;
     }

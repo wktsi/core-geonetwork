@@ -116,8 +116,8 @@ public class SchematronServiceIntegrationTest extends AbstractSchematronServiceI
         ServiceContext context = createServiceContext();
         loginAsAdmin(context);
 
-        int newPriority = _group1_Name1_SchematronId1.getSchematron().getDisplayPriority() + 1000;
-        final int id = _group1_Name1_SchematronId1.getId().getSchematronId();
+        Integer newPriority = _group1_Name1_SchematronId1.getSchematron().getDisplayPriority() + 1000;
+        final Integer id = _group1_Name1_SchematronId1.getId().getSchematronId();
         final Element params = createParams(
             read(Params.ID, id),
             read(SchematronService.PARAM_DISPLAY_PRIORITY, newPriority));

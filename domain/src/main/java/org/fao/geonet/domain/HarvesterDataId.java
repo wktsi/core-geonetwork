@@ -40,7 +40,8 @@ import java.io.Serializable;
 @Embeddable
 @Access(AccessType.PROPERTY)
 public class HarvesterDataId implements Serializable {
-    private String harvesterUuid;
+	private static final long serialVersionUID = 6378924146378952L;
+	private String harvesterUuid;
     private String key;
 
     public HarvesterDataId() {

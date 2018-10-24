@@ -196,8 +196,8 @@ public class UserRepositoryTest extends AbstractSpringDataTest {
             SortUtils.createSort(User_.name));
 
         assertEquals(2, found.size());
-        assertEquals(md1.getId(), found.get(0).one().intValue());
-        assertEquals(md1.getId(), found.get(1).one().intValue());
+        assertEquals(md1.getId(), found.get(0).one());
+        assertEquals(md1.getId(), found.get(1).one());
         assertEquals(editUser, found.get(0).two());
         assertEquals(reviewerUser, found.get(1).two());
 
@@ -205,8 +205,8 @@ public class UserRepositoryTest extends AbstractSpringDataTest {
             new Sort(new Sort.Order(Sort.Direction.DESC, User_.name.getName())));
 
         assertEquals(2, found.size());
-        assertEquals(md1.getId(), found.get(0).one().intValue());
-        assertEquals(md1.getId(), found.get(1).one().intValue());
+        assertEquals(md1.getId(), found.get(0).one());
+        assertEquals(md1.getId(), found.get(1).one());
         assertEquals(editUser, found.get(1).two());
         assertEquals(reviewerUser, found.get(0).two());
 
@@ -217,7 +217,7 @@ public class UserRepositoryTest extends AbstractSpringDataTest {
         int md1Found = 0;
         int md2Found = 0;
         for (Pair<Integer, User> record : found) {
-            if (record.one() == md1.getId()) {
+            if (record.one().equals(md1.getId())) {
                 md1Found++;
             } else {
                 md2Found++;

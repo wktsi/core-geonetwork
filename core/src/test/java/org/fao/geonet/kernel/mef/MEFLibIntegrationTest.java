@@ -68,7 +68,7 @@ public class MEFLibIntegrationTest extends AbstractCoreIntegrationTest {
         final AbstractMetadata metadata = _metadataRepo.findOne(metadataIds.get(0));
 
         assertNotNull(metadata);
-        assertEquals(admin.getId(), metadata.getSourceInfo().getOwner().intValue());
+        assertEquals(admin.getId(), metadata.getSourceInfo().getOwner());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class MEFLibIntegrationTest extends AbstractCoreIntegrationTest {
             final AbstractMetadata metadata = _metadataRepo.findOne(metadataId);
 
             assertNotNull(metadata);
-            assertEquals(admin.getId(), metadata.getSourceInfo().getOwner().intValue());
+            assertEquals(admin.getId(), metadata.getSourceInfo().getOwner());
         }
     }
 

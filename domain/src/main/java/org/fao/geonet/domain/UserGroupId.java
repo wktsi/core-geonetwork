@@ -36,8 +36,8 @@ import java.io.Serializable;
 public class UserGroupId implements Serializable {
     private static final long serialVersionUID = 758566280699819800L;
 
-    private int _userId;
-    private int _groupId;
+    private Integer _userId;
+    private Integer _groupId;
     private Profile _profile;
 
     public UserGroupId() {
@@ -57,7 +57,7 @@ public class UserGroupId implements Serializable {
      *
      * @return the id of the user.
      */
-    public int getUserId() {
+    public Integer getUserId() {
         return _userId;
     }
 
@@ -67,7 +67,7 @@ public class UserGroupId implements Serializable {
      * @param userId the id of the user.
      * @return this id object
      */
-    public UserGroupId setUserId(int userId) {
+    public UserGroupId setUserId(Integer userId) {
         this._userId = userId;
         return this;
     }
@@ -77,7 +77,7 @@ public class UserGroupId implements Serializable {
      *
      * @return the group id.
      */
-    public int getGroupId() {
+    public Integer getGroupId() {
         return _groupId;
     }
 
@@ -87,7 +87,7 @@ public class UserGroupId implements Serializable {
      * @param groupId the group id
      * @return this id object
      */
-    public UserGroupId setGroupId(int groupId) {
+    public UserGroupId setGroupId(Integer groupId) {
         this._groupId = groupId;
         return this;
     }

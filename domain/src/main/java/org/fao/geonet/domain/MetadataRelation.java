@@ -45,7 +45,9 @@ import javax.persistence.*;
 @Access(AccessType.PROPERTY)
 @EntityListeners(MetadataRelationEntityListenerManager.class)
 public class MetadataRelation extends GeonetEntity {
-    private MetadataRelationId _id = new MetadataRelationId();
+
+	private static final long serialVersionUID = -9180236518445842877L;
+	private MetadataRelationId _id = new MetadataRelationId();
 
     /**
      * Default constructor, required by JPA.

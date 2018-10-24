@@ -23,39 +23,44 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.*;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Root;
+
+import org.fao.geonet.domain.MetadataFileUpload;
+import org.fao.geonet.domain.MetadataFileUpload_;
 
 /**
  * Implementation for methods in {@link MetadataFileUploadRepositoryCustom}.
  *
  * @author Jose García
  */
-public class MetadataFileUploadRepositoryImpl implements MetadataFileUploadRepositoryCustom {
-    @PersistenceContext
-    EntityManager _entityManager;
+public class MetadataFileUploadRepositoryImpl extends GeonetRepositoryImpl<MetadataFileUpload, Integer>
+		implements MetadataFileUploadRepositoryCustom {
 
-    /**
-     * Returns a {@link org.fao.geonet.domain.MetadataFileUpload} by file name that is not deleted.
-     */
-    @Override
-    public MetadataFileUpload findByMetadataIdAndFileNameNotDeleted(int metadataId, String fileName) {
-        final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
-        final CriteriaQuery<MetadataFileUpload> cbQuery = cb.createQuery(MetadataFileUpload.class);
-        final Root<MetadataFileUpload> root = cbQuery.from(MetadataFileUpload.class);
+	@PersistenceContext
+	EntityManager _entityManager;
 
-        final Expression<Integer> metadataIdPath = root.get(MetadataFileUpload_.metadataId);
-        final Expression<String> fileNamePath = root.get(MetadataFileUpload_.fileName);
-        final Expression<String> deletedPath = root.get(MetadataFileUpload_.deletedDate);
+	/**
+	 * Returns a {@link org.fao.geonet.domain.MetadataFileUpload} by file name that
+	 * is not deleted.
+	 */
+	@Override
+	public MetadataFileUpload findByMetadataIdAndFileNameNotDeleted(int metadataId, String fileName) {
+		final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
+		final CriteriaQuery<MetadataFileUpload> cbQuery = cb.createQuery(MetadataFileUpload.class);
+		final Root<MetadataFileUpload> root = cbQuery.from(MetadataFileUpload.class);
 
-        cbQuery.where(cb.and(
-            cb.and(cb.equal(metadataIdPath, metadataId), cb.equal(fileNamePath, fileName))),
-            cb.isNull(deletedPath)
-        );
+		final Expression<Integer> metadataIdPath = root.get(MetadataFileUpload_.metadataId);
+		final Expression<String> fileNamePath = root.get(MetadataFileUpload_.fileName);
+		final Expression<String> deletedPath = root.get(MetadataFileUpload_.deletedDate);
 
-        return _entityManager.createQuery(cbQuery).getSingleResult();
-    }
+		cbQuery.where(cb.and(cb.and(cb.equal(metadataIdPath, metadataId), cb.equal(fileNamePath, fileName))),
+				cb.isNull(deletedPath));
+
+		return _entityManager.createQuery(cbQuery).getSingleResult();
+	}
 }

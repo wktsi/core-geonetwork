@@ -23,20 +23,18 @@
 
 package org.fao.geonet.kernel.search;
 
-import com.google.common.base.Optional;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Optional;
 
 import org.fao.geonet.ApplicationContextHolder;
 import org.fao.geonet.constants.Geonet;
 import org.fao.geonet.domain.Localized;
 import org.fao.geonet.utils.Log;
 import org.jdom.JDOMException;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 /**
  * Translates keys using a Repository class and property from the retrieved entity.
@@ -62,7 +60,7 @@ public class DbDescTranslator implements Translator {
             this._beanName = parts[0];
         }
 
-        this._methodName = parts.length == 2 ? parts[1] : "findOne";
+        this._methodName = parts.length == 2 ? parts[1] : "findById";
         this._parameterType = parts.length == 3 ? parts[2] : "String";
 
         _applicationContext = applicationContext;
@@ -78,7 +76,7 @@ public class DbDescTranslator implements Translator {
             }
 
             final TranslatorCache cache = this._applicationContext.getBean(TranslatorCache.class);
-            Optional<Localized> entityOptional = cache.get(key);
+            com.google.common.base.Optional<Localized> entityOptional = cache.get(key);
             if (entityOptional != null) {
                 if (entityOptional.isPresent()) {
                     entity = entityOptional.get();
@@ -94,7 +92,7 @@ public class DbDescTranslator implements Translator {
                 }
                 final Class<?> repositoryClass = repository.getClass();
 
-                entity = findEntity(key, repository, repositoryClass);
+                entity = findEntity(key, repository, repositoryClass).orElse(null);
 
                 cache.put(this._applicationContext, key, entity);
             }
@@ -118,37 +116,37 @@ public class DbDescTranslator implements Translator {
         }
     }
 
-    private Localized findEntity(final String key, final JpaRepository repository, final Class<?> repositoryClass) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private Optional<Localized> findEntity(final String key, final JpaRepository repository, final Class<?> repositoryClass) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
         Method[] methods = repositoryClass.getMethods();
 
-        Localized entity = null;
+        Optional<Localized> entity = null;
         for (Method method : methods) {
             if (method.getName().equals(this._methodName) && method.getParameterTypes().length == 1) {
                 try {
                     if (_parameterType.equals("int")) {
-                        entity = (Localized) method.invoke(repository, Integer.valueOf(key));
+                        entity = (Optional<Localized>) method.invoke(repository, Integer.valueOf(key));
                     } else if (_parameterType.equals("long")) {
-                        entity = (Localized) method.invoke(repository, Long.valueOf(key));
+                        entity = (Optional<Localized>) method.invoke(repository, Long.valueOf(key));
                     } else if (_parameterType.equals("double")) {
-                        entity = (Localized) method.invoke(repository, Double.valueOf(key));
+                        entity = (Optional<Localized>) method.invoke(repository, Double.valueOf(key));
                     } else if (_parameterType.equals("float")) {
-                        entity = (Localized) method.invoke(repository, Float.valueOf(key));
+                        entity = (Optional<Localized>) method.invoke(repository, Float.valueOf(key));
                     } else if (_parameterType.equals("boolean")) {
-                        entity = (Localized) method.invoke(repository, Boolean.valueOf(key));
+                        entity = (Optional<Localized>) method.invoke(repository, Boolean.valueOf(key));
                     } else if (_parameterType.equals("short")) {
-                        entity = (Localized) method.invoke(repository, Short.valueOf(key));
+                        entity = (Optional<Localized>) method.invoke(repository, Short.valueOf(key));
                     } else if (_parameterType.equals("char")) {
-                        entity = (Localized) method.invoke(repository, key.charAt(0));
+                        entity = (Optional<Localized>) method.invoke(repository, key.charAt(0));
                     } else {
-                        entity = (Localized) method.invoke(repository, key);
+                        entity = (Optional<Localized>) method.invoke(repository, key);
                     }
                 } catch (java.lang.IllegalArgumentException e) {
                     // Call to the method with wrong argument type.
                 }
                 if (entity == null) {
                     try {
-                        entity = (Localized) method.invoke(repository, key);
+                        entity = (Optional<Localized>) method.invoke(repository, key);
                     } catch (java.lang.IllegalArgumentException e) {
                         // Call to the method with wrong argument type.
                     }

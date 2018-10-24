@@ -23,15 +23,23 @@
 
 package org.fao.geonet.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.IdentityHashMap;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.fao.geonet.entitylistener.UserGroupEntityListenerManager;
 import org.jdom.Element;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
-import java.util.IdentityHashMap;
 
 /**
  * The mapping between user, the groups a user is a part of and the profiles the user has for each
@@ -44,7 +52,8 @@ import java.util.IdentityHashMap;
 @Table(name = UserGroupNamedQueries.TABLE_NAME)
 @EntityListeners(UserGroupEntityListenerManager.class)
 public class UserGroup extends GeonetEntity implements Serializable {
-    private UserGroupId _id = new UserGroupId();
+	private static final long serialVersionUID = -6439197385489558400L;
+	private UserGroupId _id = new UserGroupId();
     private Group _group;
     private User _user;
 

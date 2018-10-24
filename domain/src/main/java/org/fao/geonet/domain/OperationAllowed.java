@@ -39,7 +39,10 @@ import javax.persistence.*;
 @Access(AccessType.PROPERTY)
 @EntityListeners(OperationAllowedEntityListenerManager.class)
 public class OperationAllowed extends GeonetEntity {
-    /**
+
+	private static final long serialVersionUID = -4931394884641575259L;
+
+	/**
      * Name of the operationallowed table.
      */
     public static final String TABLE_NAME = "OperationAllowed";

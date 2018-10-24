@@ -26,11 +26,8 @@
  */
 package org.fao.geonet.repository;
 
-import org.springframework.transaction.annotation.Transactional;
-
-import org.fao.geonet.domain.UserSavedSelection;
-import org.fao.geonet.domain.UserSavedSelectionId_;
-import org.fao.geonet.domain.UserSavedSelection_;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -40,147 +37,122 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.fao.geonet.domain.UserSavedSelection;
+import org.fao.geonet.domain.UserSavedSelectionId;
+import org.fao.geonet.domain.UserSavedSelectionId_;
+import org.fao.geonet.domain.UserSavedSelection_;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implementation object for methods in {@link UserSavedSelectionRepositoryCustom}.
+ * Implementation object for methods in
+ * {@link UserSavedSelectionRepositoryCustom}.
  */
-public class UserSavedSelectionRepositoryImpl
-    implements UserSavedSelectionRepositoryCustom {
+public class UserSavedSelectionRepositoryImpl extends GeonetRepositoryImpl<UserSavedSelection, UserSavedSelectionId>
+		implements UserSavedSelectionRepositoryCustom {
 
-    @PersistenceContext
-    private EntityManager _entityManager;
+	@PersistenceContext
+	private EntityManager _entityManager;
 
-    @Override
-    public List<Integer> findAllUsers(Integer selectionId) {
-        CriteriaBuilder builder = _entityManager.getCriteriaBuilder();
-        CriteriaQuery<UserSavedSelection> query = builder.createQuery(UserSavedSelection.class);
+	@Override
+	public List<Integer> findAllUsers(Integer selectionId) {
+		CriteriaBuilder builder = _entityManager.getCriteriaBuilder();
+		CriteriaQuery<UserSavedSelection> query = builder.createQuery(UserSavedSelection.class);
 
-        Root<UserSavedSelection> root = query.from(UserSavedSelection.class);
-        final Path integerPath = root.get(UserSavedSelection_.id).get(UserSavedSelectionId_.userId);
-        query.select(integerPath);
-        query.distinct(true);
+		Root<UserSavedSelection> root = query.from(UserSavedSelection.class);
+		final Path integerPath = root.get(UserSavedSelection_.id).get(UserSavedSelectionId_.userId);
+		query.select(integerPath);
+		query.distinct(true);
 
-        ParameterExpression<Integer> selectionParam = builder.parameter(
-            Integer.class,
-            "selectionParam");
-        query.where(builder.equal(
-            selectionParam,
-            root.get(UserSavedSelection_.id).get(UserSavedSelectionId_.selectionId)
-        ));
-        List umsResults = _entityManager.createQuery(query)
-            .setParameter("selectionParam", selectionId)
-            .getResultList();
-        return umsResults;
-    }
+		ParameterExpression<Integer> selectionParam = builder.parameter(Integer.class, "selectionParam");
+		query.where(
+				builder.equal(selectionParam, root.get(UserSavedSelection_.id).get(UserSavedSelectionId_.selectionId)));
+		List umsResults = _entityManager.createQuery(query).setParameter("selectionParam", selectionId).getResultList();
+		return umsResults;
+	}
 
-    @Override
-    public List<String> findMetadataUpdatedAfter(
-        Integer selectionId, Integer userId,
-        String lastNotificationDate, String nextLastNotificationDate) {
+	@Override
+	public List<String> findMetadataUpdatedAfter(Integer selectionId, Integer userId, String lastNotificationDate,
+			String nextLastNotificationDate) {
 
-        Query query = _entityManager.createNativeQuery(
-            "SELECT DISTINCT metadataUuid " +
-                "FROM UserSavedSelections u, Metadata m " +
-                "WHERE u.selectionId = :selectionId AND u.userId = :userId AND " +
-                "u.metadataUuid = m.uuid AND " +
-                "m.changeDate >= :lastNotificationDate AND " +
-                "m.changeDate < :nextLastNotificationDate"
-        );
+		Query query = _entityManager.createNativeQuery("SELECT DISTINCT metadataUuid "
+				+ "FROM UserSavedSelections u, Metadata m "
+				+ "WHERE u.selectionId = :selectionId AND u.userId = :userId AND " + "u.metadataUuid = m.uuid AND "
+				+ "m.changeDate >= :lastNotificationDate AND " + "m.changeDate < :nextLastNotificationDate");
 
-        query.setParameter("selectionId", selectionId);
-        query.setParameter("userId", userId);
-        query.setParameter("lastNotificationDate", lastNotificationDate);
-        query.setParameter("nextLastNotificationDate", nextLastNotificationDate);
+		query.setParameter("selectionId", selectionId);
+		query.setParameter("userId", userId);
+		query.setParameter("lastNotificationDate", lastNotificationDate);
+		query.setParameter("nextLastNotificationDate", nextLastNotificationDate);
 
-        return query.getResultList();
-    }
+		return query.getResultList();
+	}
 
-    @Override
-    public List<String> findMetadata(Integer selectionId, Integer userId) {
-        CriteriaBuilder builder = _entityManager.getCriteriaBuilder();
-        CriteriaQuery<UserSavedSelection> query = builder.createQuery(UserSavedSelection.class);
+	@Override
+	public List<String> findMetadata(Integer selectionId, Integer userId) {
+		CriteriaBuilder builder = _entityManager.getCriteriaBuilder();
+		CriteriaQuery<UserSavedSelection> query = builder.createQuery(UserSavedSelection.class);
 
-        Root<UserSavedSelection> root = query.from(UserSavedSelection.class);
-        ParameterExpression<Integer> selectionParam = builder.parameter(
-            Integer.class,
-            "selectionParam");
-        ParameterExpression<Integer> userParam = builder.parameter(
-            Integer.class,
-            "userParam");
-        query.where(builder.and(builder.equal(
-            selectionParam,
-            root.get(UserSavedSelection_.id).get(UserSavedSelectionId_.selectionId)
-        ), builder.equal(
-            userParam,
-            root.get(UserSavedSelection_.id).get(UserSavedSelectionId_.userId)
-        )));
-        List<UserSavedSelection> umsResults = _entityManager.createQuery(query)
-            .setParameter("selectionParam", selectionId)
-            .setParameter("userParam", userId)
-            .getResultList();
-        List<String> result = new ArrayList<>();
-        umsResults.forEach(e -> result.add(e.getId().getMetadataUuid()));
-        return result;
-    }
+		Root<UserSavedSelection> root = query.from(UserSavedSelection.class);
+		ParameterExpression<Integer> selectionParam = builder.parameter(Integer.class, "selectionParam");
+		ParameterExpression<Integer> userParam = builder.parameter(Integer.class, "userParam");
+		query.where(builder.and(
+				builder.equal(selectionParam, root.get(UserSavedSelection_.id).get(UserSavedSelectionId_.selectionId)),
+				builder.equal(userParam, root.get(UserSavedSelection_.id).get(UserSavedSelectionId_.userId))));
+		List<UserSavedSelection> umsResults = _entityManager.createQuery(query)
+				.setParameter("selectionParam", selectionId).setParameter("userParam", userId).getResultList();
+		List<String> result = new ArrayList<>();
+		umsResults.forEach(e -> result.add(e.getId().getMetadataUuid()));
+		return result;
+	}
 
-    @Override
-    @Transactional
-    public int deleteAllBySelection(Integer selectionId) {
-        final String selectionIdPath =
-            SortUtils.createPath(UserSavedSelection_.id, UserSavedSelectionId_.selectionId);
-        final String qlString =
-            "DELETE FROM " + UserSavedSelection.class.getSimpleName() +
-                " WHERE " + selectionIdPath + " = " + selectionId;
-        final int deleted = _entityManager.createQuery(qlString).executeUpdate();
-        _entityManager.flush();
-        _entityManager.clear();
-        return deleted;
-    }
+	@Override
+	@Transactional
+	public int deleteAllBySelection(Integer selectionId) {
+		final String selectionIdPath = SortUtils.createPath(UserSavedSelection_.id, UserSavedSelectionId_.selectionId);
+		final String qlString = "DELETE FROM " + UserSavedSelection.class.getSimpleName() + " WHERE " + selectionIdPath
+				+ " = " + selectionId;
+		final int deleted = _entityManager.createQuery(qlString).executeUpdate();
+		_entityManager.flush();
+		_entityManager.clear();
+		return deleted;
+	}
 
-    @Override
-    @Transactional
-    public int deleteAllByUser(Integer userId) {
-        final String userIdPath =
-            SortUtils.createPath(UserSavedSelection_.id, UserSavedSelectionId_.userId);
-        final String qlString =
-            "DELETE FROM " + UserSavedSelection.class.getSimpleName() +
-                " WHERE " + userIdPath + " = " + userId;
-        final int deleted = _entityManager.createQuery(qlString).executeUpdate();
-        _entityManager.flush();
-        _entityManager.clear();
-        return deleted;
-    }
+	@Override
+	@Transactional
+	public int deleteAllByUser(Integer userId) {
+		final String userIdPath = SortUtils.createPath(UserSavedSelection_.id, UserSavedSelectionId_.userId);
+		final String qlString = "DELETE FROM " + UserSavedSelection.class.getSimpleName() + " WHERE " + userIdPath
+				+ " = " + userId;
+		final int deleted = _entityManager.createQuery(qlString).executeUpdate();
+		_entityManager.flush();
+		_entityManager.clear();
+		return deleted;
+	}
 
-    @Override
-    @Transactional
-    public int deleteAllByUuid(String metadataUuid) {
-        final String metadataUuidPath =
-            SortUtils.createPath(UserSavedSelection_.id, UserSavedSelectionId_.metadataUuid);
-        final String qlString =
-            "DELETE FROM " + UserSavedSelection.class.getSimpleName() +
-                " WHERE " + metadataUuidPath + " = '" + metadataUuid + "'";
-        final int deleted = _entityManager.createQuery(qlString).executeUpdate();
-        _entityManager.flush();
-        _entityManager.clear();
-        return deleted;
-    }
+	@Override
+	@Transactional
+	public int deleteAllByUuid(String metadataUuid) {
+		final String metadataUuidPath = SortUtils.createPath(UserSavedSelection_.id,
+				UserSavedSelectionId_.metadataUuid);
+		final String qlString = "DELETE FROM " + UserSavedSelection.class.getSimpleName() + " WHERE " + metadataUuidPath
+				+ " = '" + metadataUuid + "'";
+		final int deleted = _entityManager.createQuery(qlString).executeUpdate();
+		_entityManager.flush();
+		_entityManager.clear();
+		return deleted;
+	}
 
-    @Override
-    @Transactional
-    public int deleteAllBySelectionAndUser(Integer selection, Integer userId) {
-        final String selectionIdPath =
-            SortUtils.createPath(UserSavedSelection_.id, UserSavedSelectionId_.selectionId);
-        final String userIdPath =
-            SortUtils.createPath(UserSavedSelection_.id, UserSavedSelectionId_.userId);
-        final String qlString =
-            "DELETE FROM " + UserSavedSelection.class.getSimpleName() +
-                " WHERE " + selectionIdPath + " = " + selection +
-                " AND " + userIdPath + " = " + userId;
-        final int deleted = _entityManager.createQuery(qlString).executeUpdate();
-        _entityManager.flush();
-        _entityManager.clear();
-        return deleted;
-    }
+	@Override
+	@Transactional
+	public int deleteAllBySelectionAndUser(Integer selection, Integer userId) {
+		final String selectionIdPath = SortUtils.createPath(UserSavedSelection_.id, UserSavedSelectionId_.selectionId);
+		final String userIdPath = SortUtils.createPath(UserSavedSelection_.id, UserSavedSelectionId_.userId);
+		final String qlString = "DELETE FROM " + UserSavedSelection.class.getSimpleName() + " WHERE " + selectionIdPath
+				+ " = " + selection + " AND " + userIdPath + " = " + userId;
+		final int deleted = _entityManager.createQuery(qlString).executeUpdate();
+		_entityManager.flush();
+		_entityManager.clear();
+		return deleted;
+	}
 }

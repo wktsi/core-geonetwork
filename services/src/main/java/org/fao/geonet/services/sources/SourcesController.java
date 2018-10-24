@@ -108,7 +108,7 @@ public class SourcesController {
             }
         }
 
-        settingRepository.save(translationSettings);
+        settingRepository.saveAll(translationSettings);
 
     }
 

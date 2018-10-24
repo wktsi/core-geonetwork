@@ -23,16 +23,19 @@
 
 package org.fao.geonet.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.Maps;
-import org.jdom.Element;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.persistence.Transient;
+
+import org.jdom.Element;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.Maps;
 
 /**
  * Common superclass of entities that are have translated labels.
@@ -59,6 +62,8 @@ import java.util.Map;
  * User: Jesse Date: 9/9/13 Time: 8:53 AM
  */
 public abstract class Localized extends GeonetEntity {
+
+	private static final long serialVersionUID = -1867964133542620032L;
 
     private Map<String, String> _labelTranslations = new HashMap<String, String>();
 

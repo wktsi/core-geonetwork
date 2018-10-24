@@ -12,16 +12,18 @@ import javax.persistence.*;
 @SequenceGenerator(name= TextFile.ID_SEQ_NAME, initialValue=1, allocationSize=1)
 public class TextFile extends GeonetEntity {
 
-    static final String ID_SEQ_NAME = "files_id_seq";
+	private static final long serialVersionUID = -3038779303276677949L;
 
-    private int _id;
+	static final String ID_SEQ_NAME = "files_id_seq";
+
+    private Integer _id;
     private String _content;
     private String _mimeType;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = TextFile.ID_SEQ_NAME)
     @Column(nullable = false)
-    public int getId() {
+    public Integer getId() {
         return this._id;
     }
 
@@ -36,7 +38,7 @@ public class TextFile extends GeonetEntity {
         return this._mimeType;
     }
 
-    public TextFile setId(int id) {
+    public TextFile setId(Integer id) {
         this._id = id;
         return this;
     }

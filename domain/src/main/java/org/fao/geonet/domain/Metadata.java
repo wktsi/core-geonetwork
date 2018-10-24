@@ -39,6 +39,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
@@ -54,7 +56,9 @@ import java.util.Set;
 @EntityListeners(MetadataEntityListenerManager.class)
 public class Metadata extends AbstractMetadata implements Serializable {
 
+    @Transient
     private static final long serialVersionUID = -5557599895424227101L;
+    @Transient
     public static final String TABLENAME = "Metadata";
     private Set<MetadataCategory> metadataCategories = new HashSet<MetadataCategory>();
     private List<UserFeedback> userFeedbacks;

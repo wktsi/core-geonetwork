@@ -37,9 +37,13 @@ import javax.persistence.*;
 @Access(AccessType.PROPERTY)
 @Table(name = "MetadataFileDownloads")
 @SequenceGenerator(name = MetadataFileDownload.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
-public class MetadataFileDownload {
-    static final String ID_SEQ_NAME = "metadata_filedownload_id_seq";
-    private int _id;
+public class MetadataFileDownload extends GeonetEntity {
+
+	@Transient
+	private static final long serialVersionUID = -7120994215633133195L;
+	@Transient
+	protected static final String ID_SEQ_NAME = "metadata_filedownload_id_seq";
+    private Integer _id;
     private String _downloadDate;
     private String _requesterName;
     private String _requesterOrg;
@@ -47,8 +51,8 @@ public class MetadataFileDownload {
     private String _requesterComments;
     private String _userName;
     private String _fileName;
-    private int _fileUploadId;
-    private int _metadataId;
+    private Integer _fileUploadId;
+    private Integer _metadataId;
 
     /**
      * Get the id object for this MetadataFileDownload entity.
@@ -57,7 +61,7 @@ public class MetadataFileDownload {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -67,7 +71,7 @@ public class MetadataFileDownload {
      * @param id the id object for this MetadataFileDownload entity.
      * @return thisMetadataFileDownload object
      */
-    public MetadataFileDownload setId(int id) {
+    public MetadataFileDownload setId(Integer id) {
         this._id = id;
         return this;
     }
@@ -202,7 +206,7 @@ public class MetadataFileDownload {
      * @return the metadata id for this entity.
      */
     @Column(nullable = false)
-    public int getMetadataId() {
+    public Integer getMetadataId() {
         return _metadataId;
     }
 
@@ -212,7 +216,7 @@ public class MetadataFileDownload {
      * @param metadataId the metadata id for this entity.
      * @return this entity object
      */
-    public MetadataFileDownload setMetadataId(int metadataId) {
+    public MetadataFileDownload setMetadataId(Integer metadataId) {
         this._metadataId = metadataId;
         return this;
     }
@@ -223,7 +227,7 @@ public class MetadataFileDownload {
      * @return the related fileupload id for this entity.
      */
     @Column(nullable = false)
-    public int getFileUploadId() {
+    public Integer getFileUploadId() {
         return _fileUploadId;
     }
 
@@ -233,7 +237,7 @@ public class MetadataFileDownload {
      * @param fileUploadId the related fileupload id for this entity.
      * @return this entity object
      */
-    public MetadataFileDownload setFileUploadId(int fileUploadId) {
+    public MetadataFileDownload setFileUploadId(Integer fileUploadId) {
         this._fileUploadId = fileUploadId;
         return this;
     }
@@ -261,6 +265,7 @@ public class MetadataFileDownload {
 
 
     @Override
+	@Transient
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -286,6 +291,7 @@ public class MetadataFileDownload {
     }
 
     @Override
+	@Transient
     public int hashCode() {
         int result = _id;
         result = 31 * result + _metadataId;

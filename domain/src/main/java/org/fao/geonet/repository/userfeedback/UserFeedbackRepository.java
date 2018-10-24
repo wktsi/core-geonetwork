@@ -28,86 +28,100 @@ import java.util.UUID;
 import org.fao.geonet.domain.userfeedback.UserFeedback;
 import org.fao.geonet.domain.userfeedback.UserFeedback.UserRatingStatus;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * The Interface UserFeedbackRepository.
  */
-public interface UserFeedbackRepository extends JpaRepository<UserFeedback, UUID> {
+public interface UserFeedbackRepository extends CrudRepository<UserFeedback, UUID>, JpaRepository<UserFeedback, UUID>,
+		JpaSpecificationExecutor<UserFeedback> {
 
-    /**
-     * Find by author id order by date desc.
-     *
-     * @param authorId the author id
-     * @param p the p
-     * @return the list
-     */
-    List<UserFeedback> findByAuthorIdOrderByCreationDateDesc(int authorId, Pageable p);
+	/**
+	 * Find by author id order by date desc.
+	 *
+	 * @param authorId
+	 *            the author id
+	 * @param p
+	 *            the p
+	 * @return the list
+	 */
+	List<UserFeedback> findByAuthorIdOrderByCreationDateDesc(int authorId, Pageable p);
 
-    /**
-     * Find by metadata uuid.
-     *
-     * @param metadataUuid the metadata uuid
-     * @return the list
-     */
-    List<UserFeedback> findByMetadata_Uuid(String metadataUuid);
+	/**
+	 * Find by metadata uuid.
+	 *
+	 * @param metadataUuid
+	 *            the metadata uuid
+	 * @return the list
+	 */
+	List<UserFeedback> findByMetadata_Uuid(String metadataUuid);
 
-    /**
-     * Find by metadata uuid and status order by date desc.
-     *
-     * @param metadataUuid the metadata uuid
-     * @param status the status
-     * @param p the p
-     * @return the list
-     */
-    List<UserFeedback> findByMetadata_UuidAndStatusOrderByCreationDateDesc(String metadataUuid, UserRatingStatus status, Pageable p);
+	/**
+	 * Find by metadata uuid and status order by date desc.
+	 *
+	 * @param metadataUuid
+	 *            the metadata uuid
+	 * @param status
+	 *            the status
+	 * @param p
+	 *            the p
+	 * @return the list
+	 */
+	List<UserFeedback> findByMetadata_UuidAndStatusOrderByCreationDateDesc(String metadataUuid, UserRatingStatus status,
+			Pageable p);
 
-    /**
-     * Find by metadata uuid order by date desc.
-     *
-     * @param metadataUuid the metadata uuid
-     * @param p the p
-     * @return the list
-     */
-    List<UserFeedback> findByMetadata_UuidOrderByCreationDateDesc(String metadataUuid, Pageable p);
+	/**
+	 * Find by metadata uuid order by date desc.
+	 *
+	 * @param metadataUuid
+	 *            the metadata uuid
+	 * @param p
+	 *            the p
+	 * @return the list
+	 */
+	List<UserFeedback> findByMetadata_UuidOrderByCreationDateDesc(String metadataUuid, Pageable p);
 
-    /**
-     * Find by order by date desc.
-     *
-     * @param p the p
-     * @return the list
-     */
-    @Query("SELECT uf from GUF_UserFeedback uf order by uf.creationDate DESC ")
-    List<UserFeedback> findByOrderByCreationDateDesc(Pageable p);
+	/**
+	 * Find by order by date desc.
+	 *
+	 * @param p
+	 *            the p
+	 * @return the list
+	 */
+	@Query("SELECT uf from GUF_UserFeedback uf order by uf.creationDate DESC ")
+	List<UserFeedback> findByOrderByCreationDateDesc(Pageable p);
 
+	/**
+	 * Find by status order by date desc.
+	 *
+	 * @param status
+	 *            the status
+	 * @param p
+	 *            the p
+	 * @return the list
+	 */
+	List<UserFeedback> findByStatusOrderByCreationDateDesc(UserFeedback.UserRatingStatus status, Pageable p);
 
-    /**
-     * Find by status order by date desc.
-     *
-     * @param status the status
-     * @param p the p
-     * @return the list
-     */
-    List<UserFeedback> findByStatusOrderByCreationDateDesc(UserFeedback.UserRatingStatus status, Pageable p);
+	/**
+	 * Find by uuid.
+	 *
+	 * @param uuid
+	 *            the uuid
+	 * @return the user feedback
+	 */
+	UserFeedback findByUuid(String uuid);
 
-    /**
-     * Find by uuid.
-     *
-     * @param uuid the uuid
-     * @return the user feedback
-     */
-    UserFeedback findByUuid(String uuid);
-
-    /**
-     * Find by uuid and status.
-     *
-     * @param uuid the uuid
-     * @param status the status
-     * @return the user feedback
-     */
-    UserFeedback findByUuidAndStatus(String uuid, UserRatingStatus status);
+	/**
+	 * Find by uuid and status.
+	 *
+	 * @param uuid
+	 *            the uuid
+	 * @param status
+	 *            the status
+	 * @return the user feedback
+	 */
+	UserFeedback findByUuidAndStatus(String uuid, UserRatingStatus status);
 }

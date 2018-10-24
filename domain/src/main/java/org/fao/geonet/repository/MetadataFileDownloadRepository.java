@@ -24,12 +24,17 @@
 package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.MetadataFileDownload;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
- * Data Access object for accessing {@link org.fao.geonet.domain.MetadataFileDownload} entities.
+ * Data Access object for accessing
+ * {@link org.fao.geonet.domain.MetadataFileDownload} entities.
  *
  * @author Jose García
  */
-public interface MetadataFileDownloadRepository extends GeonetRepository<MetadataFileDownload, Integer>, JpaSpecificationExecutor<MetadataFileDownload> {
+public interface MetadataFileDownloadRepository
+		extends GeonetRepository<MetadataFileDownload, Integer>, CrudRepository<MetadataFileDownload, Integer>,
+		JpaRepository<MetadataFileDownload, Integer>, JpaSpecificationExecutor<MetadataFileDownload> {
 }

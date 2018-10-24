@@ -44,13 +44,13 @@ public enum ReservedGroup {
     guest(-1);
 
     // Not final so Tests can change id
-    private int _id;
+    private Integer _id;
 
-    private ReservedGroup(int id) {
+    private ReservedGroup(Integer id) {
         _id = id;
     }
 
-    public static boolean isReserved(int grpId) {
+    public static boolean isReserved(Integer grpId) {
         for (ReservedGroup reservedGroup : values()) {
             if (reservedGroup.getId() == grpId) {
                 return true;
@@ -64,7 +64,7 @@ public enum ReservedGroup {
      *
      * @return the id of the reserved group.
      */
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 

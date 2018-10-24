@@ -34,8 +34,9 @@ import java.io.Serializable;
  */
 @Embeddable
 public class SchematronCriteriaGroupId implements Serializable {
-    private String name;
-    private int schematronId;
+	private static final long serialVersionUID = -8387940423978244243L;
+	private String name;
+    private Integer schematronId;
 
     public SchematronCriteriaGroupId() {
         // needed for JPA
@@ -70,7 +71,7 @@ public class SchematronCriteriaGroupId implements Serializable {
     }
 
     @Column(name = "schematronId")
-    public int getSchematronId() {
+    public Integer getSchematronId() {
         return schematronId;
     }
 
@@ -80,7 +81,7 @@ public class SchematronCriteriaGroupId implements Serializable {
      * @param schematronId id of the associated schematron.
      * @return this id class
      */
-    public SchematronCriteriaGroupId setSchematronId(int schematronId) {
+    public SchematronCriteriaGroupId setSchematronId(Integer schematronId) {
         this.schematronId = schematronId;
         return this;
     }

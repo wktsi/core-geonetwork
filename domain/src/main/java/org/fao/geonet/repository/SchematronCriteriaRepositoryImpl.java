@@ -23,10 +23,8 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.SchematronCriteria;
-import org.fao.geonet.domain.SchematronCriteriaGroup;
-import org.fao.geonet.domain.SchematronCriteriaGroup_;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,16 +33,19 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import java.util.Iterator;
-import java.util.List;
+import org.fao.geonet.domain.SchematronCriteria;
+import org.fao.geonet.domain.SchematronCriteriaGroup;
+import org.fao.geonet.domain.SchematronCriteriaGroup_;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Override behaviour of certain operations.
  *
  * Created by Jesse on 3/7/14.
  */
-public class SchematronCriteriaRepositoryImpl {
-    @PersistenceContext
+public class SchematronCriteriaRepositoryImpl extends GeonetRepositoryImpl<SchematronCriteria, Integer>{
+
+	@PersistenceContext
     EntityManager _entityManager;
 
     /**
@@ -74,6 +75,8 @@ public class SchematronCriteriaRepositoryImpl {
             _entityManager.persist(group);
         }
 
+        _entityManager.remove(criteria);
+        
         _entityManager.flush();
 
         _entityManager.getEntityManagerFactory().getCache().evict(SchematronCriteria.class);

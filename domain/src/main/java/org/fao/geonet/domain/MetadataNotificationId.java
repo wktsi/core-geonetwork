@@ -38,15 +38,15 @@ import java.io.Serializable;
 @Access(AccessType.PROPERTY)
 public class MetadataNotificationId implements Serializable {
     private static final long serialVersionUID = 8167301479650105617L;
-    private int metadataId;
-    private int notifierId;
+    private Integer metadataId;
+    private Integer notifierId;
 
     /**
      * Get the id of the metadata the notification is related to.
      *
      * @return the id of the metadata the notification is related to.
      */
-    public int getMetadataId() {
+    public Integer getMetadataId() {
         return metadataId;
     }
 
@@ -56,7 +56,7 @@ public class MetadataNotificationId implements Serializable {
      * @param metadataId the id of the metadata the notification is related to.
      * @return this id object
      */
-    public MetadataNotificationId setMetadataId(int metadataId) {
+    public MetadataNotificationId setMetadataId(Integer metadataId) {
         this.metadataId = metadataId;
         return this;
     }
@@ -67,7 +67,7 @@ public class MetadataNotificationId implements Serializable {
      * @return the id of the notifier (notification listener)
      * @see MetadataNotifier
      */
-    public int getNotifierId() {
+    public Integer getNotifierId() {
         return notifierId;
     }
 
@@ -78,7 +78,7 @@ public class MetadataNotificationId implements Serializable {
      * @return the id of the notifier (notification listener)
      * @see MetadataNotifier
      */
-    public MetadataNotificationId setNotifierId(int notifierId) {
+    public MetadataNotificationId setNotifierId(Integer notifierId) {
         this.notifierId = notifierId;
         return this;
     }

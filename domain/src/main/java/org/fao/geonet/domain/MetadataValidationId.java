@@ -39,7 +39,7 @@ import javax.persistence.Embeddable;
 @Access(AccessType.PROPERTY)
 public class MetadataValidationId implements Serializable {
     private static final long serialVersionUID = -7162983572434017017L;
-    private int _metadataId;
+    private Integer _metadataId;
     private String _validationType;
 
     /**
@@ -54,7 +54,7 @@ public class MetadataValidationId implements Serializable {
      * @param metadataId     the metadata id
      * @param validationType the validation type
      */
-    public MetadataValidationId(final int metadataId, final String validationType) {
+    public MetadataValidationId(final Integer metadataId, final String validationType) {
         this._metadataId = metadataId;
         this._validationType = validationType;
     }
@@ -62,7 +62,7 @@ public class MetadataValidationId implements Serializable {
     /**
      * Get the id of the associate metadata.
      */
-    public int getMetadataId() {
+    public Integer getMetadataId() {
         return _metadataId;
     }
 
@@ -71,7 +71,7 @@ public class MetadataValidationId implements Serializable {
      *
      * @param metadataid the metadata id
      */
-    public void setMetadataId(final int metadataid) {
+    public void setMetadataId(final Integer metadataid) {
         this._metadataId = metadataid;
     }
 
@@ -98,35 +98,39 @@ public class MetadataValidationId implements Serializable {
         this._validationType = validationType;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + _metadataId;
-        result = prime * result + ((_validationType == null) ? 0 : _validationType.hashCode());
-        return result;
-    }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        MetadataValidationId other = (MetadataValidationId) obj;
-        if (_metadataId != other._metadataId)
-            return false;
-        if (_validationType == null) {
-            if (other._validationType != null)
-                return false;
-        } else if (!_validationType.equals(other._validationType))
-            return false;
-        return true;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_metadataId == null) ? 0 : _metadataId.hashCode());
+		result = prime * result + ((_validationType == null) ? 0 : _validationType.hashCode());
+		return result;
+	}
 
-    @Override
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MetadataValidationId other = (MetadataValidationId) obj;
+		if (_metadataId == null) {
+			if (other._metadataId != null)
+				return false;
+		} else if (!_metadataId.equals(other._metadataId))
+			return false;
+		if (_validationType == null) {
+			if (other._validationType != null)
+				return false;
+		} else if (!_validationType.equals(other._validationType))
+			return false;
+		return true;
+	}
+
+	@Override
     public String toString() {
         return "[" + _metadataId + ", " + _validationType + "]";
     }

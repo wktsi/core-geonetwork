@@ -23,16 +23,21 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.IsoLanguage;
-
 import java.util.List;
+
+import org.fao.geonet.domain.IsoLanguage;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link IsoLanguage} entities.
  *
  * @author Jesse
  */
-public interface IsoLanguageRepository extends GeonetRepository<IsoLanguage, Integer> {
+public interface IsoLanguageRepository
+		extends GeonetRepository<IsoLanguage, Integer>, CrudRepository<IsoLanguage, Integer>,
+		JpaRepository<IsoLanguage, Integer>, JpaSpecificationExecutor<IsoLanguage>  {
     /**
      * Find all the IsoLanguages based on the code (the longer code).
      *

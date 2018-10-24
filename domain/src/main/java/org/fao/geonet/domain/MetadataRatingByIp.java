@@ -38,8 +38,9 @@ import javax.persistence.*;
 @Table(name = "MetadataRating")
 @EntityListeners(MetadataRatingByIpEntityListenerManager.class)
 public class MetadataRatingByIp extends GeonetEntity {
-    private MetadataRatingByIpId _id;
-    private int _rating;
+	private static final long serialVersionUID = 501293645036331879L;
+	private MetadataRatingByIpId _id;
+    private Integer _rating;
 
     /**
      * Get the id object of the metadata rating entity.
@@ -66,7 +67,7 @@ public class MetadataRatingByIp extends GeonetEntity {
      * @return the rating for this IP address.
      */
     @Column(nullable = false)
-    public int getRating() {
+    public Integer getRating() {
         return _rating;
     }
 
@@ -75,7 +76,7 @@ public class MetadataRatingByIp extends GeonetEntity {
      *
      * @param rating the rating for this IP address.
      */
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this._rating = rating;
     }
 }

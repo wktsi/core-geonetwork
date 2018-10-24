@@ -23,10 +23,13 @@
 
 package org.fao.geonet.repository;
 
+import java.util.List;
+
 import org.fao.geonet.domain.MetadataRatingByIp;
 import org.fao.geonet.domain.MetadataRatingByIpId;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link MetadataRatingByIp} entities.
@@ -34,12 +37,14 @@ import java.util.List;
  * @author Jesse
  */
 public interface MetadataRatingByIpRepository extends GeonetRepository<MetadataRatingByIp, MetadataRatingByIpId>,
-    MetadataRatingByIpRepositoryCustom {
-    /**
-     * Find all the ratings for the given Metadata.
-     *
-     * @param metadataId id of metadata.
-     */
-    List<MetadataRatingByIp> findAllByIdMetadataId(int metadataId);
+		MetadataRatingByIpRepositoryCustom, CrudRepository<MetadataRatingByIp, MetadataRatingByIpId>,
+		JpaRepository<MetadataRatingByIp, MetadataRatingByIpId>, JpaSpecificationExecutor<MetadataRatingByIp> {
+	/**
+	 * Find all the ratings for the given Metadata.
+	 *
+	 * @param metadataId
+	 *            id of metadata.
+	 */
+	List<MetadataRatingByIp> findAllByIdMetadataId(int metadataId);
 
 }

@@ -25,13 +25,15 @@ package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.UserSavedSelection;
 import org.fao.geonet.domain.UserSavedSelectionId;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link UserSavedSelection} entities.
  */
-public interface UserSavedSelectionRepository extends
-    GeonetRepository<UserSavedSelection, UserSavedSelectionId>,
-    JpaSpecificationExecutor<UserSavedSelection>,
-    UserSavedSelectionRepositoryCustom {
+public interface UserSavedSelectionRepository extends GeonetRepository<UserSavedSelection, UserSavedSelectionId>,
+		CrudRepository<UserSavedSelection, UserSavedSelectionId>,
+		JpaRepository<UserSavedSelection, UserSavedSelectionId>, JpaSpecificationExecutor<UserSavedSelection>,
+		UserSavedSelectionRepositoryCustom {
 }

@@ -54,7 +54,7 @@ public class FormatterCachePublishListener implements ApplicationListener<Metada
         final Specification<OperationAllowed> isPublished = OperationAllowedSpecs.isPublic(ReservedOperation.view);
         final Specification<OperationAllowed> hasMdId = OperationAllowedSpecs.hasMetadataId(metadataId);
         final ConfigurableApplicationContext context = ApplicationContextHolder.get();
-        final OperationAllowed one = context.getBean(OperationAllowedRepository.class).findOne(where(hasMdId).and(isPublished));
+        final OperationAllowed one = context.getBean(OperationAllowedRepository.class).findOne(where(hasMdId).and(isPublished)).orElse(null);
         try {
             formatterCache.setPublished(metadataId, one != null);
         } catch (IOException e) {

@@ -82,7 +82,7 @@ public class LocalizedEntityRepositoryTest extends AbstractSpringDataTest {
                 entity = language2;
             }
 
-            assertEquals(entity.getId(), Integer.valueOf(element.getChildText("id")).intValue());
+            assertEquals(entity.getId(), Integer.valueOf(element.getChildText("id")));
             assertEquals(entity.getCode(), element.getChildText("code"));
             assertEquals(entity.getShortCode(), element.getChildText("shortcode"));
             assertEquals(entity.getLabel("eng"), element.getChild(GeonetEntity.LABEL_EL_NAME).getChildText("eng"));
@@ -124,7 +124,7 @@ public class LocalizedEntityRepositoryTest extends AbstractSpringDataTest {
             entity = language2;
         }
 
-        assertEquals(entity.getId(), Integer.valueOf(element.getChildText("id")).intValue());
+        assertEquals(entity.getId(), Integer.valueOf(element.getChildText("id")));
         assertEquals(entity.getCode(), element.getChildText("code"));
         assertEquals(entity.getShortCode(), element.getChildText("shortcode"));
         assertEquals(entity.getLabel("eng"), element.getChild(GeonetEntity.LABEL_EL_NAME).getChildText("eng"));

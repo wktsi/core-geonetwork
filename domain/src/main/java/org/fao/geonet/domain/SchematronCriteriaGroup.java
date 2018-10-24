@@ -39,7 +39,8 @@ import java.util.List;
 @Cacheable
 @Access(AccessType.PROPERTY)
 public class SchematronCriteriaGroup extends GeonetEntity {
-    private SchematronCriteriaGroupId id;
+	private static final long serialVersionUID = 5659829473889821921L;
+	private SchematronCriteriaGroupId id;
     private List<SchematronCriteria> criteria = new ArrayList<SchematronCriteria>();
     private SchematronRequirement requirement;
     private Schematron schematron;

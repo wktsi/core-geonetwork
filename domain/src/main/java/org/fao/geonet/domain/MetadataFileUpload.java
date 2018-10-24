@@ -38,9 +38,10 @@ import javax.persistence.*;
 @Table(name = "MetadataFileUploads")
 @SequenceGenerator(name = MetadataFileUpload.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class MetadataFileUpload extends GeonetEntity {
-    static final String ID_SEQ_NAME = "metadata_fileupload_id_seq";
-    private int _id;
-    private int _metadataId;
+	private static final long serialVersionUID = -8153550188511287532L;
+	static final String ID_SEQ_NAME = "metadata_fileupload_id_seq";
+    private Integer _id;
+    private Integer _metadataId;
     private String _fileName;
     private String _uploadDate;
     private Double _fileSize;
@@ -54,7 +55,7 @@ public class MetadataFileUpload extends GeonetEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -64,7 +65,7 @@ public class MetadataFileUpload extends GeonetEntity {
      * @param id the id object for this MetadataFileUpload entity.
      * @return thisMetadataFileUpload object
      */
-    public MetadataFileUpload setId(int id) {
+    public MetadataFileUpload setId(Integer id) {
         this._id = id;
         return this;
     }
@@ -118,7 +119,7 @@ public class MetadataFileUpload extends GeonetEntity {
      * @return the user name for this entity.
      */
     @Column(nullable = false)
-    public int getMetadataId() {
+    public Integer getMetadataId() {
         return _metadataId;
     }
 
@@ -128,7 +129,7 @@ public class MetadataFileUpload extends GeonetEntity {
      * @param metadataId the user name for this entity.
      * @return this entity object
      */
-    public MetadataFileUpload setMetadataId(int metadataId) {
+    public MetadataFileUpload setMetadataId(Integer metadataId) {
         this._metadataId = metadataId;
         return this;
     }

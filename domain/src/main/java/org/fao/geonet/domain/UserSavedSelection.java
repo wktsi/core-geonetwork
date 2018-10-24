@@ -23,10 +23,8 @@
 
 package org.fao.geonet.domain;
 
-import org.fao.geonet.entitylistener.UserMetadataSelectionEntityListenerManager;
-import org.springframework.web.bind.annotation.Mapping;
+import java.io.Serializable;
 
-import javax.annotation.Nonnull;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -38,7 +36,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
-import java.io.Serializable;
+
+import org.fao.geonet.entitylistener.UserMetadataSelectionEntityListenerManager;
 
 /**
  * The mapping between user, a selection and a set of records.
@@ -48,7 +47,9 @@ import java.io.Serializable;
 @Table(name = "UserSavedSelections")
 @EntityListeners(UserMetadataSelectionEntityListenerManager.class)
 public class UserSavedSelection extends GeonetEntity implements Serializable {
-    private UserSavedSelectionId _id = new UserSavedSelectionId();
+	private static final long serialVersionUID = -2283103291619170408L;
+
+	private UserSavedSelectionId _id = new UserSavedSelectionId();
 
     private Selection _selection;
     private User _user;

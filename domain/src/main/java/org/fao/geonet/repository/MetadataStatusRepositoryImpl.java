@@ -23,42 +23,47 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.MetadataStatus;
-import org.fao.geonet.domain.MetadataStatusId_;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.fao.geonet.domain.MetadataStatus;
+import org.fao.geonet.domain.MetadataStatusId;
+import org.fao.geonet.domain.MetadataStatusId_;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
- * Data Access object for accessing {@link org.fao.geonet.domain.MetadataValidation} entities.
+ * Data Access object for accessing
+ * {@link org.fao.geonet.domain.MetadataValidation} entities.
  *
  * @author Jesse
  */
-public class MetadataStatusRepositoryImpl implements MetadataStatusRepositoryCustom {
+public class MetadataStatusRepositoryImpl extends GeonetRepositoryImpl<MetadataStatus, MetadataStatusId>
+		implements MetadataStatusRepositoryCustom {
 
-    @PersistenceContext
-    EntityManager _entityManager;
+	@PersistenceContext
+	EntityManager _entityManager;
 
-    @Override
-    @Transactional
-    public int deleteAllById_MetadataId(final int metadataId) {
-        String entityType = MetadataStatus.class.getSimpleName();
-        String metadataIdPropName = MetadataStatusId_.metadataId.getName();
-        Query query = _entityManager.createQuery("DELETE FROM " + entityType + " WHERE " + metadataIdPropName + " = " + metadataId);
-        final int deleted = query.executeUpdate();
-        _entityManager.flush();
-        _entityManager.clear();
-        return deleted;
-    }
+	@Override
+	@Transactional
+	public int deleteAllById_MetadataId(final int metadataId) {
+		String entityType = MetadataStatus.class.getSimpleName();
+		String metadataIdPropName = MetadataStatusId_.metadataId.getName();
+		Query query = _entityManager
+				.createQuery("DELETE FROM " + entityType + " WHERE " + metadataIdPropName + " = " + metadataId);
+		final int deleted = query.executeUpdate();
+		_entityManager.flush();
+		_entityManager.clear();
+		return deleted;
+	}
 
-    @Override
-    public int deleteAllById_UserId(final int userId) {
-        String entityType = MetadataStatus.class.getSimpleName();
-        String userIdPropName = MetadataStatusId_.userId.getName();
-        Query query = _entityManager.createQuery("DELETE FROM " + entityType + " WHERE " + userIdPropName + " = " + userId);
-        final int deleted = query.executeUpdate();
-        return deleted;
-    }
+	@Override
+	public int deleteAllById_UserId(final int userId) {
+		String entityType = MetadataStatus.class.getSimpleName();
+		String userIdPropName = MetadataStatusId_.userId.getName();
+		Query query = _entityManager
+				.createQuery("DELETE FROM " + entityType + " WHERE " + userIdPropName + " = " + userId);
+		final int deleted = query.executeUpdate();
+		return deleted;
+	}
 }

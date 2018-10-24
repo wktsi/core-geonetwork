@@ -171,9 +171,9 @@ public class GroupRepositoryTest extends AbstractSpringDataTest {
         List<Integer> ids = _repo.findIds();
 
         assertEquals(3, ids.size());
-        assertEquals(g1.getId(), ids.get(0).intValue());
-        assertEquals(g2.getId(), ids.get(1).intValue());
-        assertEquals(g3.getId(), ids.get(2).intValue());
+        assertEquals(g1.getId(), ids.get(0));
+        assertEquals(g2.getId(), ids.get(1));
+        assertEquals(g3.getId(), ids.get(2));
     }
 
     private Group newGroup() {

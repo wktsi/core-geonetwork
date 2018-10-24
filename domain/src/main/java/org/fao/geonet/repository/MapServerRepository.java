@@ -24,17 +24,19 @@
 package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.MapServer;
-import org.fao.geonet.domain.StatusValue;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
+import org.springframework.data.repository.CrudRepository;
 
 /**
- * Data Access object for accessing {@link org.fao.geonet.domain.MapServer} entities.
+ * Data Access object for accessing {@link org.fao.geonet.domain.MapServer}
+ * entities.
  *
  * @author Francois
  */
-public interface MapServerRepository
-    extends GeonetRepository<MapServer, Integer>,
-    MapServerRepositoryCustom,
-    JpaSpecificationExecutor<MapServer> {
-    MapServer findOneById(int id);
+public interface MapServerRepository extends MapServerRepositoryCustom, GeonetRepository<MapServer, Integer>,
+		CrudRepository<MapServer, Integer>, JpaRepository<MapServer, Integer>, JpaSpecificationExecutor<MapServer> {
+
+	MapServer findOneById(Integer id);
 }

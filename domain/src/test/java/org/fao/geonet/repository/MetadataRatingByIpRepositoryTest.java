@@ -103,7 +103,7 @@ public class MetadataRatingByIpRepositoryTest extends AbstractSpringDataTest {
         rating1 = _repo.save(rating1);
 
         MetadataRatingByIp rating2 = new MetadataRatingByIp();
-        final int newRating = rating1.getRating() * 100;
+        final Integer newRating = rating1.getRating() * 100;
         rating2.setRating(newRating);
         rating2.setId(new MetadataRatingByIpId(rating1.getId().getMetadataId(), rating1.getId().getIpAddress()));
 

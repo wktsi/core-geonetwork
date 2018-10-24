@@ -474,7 +474,7 @@ public class Importer {
                             final OperationAllowedRepository allowedRepository = context.getBean(OperationAllowedRepository.class);
                             final Set<OperationAllowed> allowedSet = addOperations(context, dm, privileges, iMetadataId,
                                 Integer.valueOf(finalGroupId));
-                            allowedRepository.save(allowedSet);
+                            allowedRepository.saveAll(allowedSet);
                         }
 
 
@@ -670,7 +670,7 @@ public class Importer {
                 }
             }
         }
-        allowedRepository.save(opAllowedToAdd);
+        allowedRepository.saveAll(opAllowedToAdd);
         return owner;
     }
 

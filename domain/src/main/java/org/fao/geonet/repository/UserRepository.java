@@ -23,18 +23,21 @@
 
 package org.fao.geonet.repository;
 
+import java.util.List;
+
 import org.fao.geonet.domain.Profile;
 import org.fao.geonet.domain.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link User} entities.
  *
  * @author Jesse
  */
-public interface UserRepository extends GeonetRepository<User, Integer>, JpaSpecificationExecutor<User>, UserRepositoryCustom {
+public interface UserRepository extends GeonetRepository<User, Integer>, CrudRepository<User, Integer>,
+		JpaRepository<User, Integer>, JpaSpecificationExecutor<User>, UserRepositoryCustom {
     /**
      * Find the user identified by  the username.
      *

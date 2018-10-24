@@ -24,11 +24,16 @@
 package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.Language;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
- * Data Access object for accessing {@link org.fao.geonet.domain.Language} entities.
+ * Data Access object for accessing {@link org.fao.geonet.domain.Language}
+ * entities.
  *
  * @author Jesse
  */
-public interface LanguageRepository extends GeonetRepository<Language, String>, LanguageRepositoryCustom {
+public interface LanguageRepository extends GeonetRepository<Language, String>, LanguageRepositoryCustom,
+		CrudRepository<Language, String>, JpaRepository<Language, String>, JpaSpecificationExecutor<Language> {
 }

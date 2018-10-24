@@ -58,9 +58,9 @@ public enum ReservedOperation {
     featured(6);
 
     // Not final so Tests can change id
-    private int _id;
+    private Integer _id;
 
-    private ReservedOperation(int id) {
+    private ReservedOperation(Integer id) {
         this._id = id;
     }
 
@@ -72,7 +72,7 @@ public enum ReservedOperation {
      */
     public static
     @Nullable
-    ReservedOperation lookup(int opId) {
+    ReservedOperation lookup(Integer opId) {
         for (ReservedOperation op : ReservedOperation.values()) {
             if (op._id == opId) {
                 return op;
@@ -86,7 +86,7 @@ public enum ReservedOperation {
      *
      * @return the id of the operation.
      */
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 

@@ -23,22 +23,15 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.GeonetEntity;
-import org.jdom.Element;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -48,6 +41,14 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.fao.geonet.domain.GeonetEntity;
+import org.jdom.Element;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * Abstract super class of Geonetwork repositories that contains extra useful implementations.
  *
@@ -56,18 +57,13 @@ import javax.persistence.criteria.Root;
  *             <p/>
  *             User: jeichar Date: 9/5/13 Time: 11:26 AM
  */
-public class GeonetRepositoryImpl<T extends GeonetEntity, ID extends Serializable> extends SimpleJpaRepository<T,
-    ID> implements GeonetRepository<T, ID> {
-
-    private final Class<T> _entityClass;
-    protected EntityManager _entityManager;
-
-
-    protected GeonetRepositoryImpl(Class<T> domainClass, EntityManager entityManager) {
-        super(domainClass, entityManager);
-        this._entityManager = entityManager;
-        this._entityClass = domainClass;
-    }
+public abstract class GeonetRepositoryImpl<T extends GeonetEntity, ID extends Serializable> 
+	implements GeonetRepository<T, ID> {
+    
+	@PersistenceContext
+    private EntityManager _entityManager;
+	private final Class<T> _entityClass = (Class<T>) ((ParameterizedType) getClass()
+            .getGenericSuperclass()).getActualTypeArguments()[0];
 
     protected static <T extends GeonetEntity> Element findAllAsXml(EntityManager entityManager, Class<T> entityClass,
                                                                    Specification<T> specification, Pageable pageable) {
@@ -91,7 +87,7 @@ public class GeonetRepositoryImpl<T extends GeonetEntity, ID extends Serializabl
 
         final TypedQuery<T> typedQuery = entityManager.createQuery(query);
         if (pageable != null) {
-            typedQuery.setFirstResult(pageable.getOffset());
+            typedQuery.setFirstResult((int) pageable.getOffset());
             typedQuery.setMaxResults(pageable.getPageSize());
         }
         for (T t : typedQuery.getResultList()) {
@@ -100,6 +96,7 @@ public class GeonetRepositoryImpl<T extends GeonetEntity, ID extends Serializabl
         return rootEl;
     }
 
+    @Transactional
     public T update(ID id, Updater<T> updater) {
         final T entity = _entityManager.find(this._entityClass, id);
 
@@ -175,8 +172,27 @@ public class GeonetRepositoryImpl<T extends GeonetEntity, ID extends Serializabl
 
     @Nonnull
     @Override
+    @Transactional
     public Element findAllAsXml(final Specification<T> specification, final Sort sort) {
         PageRequest request = new PageRequest(0, Integer.MAX_VALUE, sort);
         return findAllAsXml(_entityManager, _entityClass, specification, request);
     }
+    
+    @Override
+    public T findOne(ID id) {
+    	return _entityManager.find(_entityClass, id);
+    }
+
+	@Override
+	public boolean exists(ID id) {
+		return findOne(id) != null;
+	}
+
+	@Override
+	public void delete(ID id) {
+		T elementToRemove = findOne(id);
+		if (elementToRemove != null) {
+			_entityManager.remove(elementToRemove);
+		}
+	}
 }

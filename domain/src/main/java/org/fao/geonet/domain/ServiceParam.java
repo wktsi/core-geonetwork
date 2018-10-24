@@ -23,9 +23,6 @@
 
 package org.fao.geonet.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.collect.Lists;
-
 import java.util.List;
 
 import javax.persistence.Access;
@@ -40,6 +37,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.Lists;
 
 /**
  * One of the entities responsible for dynamic service configuration.
@@ -51,9 +52,13 @@ import javax.persistence.Table;
 @Table(name = "ServiceParameters")
 @SequenceGenerator(name = ServiceParam.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class ServiceParam extends GeonetEntity {
-    static final String ID_SEQ_NAME = "serviceparameters_id_seq";
+	@Transient
+	private static final long serialVersionUID = -3473564427914983871L;
+	@Transient
+	protected static final String ID_SEQ_NAME = "serviceparameters_id_seq";
+	@Transient
     private static final List<Character> LEGALVALUES = Lists.newArrayList('+', '-', ' ', null);
-    private int id;
+    private Integer id;
     private Service service;
     private String name;
     private String value;
@@ -70,11 +75,11 @@ public class ServiceParam extends GeonetEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

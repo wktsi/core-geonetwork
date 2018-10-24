@@ -22,20 +22,25 @@
  */
 package org.fao.geonet.domain;
 
-import java.io.Serializable;
-
 import javax.annotation.Nullable;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.lang.NonNull;
 
 /**
  * The Class CssStyleSettingsModel.
  */
 @Entity(name = "Settings_CssStyle")
 @Table(name = "Settings_CssStyle")
-public class CssStyleSetting extends GeonetEntity implements Serializable {
+@Cacheable(value=false)
+@Access(AccessType.PROPERTY)
+public class CssStyleSetting extends GeonetEntity {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6799485605075101098L;
@@ -59,6 +64,7 @@ public class CssStyleSetting extends GeonetEntity implements Serializable {
 
     @Id
     @Column(nullable = false)
+    @NonNull
     public String getVariable() {
         return variable;
     }

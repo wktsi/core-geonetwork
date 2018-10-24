@@ -23,6 +23,7 @@
 
 package org.fao.geonet.domain;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -42,9 +43,10 @@ import org.springframework.beans.InvalidPropertyException;
  * <p/>
  * User: Jesse Date: 9/10/13 Time: 4:33 PM
  */
-public class GeonetEntity {
+public class GeonetEntity implements Serializable {
 
-    public static final String LABEL_EL_NAME = "label";
+	private static final long serialVersionUID = 7110561368185437460L;
+	public static final String LABEL_EL_NAME = "label";
     public static final String RECORD_EL_NAME = "record";
 
     /**

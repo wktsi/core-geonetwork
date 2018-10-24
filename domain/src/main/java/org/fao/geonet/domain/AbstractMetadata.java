@@ -66,7 +66,7 @@ public abstract class AbstractMetadata extends GeonetEntity {
     static final String ID_SEQ_NAME = "metadata_id_seq";
     public static final String METADATA_CATEG_JOIN_TABLE_NAME = "MetadataCateg";
     public static final String METADATA_CATEG_JOIN_TABLE_CATEGORY_ID = "categoryId";
-    private int _id;
+    private Integer _id;
     private String _uuid;
     private String _data;
     private MetadataDataInfo _dataInfo = new MetadataDataInfo();
@@ -83,7 +83,7 @@ public abstract class AbstractMetadata extends GeonetEntity {
     @SequenceGenerator(name = Metadata.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
     @Column(nullable = false)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -94,7 +94,7 @@ public abstract class AbstractMetadata extends GeonetEntity {
      * @param _id the id of the metadata
      * @return this entity object
      */
-    public AbstractMetadata setId(int _id) {
+    public AbstractMetadata setId(Integer _id) {
         this._id = _id;
         return this;
     }
@@ -131,7 +131,7 @@ public abstract class AbstractMetadata extends GeonetEntity {
     @Column(nullable = false)
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    @Type(type = "org.hibernate.type.StringClobType") // this is a work around for postgres so postgres can correctly load clobs
+    @Type(type = "org.hibernate.type.TextType") // this is a work around for postgres so postgres can correctly load clobs
     public String getData() {
         return _data;
     }

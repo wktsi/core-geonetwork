@@ -43,8 +43,9 @@ import java.util.Map;
 @EntityListeners(OperationEntityListenerManager.class)
 @SequenceGenerator(name = Operation.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class Operation extends Localized {
-    static final String ID_SEQ_NAME = "operation_id_seq";
-    private int _id;
+	private static final long serialVersionUID = 3472463463789243L;
+	static final String ID_SEQ_NAME = "operation_id_seq";
+    private Integer _id;
     private String _name;
 
     /**
@@ -56,7 +57,7 @@ public class Operation extends Localized {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -67,7 +68,7 @@ public class Operation extends Localized {
      * @param id the Id of the operation
      * @return this entity object.
      */
-    public Operation setId(final int id) {
+    public Operation setId(final Integer id) {
         this._id = id;
         return this;
     }

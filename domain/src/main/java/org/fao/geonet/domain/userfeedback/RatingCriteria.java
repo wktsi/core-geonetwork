@@ -23,10 +23,8 @@
 
 package org.fao.geonet.domain.userfeedback;
 
-import org.fao.geonet.domain.Localized;
-import org.fao.geonet.domain.User;
-import org.fao.geonet.domain.converter.BooleanToYNConverter;
-import org.fao.geonet.entitylistener.RatingCriteriaEntityListenerManager;
+import java.io.Serializable;
+import java.util.Map;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -45,8 +43,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.Map;
+import javax.persistence.Transient;
+
+import org.fao.geonet.domain.Localized;
+import org.fao.geonet.domain.converter.BooleanToYNConverter;
+import org.fao.geonet.entitylistener.RatingCriteriaEntityListenerManager;
 
 
 /**
@@ -59,11 +60,14 @@ import java.util.Map;
 @EntityListeners(RatingCriteriaEntityListenerManager.class)
 @SequenceGenerator(name = RatingCriteria.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class RatingCriteria extends Localized implements Serializable {
-    static final String ID_SEQ_NAME = "rating_criteria_id_seq";
+
+	private static final long serialVersionUID = 2998463202834117685L;
+
+	static final String ID_SEQ_NAME = "rating_criteria_id_seq";
 
     public static final Integer AVERAGE_ID = -1;
 
-    private int _id;
+    private Integer _id;
     private String _name;
     private Boolean _isInternal;
 
@@ -78,7 +82,7 @@ public class RatingCriteria extends Localized implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
     @Column(nullable = false)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -91,7 +95,7 @@ public class RatingCriteria extends Localized implements Serializable {
      * @param id the id of the rating criteria.
      * @return this rating criteria object
      */
-    public RatingCriteria setId(int id) {
+    public RatingCriteria setId(Integer id) {
         this._id = id;
         return this;
     }
@@ -156,11 +160,13 @@ public class RatingCriteria extends Localized implements Serializable {
     }
 
     @Override
+    @Transient
     public String toString() {
         return "rating criteria [_id=" + _id + ", _name=" + _name + "]";
     }
 
     @Override
+    @Transient
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -169,6 +175,7 @@ public class RatingCriteria extends Localized implements Serializable {
     }
 
     @Override
+    @Transient
     public boolean equals(Object obj) {
         if (this == obj)
             return true;

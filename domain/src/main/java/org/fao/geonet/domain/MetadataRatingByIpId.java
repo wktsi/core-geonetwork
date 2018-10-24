@@ -40,7 +40,7 @@ import java.io.Serializable;
 public class MetadataRatingByIpId implements Serializable {
 
     private static final long serialVersionUID = 2793801901676171677L;
-    private int _metadataId;
+    private Integer _metadataId;
     private String _ipAddress;
 
     /**
@@ -56,7 +56,7 @@ public class MetadataRatingByIpId implements Serializable {
      * @param metatatId the metadata id that is being rated.
      * @param ipAddress the id of the user making the rating.
      */
-    public MetadataRatingByIpId(int metatatId, String ipAddress) {
+    public MetadataRatingByIpId(Integer metatatId, String ipAddress) {
         this._metadataId = metatatId;
         this._ipAddress = ipAddress;
     }
@@ -67,7 +67,7 @@ public class MetadataRatingByIpId implements Serializable {
      * @return the id of the associated metadata.
      */
     @Column(name = "metadataId", nullable = false)
-    public int getMetadataId() {
+    public Integer getMetadataId() {
         return _metadataId;
     }
 
@@ -76,7 +76,7 @@ public class MetadataRatingByIpId implements Serializable {
      *
      * @param metadataId the id of the associated metadata.
      */
-    public void setMetadataId(int metadataId) {
+    public void setMetadataId(Integer metadataId) {
         this._metadataId = metadataId;
     }
 

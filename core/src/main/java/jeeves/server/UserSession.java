@@ -191,9 +191,9 @@ public class UserSession {
         }
     }
 
-    public int getUserIdAsInt() {
+    public Integer getUserIdAsInt() {
         String id = getUserId();
-        return id == null ? -1 : Integer.parseInt(getUserId());
+        return id == null ? -1 : Integer.valueOf(getUserId());
     }
 
     private SecurityContext secContext() {

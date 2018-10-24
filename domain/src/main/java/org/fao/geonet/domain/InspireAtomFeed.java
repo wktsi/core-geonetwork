@@ -43,9 +43,10 @@ import java.util.List;
 @Table(name = "InspireAtomFeed")
 @SequenceGenerator(name = InspireAtomFeed.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class InspireAtomFeed extends GeonetEntity implements Serializable {
-    static final String ID_SEQ_NAME = "inspire_atom_feed_id_seq";
-    private int _id;
-    private int _metadataId;
+	private static final long serialVersionUID = -5514752556293088080L;
+	static final String ID_SEQ_NAME = "inspire_atom_feed_id_seq";
+    private Integer _id;
+    private Integer _metadataId;
     private String _title;
 
     private String _atom;
@@ -66,6 +67,7 @@ public class InspireAtomFeed extends GeonetEntity implements Serializable {
         _entryList = new ArrayList<InspireAtomFeedEntry>();
     }
 
+    @Transient
     public static InspireAtomFeed build(Element atomDoc) {
         InspireAtomFeed inspireAtomFeed = new InspireAtomFeed();
 
@@ -113,7 +115,7 @@ public class InspireAtomFeed extends GeonetEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
     @Column(nullable = false)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -124,12 +126,12 @@ public class InspireAtomFeed extends GeonetEntity implements Serializable {
      * @param _id the id of the metadata
      * @return this entity object
      */
-    public InspireAtomFeed setId(int _id) {
+    public InspireAtomFeed setId(Integer _id) {
         this._id = _id;
         return this;
     }
 
-    public int getMetadataId() {
+    public Integer getMetadataId() {
         return _metadataId;
     }
 
@@ -148,7 +150,7 @@ public class InspireAtomFeed extends GeonetEntity implements Serializable {
 
     @Column
     @Lob
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     public String getAtom() {
         return _atom;
     }
@@ -243,6 +245,7 @@ public class InspireAtomFeed extends GeonetEntity implements Serializable {
     }
 
     @Override
+    @Transient
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof InspireAtomFeed)) return false;
@@ -274,6 +277,7 @@ public class InspireAtomFeed extends GeonetEntity implements Serializable {
     }
 
     @Override
+    @Transient
     public int hashCode() {
         int result = _id;
         result = 31 * result + _metadataId;

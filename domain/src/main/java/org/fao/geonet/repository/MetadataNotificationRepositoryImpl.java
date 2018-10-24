@@ -23,59 +23,75 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.*;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
-import java.util.List;
+import org.fao.geonet.domain.Constants;
+import org.fao.geonet.domain.MetadataNotification;
+import org.fao.geonet.domain.MetadataNotificationAction;
+import org.fao.geonet.domain.MetadataNotificationId;
+import org.fao.geonet.domain.MetadataNotificationId_;
+import org.fao.geonet.domain.MetadataNotification_;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementation for methods in MetadataNotificationRepositoryCustom.
  * <p/>
  * User: Jesse Date: 9/7/13 Time: 8:30 PM
  */
-public class MetadataNotificationRepositoryImpl implements MetadataNotificationRepositoryCustom {
-    @PersistenceContext
-    EntityManager _entityManager;
+public class MetadataNotificationRepositoryImpl
+		extends GeonetRepositoryImpl<MetadataNotification, MetadataNotificationId>
+		implements MetadataNotificationRepositoryCustom {
 
-    @Override
-    public List<MetadataNotification> findAllNotNotifiedForNotifier(int notifierId, MetadataNotificationAction... actions) {
-        final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
-        final CriteriaQuery<MetadataNotification> cbQuery = cb.createQuery(MetadataNotification.class);
-        final Root<MetadataNotification> notificationRoot = cbQuery.from(MetadataNotification.class);
-        final Path<Integer> notifierIdPath = notificationRoot.get(MetadataNotification_.id).get(MetadataNotificationId_.notifierId);
-        final Predicate correctNotifier = cb.equal(notifierIdPath, notifierId);
+	@PersistenceContext
+	EntityManager _entityManager;
 
-        final Path<Character> notifiedPath = notificationRoot.get(MetadataNotification_.notified_JPAWorkaround);
-        final Predicate notifiedIsNull = cb.isNull(notifiedPath);
-        final Predicate notNotified = cb.equal(notifiedPath, Constants.YN_FALSE);
+	@Override
+	public List<MetadataNotification> findAllNotNotifiedForNotifier(int notifierId,
+			MetadataNotificationAction... actions) {
+		final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
+		final CriteriaQuery<MetadataNotification> cbQuery = cb.createQuery(MetadataNotification.class);
+		final Root<MetadataNotification> notificationRoot = cbQuery.from(MetadataNotification.class);
+		final Path<Integer> notifierIdPath = notificationRoot.get(MetadataNotification_.id)
+				.get(MetadataNotificationId_.notifierId);
+		final Predicate correctNotifier = cb.equal(notifierIdPath, notifierId);
 
-        final Path<MetadataNotificationAction> actionPath = notificationRoot.get(MetadataNotification_.action);
+		final Path<Character> notifiedPath = notificationRoot.get(MetadataNotification_.notified_JPAWorkaround);
+		final Predicate notifiedIsNull = cb.isNull(notifiedPath);
+		final Predicate notNotified = cb.equal(notifiedPath, Constants.YN_FALSE);
 
-        final Predicate fullClause;
-        if (actions != null && actions.length > 0) {
-            Predicate actionsPredicate = actionPath.in(actions);
-            fullClause = cb.and(correctNotifier, cb.or(notifiedIsNull, notNotified), actionsPredicate);
-        } else {
-            fullClause = cb.and(correctNotifier, cb.or(notifiedIsNull, notNotified));
+		final Path<MetadataNotificationAction> actionPath = notificationRoot.get(MetadataNotification_.action);
 
-        }
-        cbQuery.where(fullClause);
-        return _entityManager.createQuery(cbQuery).getResultList();
-    }
+		final Predicate fullClause;
+		if (actions != null && actions.length > 0) {
+			Predicate actionsPredicate = actionPath.in(actions);
+			fullClause = cb.and(correctNotifier, cb.or(notifiedIsNull, notNotified), actionsPredicate);
+		} else {
+			fullClause = cb.and(correctNotifier, cb.or(notifiedIsNull, notNotified));
 
-    @Override
-    @Transactional
-    public int deleteAllWithNotifierId(int notifierId) {
-        final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
-        final CriteriaDelete<MetadataNotification> delete = cb.createCriteriaDelete(MetadataNotification.class);
-        final Root<MetadataNotification> notificationRoot = delete.from(MetadataNotification.class);
+		}
+		cbQuery.where(fullClause);
+		return _entityManager.createQuery(cbQuery).getResultList();
+	}
 
-        delete.where(cb.equal(notificationRoot.get(MetadataNotification_.id).get(MetadataNotificationId_.notifierId), notifierId));
-        return _entityManager.createQuery(delete).executeUpdate();
-    }
+	@Override
+	@Transactional
+	public int deleteAllWithNotifierId(int notifierId) {
+		final CriteriaBuilder cb = _entityManager.getCriteriaBuilder();
+		final CriteriaDelete<MetadataNotification> delete = cb.createCriteriaDelete(MetadataNotification.class);
+		final Root<MetadataNotification> notificationRoot = delete.from(MetadataNotification.class);
+
+		delete.where(cb.equal(notificationRoot.get(MetadataNotification_.id).get(MetadataNotificationId_.notifierId),
+				notifierId));
+		return _entityManager.createQuery(delete).executeUpdate();
+	}
 
 }

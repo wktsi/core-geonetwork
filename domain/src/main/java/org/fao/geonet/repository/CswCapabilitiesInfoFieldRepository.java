@@ -23,30 +23,36 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.CswCapabilitiesInfoField;
-
 import java.util.List;
 
+import org.fao.geonet.domain.CswCapabilitiesInfoField;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
+
 /**
- * Data Access object for accessing {@link org.fao.geonet.domain.CswCapabilitiesInfoField}
- * entities.
+ * Data Access object for accessing
+ * {@link org.fao.geonet.domain.CswCapabilitiesInfoField} entities.
  *
  * @author Jesse
  */
 public interface CswCapabilitiesInfoFieldRepository extends GeonetRepository<CswCapabilitiesInfoField, Integer>,
-    CswCapabilitiesInfoFieldRepositoryCustom {
-    /**
-     * Find all the Capabilities Info objects for the given field.
-     *
-     * @param fieldName the name of the field to find.
-     */
-    List<CswCapabilitiesInfoField> findAllByFieldName(String fieldName);
+		CswCapabilitiesInfoFieldRepositoryCustom, CrudRepository<CswCapabilitiesInfoField, Integer>,
+		JpaRepository<CswCapabilitiesInfoField, Integer>, JpaSpecificationExecutor<CswCapabilitiesInfoField> {
+	/**
+	 * Find all the Capabilities Info objects for the given field.
+	 *
+	 * @param fieldName
+	 *            the name of the field to find.
+	 */
+	List<CswCapabilitiesInfoField> findAllByFieldName(String fieldName);
 
-    /**
-     * Find all the info for the given language.
-     *
-     * @param langId the 3 letter language identifier
-     * @return all the info for the given language.
-     */
-    List<CswCapabilitiesInfoField> findAllByLangId(String langId);
+	/**
+	 * Find all the info for the given language.
+	 *
+	 * @param langId
+	 *            the 3 letter language identifier
+	 * @return all the info for the given language.
+	 */
+	List<CswCapabilitiesInfoField> findAllByLangId(String langId);
 }

@@ -23,7 +23,11 @@
 
 package org.fao.geonet.domain;
 
-import javax.persistence.*;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 /**
  * Encapsulates the harvest data related to a metadata document. Like whether the metadata was
@@ -34,8 +38,10 @@ import javax.persistence.*;
  */
 @Embeddable
 @Access(AccessType.PROPERTY)
-public class MetadataHarvestInfo {
-    private char _harvested = Constants.YN_FALSE;
+public class MetadataHarvestInfo extends GeonetEntity {
+
+	private static final long serialVersionUID = -5684059702622516778L;
+	private Character _harvested = Constants.YN_FALSE;
     private String _uuid;
     private String _uri;
 
@@ -45,7 +51,7 @@ public class MetadataHarvestInfo {
      * controlling how types are mapped to the database.
      */
     @Column(name = "isHarvested", length = 1, nullable = false)
-    protected char getHarvested_JPAWorkaround() {
+    protected Character getHarvested_JPAWorkaround() {
         return _harvested;
     }
 
@@ -54,7 +60,7 @@ public class MetadataHarvestInfo {
      *
      * @param harvested Constants.YN_ENABLED or Constants.YN_DISABLED
      */
-    protected void setHarvested_JPAWorkaround(char harvested) {
+    protected void setHarvested_JPAWorkaround(Character harvested) {
         this._harvested = harvested;
     }
 

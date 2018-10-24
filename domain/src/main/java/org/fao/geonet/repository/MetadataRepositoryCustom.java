@@ -38,15 +38,13 @@ import org.jdom.Element;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.repository.NoRepositoryBean;
 
 /**
- * Custom (Non spring-data) Query methods for {@link Metadata} entities.
+ * Custom (Non spring-data) Query methods for {@link AbstractMetadata} entities.
  *
  * @author Jesse
  */
-@NoRepositoryBean
-public interface MetadataRepositoryCustom<T extends AbstractMetadata> {
+public interface MetadataRepositoryCustom<Metadata> {
 
     /**
      * Return an object that contains functions for calculating several different statistical
@@ -87,7 +85,7 @@ public interface MetadataRepositoryCustom<T extends AbstractMetadata> {
      * @return all ids
      */
     @Nonnull
-    List<Integer> findAllIdsBy(@Nonnull Specification<T> specs);
+    List<Integer> findAllIdsBy(@Nonnull Specification<Metadata> specs);
 
     /**
      * Find the metadata that has the oldest change date.
@@ -103,7 +101,7 @@ public interface MetadataRepositoryCustom<T extends AbstractMetadata> {
      * @param spec the specification identifying the metadata of interest
      * @return a map of metadataId -> SourceInfo
      */
-    Map<Integer, MetadataSourceInfo> findAllSourceInfo(Specification<T> spec);
+    Map<Integer, MetadataSourceInfo> findAllSourceInfo(Specification<Metadata> spec);
 
     /**
      * Load only the basic info for a metadata. Used in harvesters, mostly.

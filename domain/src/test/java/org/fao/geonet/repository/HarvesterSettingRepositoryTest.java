@@ -94,7 +94,7 @@ public class HarvesterSettingRepositoryTest extends AbstractSpringDataTest {
 
         List<Integer> children = _repo.findAllChildIds(parent.getId());
         assertEquals(1, children.size());
-        assertEquals(child.getId(), children.get(0).intValue());
+        assertEquals(child.getId(), children.get(0));
 
     }
 

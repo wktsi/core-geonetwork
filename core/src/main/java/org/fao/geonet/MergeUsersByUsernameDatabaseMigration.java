@@ -87,7 +87,7 @@ public class MergeUsersByUsernameDatabaseMigration implements ContextAwareTask {
 
         mergeUser(userToKeep, tempUser);
         duplicatedUserList.remove(greatestProfileUser);
-        userRepository.delete(duplicatedUserList);
+        userRepository.deleteAll(duplicatedUserList);
         userToKeep.setUsername(userToKeep.getUsername().toLowerCase());
         userRepository.save(userToKeep);
     }
@@ -144,7 +144,7 @@ public class MergeUsersByUsernameDatabaseMigration implements ContextAwareTask {
                 metadataStatusRepository.save(newMetadataStatus);
             }
             metadataStatusRepository.deleteAllById_UserId(oldOwner.getId());
-            metadataStatusRepository.save(metadataStatusList);
+            metadataStatusRepository.saveAll(metadataStatusList);
 
             dataManager.indexMetadata(Lists.transform(metadataList, new Function<Metadata, String>() {
                 @Nonnull
@@ -203,7 +203,7 @@ public class MergeUsersByUsernameDatabaseMigration implements ContextAwareTask {
 
         userGroupRepository.deleteAllByIdAttribute(UserGroupId_.userId,
             userIdList);
-        userGroupRepository.save(mergedUserGroups);
+        userGroupRepository.saveAll(mergedUserGroups);
     }
 
     public User mergeUser(User toOverwrite, User toKeep) {

@@ -22,22 +22,23 @@
  */
 package org.fao.geonet.repository.userfeedback;
 
-import org.fao.geonet.domain.userfeedback.Rating;
 import org.fao.geonet.domain.userfeedback.RatingCriteria;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * The Interface RatingCriteriaRepository.
  */
-public interface RatingCriteriaRepository extends JpaRepository<RatingCriteria, Long> {
+public interface RatingCriteriaRepository extends CrudRepository<RatingCriteria, Long>,
+		JpaRepository<RatingCriteria, Long>, JpaSpecificationExecutor<RatingCriteria> {
 
-    /**
-     * Find by criteria id.
-     *
-     * @param id the criteria id
-     * @return the list
-     */
-    RatingCriteria findById(Integer id);
+	/**
+	 * Find by criteria id.
+	 *
+	 * @param id
+	 *            the criteria id
+	 * @return the list
+	 */
+	RatingCriteria findById(Integer id);
 }

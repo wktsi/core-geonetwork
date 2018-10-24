@@ -23,6 +23,9 @@
 
 package org.fao.geonet.api.tools.i18n;
 
+
+import com.google.common.collect.Lists;
+
 import java.util.*;
 
 /**
@@ -66,16 +69,13 @@ public class LanguageUtils {
         Locale l = parseAcceptLanguage(locales);
         return locale2gnCode(l.getISO3Language());
     }
-
     static public String locale2gnCode (String code) {
         if (code.equals("fra")) {
             return "fre";
-        } else if (code.equals("slk")) { // transforms ISO 639-2/T into ISO 639-2/B
-            return "slo";
         } else {
             return code;
         }
-    }
+	}
 
     public Locale parseAcceptLanguage(final Locale locale) {
         Vector<Locale> locales = new Vector<>();

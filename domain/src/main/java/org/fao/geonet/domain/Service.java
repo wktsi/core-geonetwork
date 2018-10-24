@@ -46,6 +46,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * One of the entities responsible for dynamic service configuration. Entity representing a {@link
@@ -60,8 +61,13 @@ import javax.persistence.Table;
 @EntityListeners(ServiceEntityListenerManager.class)
 @SequenceGenerator(name = Service.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class Service extends GeonetEntity {
-    static final String ID_SEQ_NAME = "service_id_seq";
-    private int _id;
+
+	@Transient
+	private static final long serialVersionUID = 640762751273573980L;
+
+	@Transient
+	protected static final String ID_SEQ_NAME = "service_id_seq";
+    private Integer _id;
     private String _name;
     private String _className;
     private String description;
@@ -76,7 +82,7 @@ public class Service extends GeonetEntity {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -86,7 +92,7 @@ public class Service extends GeonetEntity {
      *
      * @param id the id of the service entity.
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this._id = id;
     }
 

@@ -854,7 +854,7 @@ public class BaseMetadataUtils implements IMetadataUtils {
 
 	@Override
 	public AbstractMetadata findOne(Specification<Metadata> spec) {
-		return metadataRepository.findOne(spec);
+		return metadataRepository.findOne(spec).orElse(null);
 	}
 
 	@Override
@@ -869,7 +869,7 @@ public class BaseMetadataUtils implements IMetadataUtils {
 
 	@Override
 	public Iterable<? extends AbstractMetadata> findAll(Set<Integer> keySet) {
-		return metadataRepository.findAll(keySet);
+		return metadataRepository.findAllById(keySet);
 	}
 
 	@SuppressWarnings("unchecked")

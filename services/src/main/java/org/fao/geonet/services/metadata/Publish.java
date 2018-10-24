@@ -255,7 +255,7 @@ public class Publish {
             final boolean succeeded = updateOps(serviceContext, false, groupIds, operationIds, mdId);
             if (!succeeded) {
                 operationAllowedRepository.deleteAll(allOpsSpec);
-                operationAllowedRepository.save(operationAllowed);
+                operationAllowedRepository.saveAll(operationAllowed);
                 report.incDisallowed();
             } else {
                 report.incUnpublished();
@@ -276,7 +276,7 @@ public class Publish {
             final boolean succeeded = updateOps(serviceContext, true, groupIds, operationIds, mdId);
             if (!succeeded) {
                 operationAllowedRepository.deleteAll(allOpsSpec);
-                operationAllowedRepository.save(operationAllowed);
+                operationAllowedRepository.saveAll(operationAllowed);
                 report.incDisallowed();
             } else {
                 toIndex.add(mdId);

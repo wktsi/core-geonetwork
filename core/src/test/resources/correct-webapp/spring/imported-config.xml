@@ -39,12 +39,12 @@
 
   <bean id="accessDecisionManager"
         class="org.springframework.security.access.vote.AffirmativeBased">
-    <property name="decisionVoters">
+    <constructor-arg>
       <list>
         <bean class="org.springframework.security.access.vote.RoleVoter"/>
         <bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
         <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
       </list>
-    </property>
+      </constructor-arg>
   </bean>
 </beans>

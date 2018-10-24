@@ -41,11 +41,12 @@ import java.util.Map;
 @EntityListeners(StatusValueEntityListenerManager.class)
 @SequenceGenerator(name = StatusValue.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class StatusValue extends Localized {
-    static final String ID_SEQ_NAME = "status_value_id_seq";
-    private int _id;
+	private static final long serialVersionUID = 449981401958326330L;
+	static final String ID_SEQ_NAME = "status_value_id_seq";
+    private Integer _id;
     private String _name;
     private char _reserved = Constants.YN_FALSE;
-    private int displayOrder;
+    private Integer displayOrder;
 
     /**
      * Get the id of the StatusValue object. This is a generated value and as such new instances
@@ -56,7 +57,7 @@ public class StatusValue extends Localized {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -67,7 +68,7 @@ public class StatusValue extends Localized {
      *
      * @param id the id of the StatusValue object
      */
-    public void setId(final int id) {
+    public void setId(final Integer id) {
         this._id = id;
     }
 
@@ -144,7 +145,7 @@ public class StatusValue extends Localized {
      * @return the order to display this value in the UI.
      */
     @Column(name = "displayorder")
-    public int getDisplayOrder() {
+    public Integer getDisplayOrder() {
         return displayOrder;
     }
 
@@ -154,7 +155,7 @@ public class StatusValue extends Localized {
      *
      * @param displayOrder the order to display this value in the UI
      */
-    public void setDisplayOrder(int displayOrder) {
+    public void setDisplayOrder(Integer displayOrder) {
         this.displayOrder = displayOrder;
     }
 }

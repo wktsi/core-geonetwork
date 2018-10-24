@@ -24,14 +24,19 @@
 package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.StatusValue;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link StatusValue} entities.
  *
  * @author Jesse
  */
-public interface StatusValueRepository extends GeonetRepository<StatusValue, Integer> {
-    StatusValue findOneByName(String statusValueName);
+public interface StatusValueRepository
+		extends GeonetRepository<StatusValue, Integer>, CrudRepository<StatusValue, Integer>,
+		JpaRepository<StatusValue, Integer>, JpaSpecificationExecutor<StatusValue> {
+	StatusValue findOneByName(String statusValueName);
 
-    StatusValue findOneById(int statusValueId);
+	StatusValue findOneById(int statusValueId);
 }

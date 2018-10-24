@@ -44,7 +44,7 @@ public class CustomElementSetsListResponse implements Serializable {
     @XmlElement(name = "xpath")
     private List<String> xpaths;
 
-    private boolean cswEnabled;
+    private Boolean cswEnabled;
 
     public List<String> getXpaths() {
         return xpaths;
@@ -58,7 +58,7 @@ public class CustomElementSetsListResponse implements Serializable {
         return cswEnabled;
     }
 
-    public void setCswEnabled(boolean cswEnabled) {
+    public void setCswEnabled(Boolean cswEnabled) {
         this.cswEnabled = cswEnabled;
     }
 }

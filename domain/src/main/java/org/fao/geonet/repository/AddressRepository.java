@@ -23,22 +23,27 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.Address;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
 import java.util.List;
 
+import org.fao.geonet.domain.Address;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
+
 /**
- * Data Access object for accessing {@link org.fao.geonet.domain.MetadataCategory} entities.
+ * Data Access object for accessing
+ * {@link org.fao.geonet.domain.MetadataCategory} entities.
  *
  * @author Jesse
  */
-public interface AddressRepository extends GeonetRepository<Address, Integer>, JpaSpecificationExecutor<Address> {
-    /**
-     * Find all the addresses in the given zip code.
-     *
-     * @param zip the zip code
-     * @return all the addresses in the given zip code
-     */
-    List<Address> findAllByZip(String zip);
+public interface AddressRepository extends GeonetRepository<Address, Integer>, JpaSpecificationExecutor<Address>,
+		CrudRepository<Address, Integer>, JpaRepository<Address, Integer> {
+	/**
+	 * Find all the addresses in the given zip code.
+	 *
+	 * @param zip
+	 *            the zip code
+	 * @return all the addresses in the given zip code
+	 */
+	List<Address> findAllByZip(String zip);
 }

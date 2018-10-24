@@ -23,10 +23,6 @@
 
 package org.fao.geonet.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.fao.geonet.entitylistener.IsoLanguageEntityListenerManager;
-
 import java.util.Map;
 
 import javax.persistence.Access;
@@ -46,6 +42,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.fao.geonet.entitylistener.IsoLanguageEntityListenerManager;
+
 /**
  * An entity representing the bi-directional mapping between the different iso language codes (de ->
  * ger) and translations of the languages. (German, Deutsch, etc...)
@@ -59,8 +57,10 @@ import javax.persistence.Table;
 @Cacheable
 @SequenceGenerator(name = IsoLanguage.ID_SEQ_NAME, initialValue = 10000, allocationSize = 1)
 public class IsoLanguage extends Localized {
-    static final String ID_SEQ_NAME = "iso_language_id_seq";
-    private int id;
+	
+	private static final long serialVersionUID = 7779835462506664177L;
+	static final String ID_SEQ_NAME = "iso_language_id_seq";
+    private Integer id;
     private String code;
     private String shortCode;
 
@@ -73,7 +73,7 @@ public class IsoLanguage extends Localized {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -85,7 +85,7 @@ public class IsoLanguage extends Localized {
      * @param id the id
      * @return this entity object
      */
-    public IsoLanguage setId(int id) {
+    public IsoLanguage setId(Integer id) {
         this.id = id;
         return this;
     }

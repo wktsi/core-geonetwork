@@ -58,10 +58,11 @@ import java.util.Map;
 @EntityListeners(SelectionEntityListenerManager.class)
 @SequenceGenerator(name = Selection.ID_SEQ_NAME, initialValue = 100, allocationSize = 1)
 public class Selection extends Localized implements Serializable {
-    static final String ID_SEQ_NAME = "selection_id_seq";
-    private int _id;
+	private static final long serialVersionUID = 2939576766749046451L;
+	static final String ID_SEQ_NAME = "selection_id_seq";
+    private Integer _id;
     private String _name;
-    private char watchable = Constants.YN_FALSE;
+    private Character watchable = Constants.YN_FALSE;
 
     /**
      * The id of the category. This is a generated value and not controlled by the developer.
@@ -70,7 +71,7 @@ public class Selection extends Localized implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQ_NAME)
-    public int getId() {
+    public Integer getId() {
         return _id;
     }
 
@@ -81,7 +82,7 @@ public class Selection extends Localized implements Serializable {
      *
      * @param id the id.
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this._id = id;
     }
 
@@ -121,7 +122,7 @@ public class Selection extends Localized implements Serializable {
      */
     @JsonIgnore
     @Column(name = "isWatchable", length = 1, nullable = false)
-    protected char getWatchable_JPAWorkaround() {
+    protected Character getWatchable_JPAWorkaround() {
         return watchable;
     }
 
@@ -130,7 +131,7 @@ public class Selection extends Localized implements Serializable {
      *
      * @param watchable Constants.YN_ENABLED or Constants.YN_DISABLED
      */
-    protected void setWatchable_JPAWorkaround(char watchable) {
+    protected void setWatchable_JPAWorkaround(Character watchable) {
         this.watchable = watchable;
     }
 

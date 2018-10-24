@@ -24,6 +24,8 @@
 package org.fao.geonet.util;
 
 import jeeves.server.context.ServiceContext;
+import jj2000.j2k.util.ArrayUtil;
+
 import org.fao.geonet.Constants;
 import org.fao.geonet.domain.User;
 import org.fao.geonet.domain.UserSecurityNotification;
@@ -33,6 +35,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.mchange.v1.util.ArrayUtils;
 
 import javax.servlet.ServletContext;
 import java.io.UnsupportedEncodingException;

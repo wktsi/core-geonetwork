@@ -24,7 +24,9 @@
 package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.Setting;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link Setting} entities.
@@ -32,5 +34,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @author Jesse
  */
 public interface SettingRepository extends GeonetRepository<Setting, String>,
-    SettingRepositoryCustom, JpaSpecificationExecutor<Setting> {
+		SettingRepositoryCustom, CrudRepository<Setting, String>, JpaRepository<Setting, String>,
+		JpaSpecificationExecutor<Setting>{
 }

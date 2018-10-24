@@ -41,6 +41,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.fao.geonet.domain.GeonetEntity;
 import org.fao.geonet.domain.Metadata;
@@ -51,7 +52,7 @@ import org.fao.geonet.domain.User;
  */
 @Entity(name = "GUF_UserFeedback")
 @Table(name = "GUF_UserFeedbacks")
-public class UserFeedback extends GeonetEntity implements Serializable {
+public class UserFeedback extends GeonetEntity {
 
 
     public enum UserRatingStatus {
@@ -60,6 +61,7 @@ public class UserFeedback extends GeonetEntity implements Serializable {
     }
 
 
+    @Transient
     private static final long serialVersionUID = -5537639171291203188L;
 
     private String uuid;
@@ -71,7 +73,7 @@ public class UserFeedback extends GeonetEntity implements Serializable {
     private String authorName;
     private String authorOrganization;
     private String authorEmail;
-    private int authorPrivacy;
+    private Integer authorPrivacy;
     private Set<Keyword> keywords;
     private UserRatingStatus status;
     private User approver;
@@ -141,7 +143,7 @@ public class UserFeedback extends GeonetEntity implements Serializable {
 
     @Column
     @Nullable
-    public int getAuthorPrivacy() {
+    public Integer getAuthorPrivacy() {
         return authorPrivacy;
     }
 
@@ -223,7 +225,7 @@ public class UserFeedback extends GeonetEntity implements Serializable {
     }
 
 
-    public void setAuthorPrivacy(int authorPrivacy) {
+    public void setAuthorPrivacy(Integer authorPrivacy) {
         this.authorPrivacy = authorPrivacy;
     }
 

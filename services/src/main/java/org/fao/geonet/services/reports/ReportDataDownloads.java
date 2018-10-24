@@ -104,7 +104,7 @@ public class ReportDataDownloads implements Service {
         for (MetadataFileDownload fileDownload : records) {
             // User should be the user that uploaded the file
             int fileUploadId = fileDownload.getFileUploadId();
-            MetadataFileUpload metadataFileUpload = uploadRepo.findOne(MetadataFileUploadSpecs.hasId(fileUploadId));
+            MetadataFileUpload metadataFileUpload = uploadRepo.findOne(MetadataFileUploadSpecs.hasId(fileUploadId)).orElse(null);
 
             User user = context.getBean(UserRepository.class).findOneByUsername(metadataFileUpload.getUserName());
 

@@ -219,7 +219,7 @@ public class SchematronCriteriaServiceIntegrationTest extends AbstractSchematron
         final String value = "x/y/z";
         final SchematronCriteriaType criteriaType = SchematronCriteriaType.XPATH;
         String newName = "newGroupName" + _inc.incrementAndGet();
-        final int schematronId = _group1_Name1_SchematronId1.getId().getSchematronId();
+        final Integer schematronId = _group1_Name1_SchematronId1.getId().getSchematronId();
 
         Element params = createParams(
             read(SchematronCriteriaService.PARAM_GROUP_NAME, newName),

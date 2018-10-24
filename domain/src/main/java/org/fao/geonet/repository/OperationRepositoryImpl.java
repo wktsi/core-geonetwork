@@ -23,11 +23,11 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.Operation;
-import org.fao.geonet.domain.ReservedOperation;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.fao.geonet.domain.Operation;
+import org.fao.geonet.domain.ReservedOperation;
 
 
 /**
@@ -36,9 +36,9 @@ import javax.persistence.PersistenceContext;
  *
  * @author Jesse
  */
-public class OperationRepositoryImpl implements OperationRepositoryCustom {
+public class OperationRepositoryImpl extends GeonetRepositoryImpl<Operation, Integer> implements OperationRepositoryCustom {
 
-    @PersistenceContext
+	@PersistenceContext
     private EntityManager _entityManager;
 
     @Override

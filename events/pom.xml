@@ -38,10 +38,6 @@
   <url>http://geonetwork-opensource.org</url>
   <dependencies>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-    <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>domain</artifactId>
       <version>${project.version}</version>

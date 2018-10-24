@@ -23,10 +23,18 @@
 
 package org.fao.geonet.domain;
 
-import org.fao.geonet.entitylistener.LanguageEntityListenerManager;
-
 import javax.annotation.Nonnull;
-import javax.persistence.*;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.fao.geonet.entitylistener.LanguageEntityListenerManager;
 
 /**
  * The enumeration of all languages available in the system.
@@ -44,10 +52,12 @@ import javax.persistence.*;
 @Cacheable
 @EntityListeners(LanguageEntityListenerManager.class)
 public class Language extends GeonetEntity {
-    String _id;
+    
+	private static final long serialVersionUID = -236488970135232232L;
+	String _id;
     String _name;
-    char _inspire = Constants.YN_FALSE;
-    char _defaultLanguage = Constants.YN_FALSE;
+    Character _inspire = Constants.YN_FALSE;
+    Character _defaultLanguage = Constants.YN_FALSE;
 
     /**
      * Get the id of the language. This is a generated value and as such new instances should not
@@ -99,7 +109,7 @@ public class Language extends GeonetEntity {
      * controlling how types are mapped to the database.
      */
     @Column(name = "isInspire", length = 1)
-    protected char getInspire_JPAWorkaround() {
+    protected Character getInspire_JPAWorkaround() {
         return _inspire;
     }
 
@@ -109,7 +119,7 @@ public class Language extends GeonetEntity {
      *
      * @param isinspire y or n
      */
-    protected void setInspire_JPAWorkaround(char isinspire) {
+    protected void setInspire_JPAWorkaround(Character isinspire) {
         _inspire = isinspire;
     }
 
@@ -138,11 +148,11 @@ public class Language extends GeonetEntity {
      * controlling how types are mapped to the database.
      */
     @Column(name = "isDefault", length = 1)
-    protected char getDefaultLanguage_JPAWorkaround() {
+    protected Character getDefaultLanguage_JPAWorkaround() {
         return _defaultLanguage;
     }
 
-    protected void setDefaultLanguage_JPAWorkaround(char isdefault) {
+    protected void setDefaultLanguage_JPAWorkaround(Character isdefault) {
         _defaultLanguage = isdefault;
     }
 

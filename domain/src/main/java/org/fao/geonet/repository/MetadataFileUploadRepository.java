@@ -24,16 +24,18 @@
 package org.fao.geonet.repository;
 
 import org.fao.geonet.domain.MetadataFileUpload;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-
-import javax.annotation.Nonnull;
+import org.springframework.data.repository.CrudRepository;
 
 /**
- * Data Access object for accessing {@link org.fao.geonet.domain.MetadataFileUpload} entities.
+ * Data Access object for accessing
+ * {@link org.fao.geonet.domain.MetadataFileUpload} entities.
  *
  * @author Jose García
  */
 public interface MetadataFileUploadRepository extends GeonetRepository<MetadataFileUpload, Integer>,
-    JpaSpecificationExecutor<MetadataFileUpload>, MetadataFileUploadRepositoryCustom {
+		CrudRepository<MetadataFileUpload, Integer>, JpaRepository<MetadataFileUpload, Integer>,
+		JpaSpecificationExecutor<MetadataFileUpload>, MetadataFileUploadRepositoryCustom {
 
 }

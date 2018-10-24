@@ -96,7 +96,7 @@ public class ReportDownloads implements IReport {
                 int fileUploadId = fileDownload.getFileUploadId();
                 MetadataFileUpload metadataFileUpload =
                         uploadRepo.findOne(
-                                MetadataFileUploadSpecs.hasId(fileUploadId));
+                                MetadataFileUploadSpecs.hasId(fileUploadId)).orElse(null);
 
                 String username = metadataFileUpload.getUserName();
                 String name = "";

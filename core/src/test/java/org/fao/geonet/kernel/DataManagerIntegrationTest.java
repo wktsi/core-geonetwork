@@ -222,7 +222,7 @@ public class DataManagerIntegrationTest extends AbstractCoreIntegrationTest {
         final ServiceContext serviceContext = createServiceContext();
         loginAsAdmin(serviceContext);
 
-        final int metadataId = importMetadata(this, serviceContext);
+        final Integer metadataId = importMetadata(this, serviceContext);
 
         final MetadataStatus status = _dataManager.getStatus(metadataId);
 
@@ -236,9 +236,9 @@ public class DataManagerIntegrationTest extends AbstractCoreIntegrationTest {
 
         assertEquals(changeDate, loadedStatus.getId().getChangeDate());
         assertEquals(changeMessage, loadedStatus.getChangeMessage());
-        assertEquals(0, loadedStatus.getStatusValue().getId());
+        assertEquals(new Integer(0), loadedStatus.getStatusValue().getId());
         assertEquals(metadataId, loadedStatus.getId().getMetadataId());
-        assertEquals(0, loadedStatus.getId().getStatusId());
+        assertEquals(new Integer(0), loadedStatus.getId().getStatusId());
         assertEquals(serviceContext.getUserSession().getUserIdAsInt(), loadedStatus.getId().getUserId());
     }
 

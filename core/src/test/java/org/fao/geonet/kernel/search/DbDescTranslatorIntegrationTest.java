@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -63,7 +64,7 @@ public class DbDescTranslatorIntegrationTest extends AbstractCoreIntegrationTest
         JpaRepository<Object, T> repo = mock(JpaRepository.class);
         ValueObject value = new ValueObject();
 
-        when(repo.findOne(key)).thenReturn(value);
+        when(repo.findById(key)).thenReturn(Optional.of(value));
         final String beanName = "testRepo";
         StaticApplicationContext appContext = new StaticApplicationContext(_appContext);
         appContext.getBeanFactory().registerSingleton(beanName, repo);

@@ -33,6 +33,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * One single aspect that could be evalueted in a user feedback: it's a (n:1) relation with a User feedback (so not directly related to
@@ -44,12 +45,14 @@ import javax.persistence.Table;
 public class Rating implements Serializable {
 
     /** Sequence name */
+    @Transient
     static final String ID_SEQ_NAME = "gufrat_id_seq";
 
+    @Transient
     private static final long serialVersionUID = -3085407373602831420L;
 
 
-    private long id;
+    private Long id;
     private UserFeedback userfeedback;
     private RatingCriteria category;
     private Integer rating;
@@ -57,7 +60,7 @@ public class Rating implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = Rating.ID_SEQ_NAME)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -82,7 +85,7 @@ public class Rating implements Serializable {
     }
 
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

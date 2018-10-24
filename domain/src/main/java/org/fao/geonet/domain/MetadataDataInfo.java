@@ -23,8 +23,6 @@
 
 package org.fao.geonet.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.AttributeOverride;
@@ -40,19 +38,19 @@ import javax.persistence.Transient;
  */
 @Embeddable
 @Access(AccessType.PROPERTY)
-public class MetadataDataInfo implements Serializable {
+public class MetadataDataInfo extends GeonetEntity {
     private static final long serialVersionUID = 8049813754167665960L;
     private String _title;
     private ISODate _changeDate = new ISODate();
     private ISODate _createDate = new ISODate();
     private String _schemaId;
-    private char _template = Constants.YN_FALSE;
+    private Character _template = Constants.YN_FALSE;
     private String _root;
     private String _doctype;
     private String _extra;
     private Integer _displayOrder = 0;
-    private int _rating = 0;
-    private int _popularity = 0;
+    private Integer _rating = 0;
+    private Integer _popularity = 0;
 
     /**
      * Get title of metadata.
@@ -129,7 +127,7 @@ public class MetadataDataInfo implements Serializable {
      * controlling how types are mapped to the database.
      */
     @Column(name = "isTemplate", length = 1, nullable = false)
-    protected char getType_JPAWorkaround() {
+    protected Character getType_JPAWorkaround() {
         return _template;
     }
 
@@ -138,7 +136,7 @@ public class MetadataDataInfo implements Serializable {
      *
      * @param template Constants.YN_ENABLED or Constants.YN_DISABLED
      */
-    protected void setType_JPAWorkaround(char template) {
+    protected void setType_JPAWorkaround(Character template) {
         this._template = template;
     }
 
@@ -240,7 +238,7 @@ public class MetadataDataInfo implements Serializable {
      * @return the rating of the metadata.
      */
     @Column(nullable = false)
-    public int getRating() {
+    public Integer getRating() {
         return _rating;
     }
 
@@ -250,7 +248,7 @@ public class MetadataDataInfo implements Serializable {
      * @param rating set the metadata rating.
      * @return this data info object
      */
-    public MetadataDataInfo setRating(int rating) {
+    public MetadataDataInfo setRating(Integer rating) {
         this._rating = rating;
         return this;
     }
@@ -261,7 +259,7 @@ public class MetadataDataInfo implements Serializable {
      * @return the popularity of the metadata. (Number of views).
      */
     @Column(nullable = false)
-    public int getPopularity() {
+    public Integer getPopularity() {
         return _popularity;
     }
 
@@ -271,7 +269,7 @@ public class MetadataDataInfo implements Serializable {
      * @param popularity the popularity of the metadata. (Number of views).
      * @return this data info object
      */
-    public MetadataDataInfo setPopularity(int popularity) {
+    public MetadataDataInfo setPopularity(Integer popularity) {
         this._popularity = popularity;
         return this;
     }

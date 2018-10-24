@@ -605,7 +605,7 @@ public class BaseMetadataValidator implements org.fao.geonet.kernel.datamanager.
      */
     private void saveValidationStatus(int id, List<MetadataValidation> validations) throws Exception {
         validationRepository.deleteAllById_MetadataId(id);
-        validationRepository.save(validations);
+        validationRepository.saveAll(validations);
     }
 
     /**

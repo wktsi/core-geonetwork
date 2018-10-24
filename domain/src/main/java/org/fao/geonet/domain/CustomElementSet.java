@@ -38,9 +38,11 @@ import javax.persistence.*;
 @Table(name = "CustomElementSet")
 @EntityListeners(CustomElementSetEntityListenerManager.class)
 public class CustomElementSet extends GeonetEntity {
-    private static final int XPATH_COLUMN_LENGTH = 1000;
+
+	private static final long serialVersionUID = 9209590243298278438L;
+	private static final int XPATH_COLUMN_LENGTH = 1000;
     private String _xpath;
-    private int _xpathHashcode;
+    private Integer _xpathHashcode;
 
     /**
      * The hashcode of the xpath.  This has to be the id because mysql + JPA have a problem with a
@@ -49,7 +51,8 @@ public class CustomElementSet extends GeonetEntity {
      * @return the hashcode of the xpath.
      */
     @Id
-    public int getXpathHashcode() {
+    @Column(nullable = false)
+    public Integer getXpathHashcode() {
         return _xpathHashcode;
     }
 
@@ -58,7 +61,7 @@ public class CustomElementSet extends GeonetEntity {
      *
      * @param xpathHashcode the hashcode.
      */
-    protected void setXpathHashcode(int xpathHashcode) {
+    public void setXpathHashcode(Integer xpathHashcode) {
         this._xpathHashcode = xpathHashcode;
     }
 

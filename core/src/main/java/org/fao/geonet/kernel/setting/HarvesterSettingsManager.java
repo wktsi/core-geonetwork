@@ -207,7 +207,7 @@ public class HarvesterSettingsManager {
             }
         }
 
-        settingsRepo.save(toSave);
+        settingsRepo.saveAll(toSave);
 
         return success;
     }

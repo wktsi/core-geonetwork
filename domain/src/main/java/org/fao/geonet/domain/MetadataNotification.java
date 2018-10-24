@@ -38,8 +38,10 @@ import javax.persistence.*;
 @Table(name = "MetadataNotifications")
 @EntityListeners(MetadataNotificationEntityListenerManager.class)
 public class MetadataNotification extends GeonetEntity {
-    private MetadataNotificationId _id;
-    private char _notified = Constants.YN_FALSE;
+
+	private static final long serialVersionUID = 5117327442206634269L;
+	private MetadataNotificationId _id;
+    private Character _notified = Constants.YN_FALSE;
     private String _metadataUuid;
     private MetadataNotificationAction _action;
     private String _errorMessage;
@@ -71,7 +73,7 @@ public class MetadataNotification extends GeonetEntity {
      * controlling how types are mapped to the database.
      */
     @Column(name = "notified", length = 1, nullable = false)
-    protected char getNotified_JPAWorkaround() {
+    protected Character getNotified_JPAWorkaround() {
         return _notified;
     }
 
@@ -80,7 +82,7 @@ public class MetadataNotification extends GeonetEntity {
      *
      * @param notified y or n
      */
-    protected void setNotified_JPAWorkaround(char notified) {
+    protected void setNotified_JPAWorkaround(Character notified) {
         this._notified = notified;
     }
 
@@ -154,7 +156,7 @@ public class MetadataNotification extends GeonetEntity {
      */
     @Lob
     @Column(name = "errormsg")
-    @Type(type = "org.hibernate.type.StringClobType")
+    @Type(type = "org.hibernate.type.TextType")
     // this is a work around for postgres so postgres can correctly load clobs
     public String getErrorMessage() {
         return _errorMessage;

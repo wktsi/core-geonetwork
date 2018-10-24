@@ -508,7 +508,7 @@ public class MetadataSchema {
                 updated.add(schematron);
             }
         }
-        this.schemaRepo.save(updated);
+        this.schemaRepo.saveAll(updated);
     }
 
     public void setOperationFilters(Map<String, Pair<String, Element>> operationFilters) {

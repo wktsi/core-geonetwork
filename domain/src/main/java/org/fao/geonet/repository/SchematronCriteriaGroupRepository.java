@@ -23,13 +23,15 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.SchematronCriteriaGroup;
-import org.fao.geonet.domain.SchematronCriteriaGroupId;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import java.util.List;
+import org.fao.geonet.domain.SchematronCriteriaGroup;
+import org.fao.geonet.domain.SchematronCriteriaGroupId;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for the {@link org.fao.geonet.domain.Schematron} entities.
@@ -37,8 +39,10 @@ import java.util.List;
  * @author delawen
  */
 public interface SchematronCriteriaGroupRepository extends
-    GeonetRepository<SchematronCriteriaGroup, SchematronCriteriaGroupId>,
-    JpaSpecificationExecutor<SchematronCriteriaGroup> {
+		GeonetRepository<SchematronCriteriaGroup, SchematronCriteriaGroupId>,
+		CrudRepository<SchematronCriteriaGroup, SchematronCriteriaGroupId>,
+		JpaRepository<SchematronCriteriaGroup, SchematronCriteriaGroupId>,
+		JpaSpecificationExecutor<SchematronCriteriaGroup> {
     /**
      * Look up a schematrons by its schema
      *

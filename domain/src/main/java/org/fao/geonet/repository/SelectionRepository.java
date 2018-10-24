@@ -23,16 +23,17 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.MetadataCategory;
 import org.fao.geonet.domain.Selection;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * Data Access object for accessing {@link Selection} entities.
  */
 public interface SelectionRepository
-    extends GeonetRepository<Selection, Integer>, SelectionRepositoryCustom,
-    JpaSpecificationExecutor<MetadataCategory> {
+		extends GeonetRepository<Selection, Integer>, SelectionRepositoryCustom, CrudRepository<Selection, Integer>,
+		JpaRepository<Selection, Integer>, JpaSpecificationExecutor<Selection>{
     /**
      * Find the selection with the given name.
      *

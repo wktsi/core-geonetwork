@@ -435,10 +435,10 @@ public class Update {
         }
 
         // Remove deprecated usergroups (if any)
-        userGroupRepository.delete(toRemove);
+        userGroupRepository.deleteAll(toRemove);
 
         // Add only new usergroups (if any)
-        userGroupRepository.save(toAdd);
+        userGroupRepository.saveAll(toAdd);
 
     }
 

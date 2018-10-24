@@ -23,9 +23,6 @@
 
 package org.fao.geonet.repository;
 
-import org.fao.geonet.domain.Selection;
-import org.fao.geonet.domain.Selection_;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
@@ -35,12 +32,15 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 
+import org.fao.geonet.domain.Selection;
+import org.fao.geonet.domain.Selection_;
+
 /**
  * Implementation for custom selection methods.
  */
-public class SelectionRepositoryImpl implements SelectionRepositoryCustom {
+public class SelectionRepositoryImpl extends GeonetRepositoryImpl<Selection, Integer> implements SelectionRepositoryCustom {
 
-    @PersistenceContext
+	@PersistenceContext
     private EntityManager _entityManager;
 
 

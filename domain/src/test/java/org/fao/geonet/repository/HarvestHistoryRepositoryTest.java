@@ -120,9 +120,9 @@ public class HarvestHistoryRepositoryTest extends AbstractSpringDataTest {
 
         _repo.markAllAsDeleted(history1.getHarvesterUuid());
 
-        List<HarvestHistory> found = _repo.findAll(Collections.singleton(history1.getId()));
+        List<HarvestHistory> found = _repo.findAllById(Collections.singleton(history1.getId()));
         assertTrue(found.get(0).isDeleted());
-        List<HarvestHistory> found2 = _repo.findAll(Collections.singleton(history2.getId()));
+        List<HarvestHistory> found2 = _repo.findAllById(Collections.singleton(history2.getId()));
         assertFalse(found2.get(0).isDeleted());
         assertTrue(_repo.findOne(history1.getId()).isDeleted());
         assertFalse(_repo.findOne(history2.getId()).isDeleted());
