@@ -260,7 +260,7 @@
               '" gn-transfer-md-owner="' + ownerId + '" ' +
               '" gn-transfer-md-group-owner="' + groupOwner + '" ' +
               'selection-bucket="' + bucket + '"></div>'
-        }, scope, 'TransferOwnershipDone');
+        }, scope, 'TransferOwnership');
       };
       /**
        * Duplicate the given metadata. Open the editor in new page.
@@ -299,9 +299,9 @@
             angular.isDefined(md) ? undefined : bucket,
             onOrOff, $rootScope.user)
             .then(
-            function(response) {
-              if (response.data !== '') {
-                scope.processReport = response.data;
+            function(data) {
+              if (data !== '') {
+                scope.processReport = data;
 
                 // A report is returned
                 gnUtilityService.openModal({
@@ -329,13 +329,13 @@
               if (md) {
                 md.publish();
               }
-            }, function(response) {
+            }, function(data) {
               scope.$emit('PrivilegesUpdated', false);
               scope.$broadcast('operationOnSelectionStop');
               scope.$emit('StatusUpdated', {
                 title: onOrOff ? translations.metadataPublishedError :
                   translations.metadataUnpublishedError,
-                error: response.data,
+                error: data,
                 timeout: 0,
                 type: 'danger'});
             });
@@ -418,8 +418,8 @@
        * @param {Object} crsDetails expected keys: code, codeSpace, name
        */
       this.formatCrs = function(crsDetails) {
-        var crs = (crsDetails.codeSpace && crsDetails.codeSpace + ':') +
-            crsDetails.code;
+        var crs = (crsDetails.codeSpace ? (crsDetails.codeSpace + ':') : '') +
+          crsDetails.code;
         if (crsDetails.name) return crsDetails.name + ' (' + crs + ')';
         else return crs;
       };

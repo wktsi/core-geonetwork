@@ -50,32 +50,32 @@
 
         $http.post('../api/customstyle',
             formId)
-            .then(function(response) {
+            .then(function(data) {
               $http({
                 method: 'GET',
                 url: '../../static/wroAPI/reloadModel',
                 headers: {'Content-Type': 'text/plain'}
-              }).then(function(response) {
+              }).then(function(data) {
                 $http({
                   method: 'GET',
                   url: '../../static/wroAPI/reloadCache',
                   headers: {'Content-Type': 'text/plain'}
-                }).then(function(response) {
+                }).then(function(data) {
                   $window.location.reload(); });
               });
-            }, function(response) {
+            }, function(error) {
               $rootScope.$broadcast('StatusUpdated', {
                 title: $translate.instant('settingsUpdateError'),
-                error: response.data,
+                msg: error.message || error,
                 timeout: 0,
                 type: 'danger'});
             });
 
       };
 
-      $scope.uploadCssStyleSettings = function(cssJsonContent) {
+      $scope.uploadCssStyleSettings = function(cssJsonContent){
 
-        if (cssJsonContent) {
+        if(cssJsonContent) {
           $scope.saveCssStyleSettings(cssJsonContent);
         } else {
           $rootScope.$broadcast('StatusUpdated', {
@@ -86,7 +86,7 @@
         }
       };
 
-      $scope.restoreDefaultCssStyleSettings = function(formId) {
+      $scope.restoreDefaultCssStyleSettings = function(formId){
         angular.forEach(formId, function(value, key) {
           $scope.gnCssStyle[key] = '';
         });

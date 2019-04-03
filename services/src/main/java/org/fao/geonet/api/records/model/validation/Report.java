@@ -1,8 +1,6 @@
 
 package org.fao.geonet.api.records.model.validation;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -32,7 +30,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *         &lt;element ref="{}total"/>
  *         &lt;element ref="{}requirement"/>
  *         &lt;element ref="{}patterns"/>
- *         &lt;element ref="{}schematronVerificationError"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -50,8 +47,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "success",
     "total",
     "requirement",
-    "patterns",
-    "schematronVerificationError"
+    "patterns"
 })
 @XmlRootElement(name = "report")
 public class Report {
@@ -76,9 +72,6 @@ public class Report {
     protected String requirement;
     @XmlElement(required = true)
     protected Patterns patterns;
-    @XmlElement(required = false)
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    protected String schematronVerificationError;
 
     /**
      * Gets the value of the id property.
@@ -270,23 +263,6 @@ public class Report {
      */
     public void setPatterns(Patterns value) {
         this.patterns = value;
-    }
-
-    /**
-     * Gets the value of schematronVerificationError. This is set when a failure occurred while a schematron run.
-     *
-     * @return the schematronVerificationError property.
-     */
-    public String getSchematronVerificationError() {
-        return schematronVerificationError;
-    }
-
-    /**
-     * Sets the value of schematronVerificationError property.
-     * @param schematronVerificationError the error message.
-     */
-    public void setSchematronVerificationError(String schematronVerificationError) {
-        this.schematronVerificationError = schematronVerificationError;
     }
 
 }

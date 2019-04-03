@@ -152,11 +152,11 @@
             $scope.virtualCSWSelected.id !== '' ?
             '/' + $scope.virtualCSWSelected.id : ''
             ), $scope.virtualCSWSelected)
-            .then(function(response) {
+            .then(function(r) {
               if (r.status === 400) {
                 $rootScope.$broadcast('StatusUpdated', {
                   title: $translate.instant('virtualCswUpdateError'),
-                  error: response.data,
+                  error: r.data,
                   timeout: 0,
                   type: 'danger'});
               } else {
@@ -166,10 +166,10 @@
                   timeout: 2,
                   type: 'success'});
               }
-            }, function(response) {
+            }, function(data) {
               $rootScope.$broadcast('StatusUpdated', {
                 title: $translate.instant('virtualCswUpdateError'),
-                error: response.data,
+                error: data,
                 timeout: 0,
                 type: 'danger'});
             });
@@ -178,12 +178,13 @@
       $scope.deleteVirtualCSW = function() {
         $http.delete('../api/csw/virtuals/' +
             $scope.virtualCSWSelected.id)
-            .then(function(data) {
+            .success(function(data) {
               loadCSWVirtual();
-            }, function(response) {
+            })
+            .error(function(data) {
               $rootScope.$broadcast('StatusUpdated', {
                 title: $translate.instant('virtualCswDeleteError'),
-                error: response.data,
+                error: data,
                 timeout: 0,
                 type: 'danger'});
             });

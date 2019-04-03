@@ -553,10 +553,13 @@ input[type=file] {
 
 /* alerts */
 .gn-alerts {
-  position:fixed;
-  z-index:9999;
-  top:5px;
-  left:5px;
+  position: absolute;
+  top: 1em;
+  left: 50%;
+  width: 300px;
+  margin-left: -150px;
+  text-align: center;
+  z-index: 1000;
 }
 
 .gn-recordtype-n:before { content: @fa-var-file-text }

@@ -24,25 +24,18 @@
 (function() {
   goog.provide('gn_cat_controller');
 
-  
-  
-  
-  
-  
-  
-goog.require('gn_admin_menu');
-goog.require('gn_external_viewer');
-goog.require('gn_history');
-goog.require('gn_saved_selections');
-goog.require('gn_search_manager');
-goog.require('gn_session_service');
-goog.require('gn_alert');
+  goog.require('gn_admin_menu');
+  goog.require('gn_saved_selections');
+  goog.require('gn_search_manager');
+  goog.require('gn_session_service');
+  goog.require('gn_external_viewer');
+  goog.require('gn_history');
 
 
   var module = angular.module('gn_cat_controller',
       ['gn_search_manager', 'gn_session_service',
         'gn_admin_menu', 'gn_saved_selections',
-        'gn_external_viewer', 'gn_history', 'gn_alert']);
+        'gn_external_viewer', 'gn_history']);
 
 
   module.constant('gnSearchSettings', {});
@@ -90,8 +83,7 @@ goog.require('gn_alert');
         },
         'home': {
           'enabled': true,
-          'appUrl': '../../srv/{{lang}}/catalog.search#/home',
-          'showSocialBarInFooter': true
+          'appUrl': '../../srv/{{lang}}/catalog.search#/home'
         },
         'search': {
           'enabled': true,
@@ -290,7 +282,7 @@ goog.require('gn_alert');
             }
           }, config).mods.header.languages;
         }
-
+        
         this.gnUrl = gnUrl || '../';
         this.proxyUrl = this.gnUrl + '../proxy?url=';
         gnViewerSettings.mapConfig = this.gnCfg.mods.map;
@@ -313,13 +305,13 @@ goog.require('gn_alert');
         copy.mods.search.grid.related = [];
         return copy;
       },
-      getProxyUrl: function() {
+      getProxyUrl: function () {
         return this.proxyUrl;
       },
       // Removes the proxy path and decodes the layer url,
       // so the layer can be printed with MapFish.
       // Otherwise Mapfish rejects it, due to relative url.
-      getNonProxifiedUrl: function(url) {
+      getNonProxifiedUrl: function (url) {
         if (url.indexOf(this.proxyUrl) > -1) {
           return decodeURIComponent(
             url.replace(this.proxyUrl, ''));
@@ -419,30 +411,28 @@ goog.require('gn_alert');
     'gnSearchManagerService', 'gnConfigService', 'gnConfig',
     'gnGlobalSettings', '$location', 'gnUtilityService',
     'gnSessionService', 'gnLangs', 'gnAdminMenu',
-    'gnViewerSettings', 'gnSearchSettings', '$cookies',
-    'gnExternalViewer', 'gnAlertService',
+    'gnViewerSettings', 'gnSearchSettings', '$cookies', 'gnExternalViewer',
     function($scope, $http, $q, $rootScope, $translate,
              gnSearchManagerService, gnConfigService, gnConfig,
              gnGlobalSettings, $location, gnUtilityService,
              gnSessionService, gnLangs, gnAdminMenu,
-             gnViewerSettings, gnSearchSettings, $cookies,
-             gnExternalViewer, gnAlertService) {
+             gnViewerSettings, gnSearchSettings, $cookies, gnExternalViewer) {
       $scope.version = '0.0.1';
 
 
-      // Links for social media
+      //Update Links for social media
       $scope.socialMediaLink = $location.absUrl();
+      $scope.$on('$locationChangeSuccess', function(event) {
+        $scope.socialMediaLink = $location.absUrl();
+        $scope.showSocialMediaLink =
+            ($scope.socialMediaLink.indexOf('/metadata/') != -1);
+      });
       $scope.getPermalink = gnUtilityService.getPermalink;
 
       // If gnLangs current already set by config, do not use URL
       $scope.langs = gnGlobalSettings.gnCfg.mods.header.languages;
       $scope.lang = gnLangs.detectLang(null, gnGlobalSettings);
       $scope.iso2lang = gnLangs.getIso2Lang($scope.lang);
-
-      $scope.getSocialLinksVisible = function() {
-        var onMdView =  $location.absUrl().indexOf('/metadata/') > -1;
-        return !onMdView && gnGlobalSettings.gnCfg.mods.home.showSocialBarInFooter;
-      };
 
       function detectNode(detector) {
         if (detector.regexp) {
@@ -477,7 +467,7 @@ goog.require('gn_alert');
       $scope.nodeId = detectNode(gnGlobalSettings.gnCfg.nodeDetector);
       $scope.service = detectService(gnGlobalSettings.gnCfg.serviceDetector);
       gnGlobalSettings.nodeId = $scope.nodeId;
-      gnConfig.env = gnConfig.env ||  {};
+      gnConfig.env = gnConfig.env || {};
       gnConfig.env.node = $scope.nodeId;
       gnConfig.env.baseURL = detectBaseURL(gnGlobalSettings.gnCfg.baseURLDetector);
 
@@ -576,6 +566,7 @@ goog.require('gn_alert');
        */
       $scope.searchInfo = {};
 
+      $scope.status = null;
       var defaultStatus = {
         title: '',
         link: '',
@@ -711,15 +702,25 @@ goog.require('gn_alert');
         $scope.loadCatalogInfo();
       });
 
+      $scope.clearStatusMessage = function() {
+        $scope.status = null;
+        $('.gn-info').hide();
+      };
+
       $scope.allowPublishInvalidMd = function() {
         return gnConfig['metadata.workflow.allowPublishInvalidMd'];
       };
 
       $scope.$on('StatusUpdated', function(event, status) {
-        var statusToApply = {};
-        $.extend(statusToApply, defaultStatus, status);
-
-        gnAlertService.addAlert(statusToApply, statusToApply.timeout);
+        $scope.status = {};
+        $.extend($scope.status, defaultStatus, status);
+        $('.gn-info').show();
+        // TODO : handle multiple messages
+        if ($scope.status.timeout > 0) {
+          setTimeout(function() {
+            $scope.clearStatusMessage();
+          }, $scope.status.timeout * 1000);
+        }
       });
 
       gnSessionService.scheduleCheck($scope.user);

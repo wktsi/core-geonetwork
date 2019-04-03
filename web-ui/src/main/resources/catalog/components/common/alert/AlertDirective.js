@@ -33,42 +33,13 @@
     '$timeout',
     function(gnAlertValue, $timeout) {
 
-      // delay to close the alert in milliseconds.
       var delay = 2000;
-
-      /**
-       * Adds an alert to be handled by the alert manager.
-       *
-       * @param {Object} alert Alert to display.
-       * @param {Number} d     Timeout to close the alert (in seconds)
-       */
       this.addAlert = function(alert, d) {
-        var alertToUpdatePos = -1;
+        gnAlertValue.push(alert);
 
-        if (alert.id) {
-          // Check if exists an alert with same id and replace it
-          for (var i = 0; i < gnAlertValue.length; i++) {
-            var selectedAlertId = gnAlertValue[i].id;
-
-            if (selectedAlertId && (alert.id == selectedAlertId)) {
-              alertToUpdatePos = i;
-              break;
-            }
-          }
-        }
-
-        if (alertToUpdatePos > -1) {
-          gnAlertValue[alertToUpdatePos] = alert;
-        } else {
-          gnAlertValue.push(alert);
-
-          // Error alerts require to be closed by the user
-          if (alert.type !== 'danger') {
-            $timeout(function() {
-              gnAlertValue.splice(0, 1);
-            }, (d * 1000) ||  delay);
-          }
-        }
+        $timeout(function() {
+          gnAlertValue.splice(0, 1);
+        }, d || delay);
       };
     }]);
 
@@ -82,13 +53,6 @@
             'partials/alert.html',
         link: function(scope, element, attrs) {
           scope.alerts = gnAlertValue;
-
-          scope.closeAlert = function(pos) {
-            if ((pos > -1) &&
-                (pos < gnAlertValue.length)) {
-              gnAlertValue.splice(pos, 1);
-            }
-          };
         }
       };
     }]);

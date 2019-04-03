@@ -406,11 +406,8 @@
                       fileStoreFilter: '*.{jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF}',
                       process: 'thumbnail-add',
                       fields: {
-                        'url': {
-                          param: 'thumbnail_url',
-                          isMultilingual: false
-                        },
-                        'name': {param: 'thumbnail_desc'}
+                        'url': {isMultilingual: false},
+                        'name': {param: 'desc'}
                       }
                     }, {
                       group: 'onlineDiscover',

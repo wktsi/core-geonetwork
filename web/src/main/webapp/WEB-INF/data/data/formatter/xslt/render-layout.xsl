@@ -67,24 +67,22 @@
         <xsl:apply-templates mode="getMetadataTitle" select="$metadata"/>
       </xsl:variable>
 
-      <article id="{$metadataUuid}"
+
+      <article id="gn-metadata-view-{$metadataId}"
                class="gn-md-view gn-metadata-display"
                itemscope="itemscope"
                itemtype="{gn-fn-core:get-schema-org-class($type)}">
-        <meta itemprop="identifier" content="{$metadataUuid}"></meta>
-        <meta itemprop="url" content="{$nodeUrl}api/records/{$metadataUuid}"></meta>
-        <span itemprop="includedInDataCatalog" 
-              itemscope="itemscope"
-              itemtype="http://schema.org/DataCatalog">
-                 <meta itemprop="url" content="{$nodeUrl}search"></meta>
-        </span>
+
+
 
         <div class="row">
           <div class="col-md-8">
 
             <header>
-              <h1 itemprop="name">
-                <i class="fa gn-icon-{$type}"><xsl:comment select="'icon'"/></i>
+              <h1 itemprop="name"
+                  itemscope="itemscope"
+                  itemtype="http://schema.org/name">
+                <i class="fa gn-icon-{$type}">&#160;</i>
                 <xsl:value-of select="$title"/>
               </h1>
 
@@ -92,7 +90,7 @@
 
               <div gn-related="md"
                    data-user="user"
-                   data-types="onlines"><xsl:comment select="'icon'"/></div>
+                   data-types="onlines">&#160;</div>
             </header>
 
             <div>
@@ -116,7 +114,7 @@
 
             <section class="gn-md-side-providedby">
               <h2>
-                <i class="fa fa-fw fa-cog"><xsl:comment select="'icon'"/></i>
+                <i class="fa fa-fw fa-cog">&#160;</i>
                 <span><xsl:value-of select="$schemaStrings/providedBy"/></span>
               </h2>
               <img class="gn-source-logo"
@@ -127,33 +125,32 @@
             <xsl:if test="$isSocialbarEnabled">
               <section class="gn-md-side-social">
                 <h2>
-                  <i class="fa fa-fw fa-share-square-o"><xsl:comment select="'icon'"/></i>
-
+                  <i class="fa fa-fw fa-share-square-o">&#160;</i>
                   <span><xsl:value-of select="$schemaStrings/shareOnSocialSite"/></span>
                 </h2>
                 <a href="https://twitter.com/share?url={encode-for-uri($nodeUrl)}api%2Frecords%2F{$metadataUuid}"
                   target="_blank"
                   aria-label="Twitter"
                   class="btn btn-default">
-                  <i class="fa fa-fw fa-twitter"><xsl:comment select="'icon'"/></i>
+                  <i class="fa fa-fw fa-twitter">&#160;</i>
                 </a>
                 <a href="https://www.facebook.com/sharer.php?u={encode-for-uri($nodeUrl)}api%2Frecords%2F{$metadataUuid}"
                   target="_blank"
                   aria-label="Facebook"
                   class="btn btn-default">
-                  <i class="fa fa-fw fa-facebook"><xsl:comment select="'icon'"/></i>
+                  <i class="fa fa-fw fa-facebook">&#160;</i>
                 </a>
                 <a href="http://www.linkedin.com/shareArticle?mini=true&amp;summary=&amp;url={encode-for-uri($nodeUrl)}api%2Frecords%2F{$metadataUuid}"
                   target="_blank"
                   aria-label="LinkedIn"
                   class="btn btn-default">
-                  <i class="fa fa-fw fa-linkedin"><xsl:comment select="'icon'"/></i>
+                  <i class="fa fa-fw fa-linkedin">&#160;</i>
                 </a>
                 <a href="mailto:?subject={$title}&amp;body={encode-for-uri($nodeUrl)}api%2Frecords%2F{$metadataUuid}"
                   target="_blank"
                   aria-label="Mail"
                   class="btn btn-default">
-                  <i class="fa fa-fw fa-envelope-o"><xsl:comment select="'icon'"/></i>
+                  <i class="fa fa-fw fa-envelope-o">&#160;</i>
                 </a>
               </section>
             </xsl:if>
@@ -163,7 +160,7 @@
             <xsl:if test="$root != 'div'">
               <section class="gn-md-side-viewmode">
                 <h2>
-                  <i class="fa fa-fw fa-eye"><xsl:comment select="'icon'"/></i>
+                  <i class="fa fa-fw fa-eye">&#160;</i>
                   <span><xsl:value-of select="$schemaStrings/viewMode"/></span>
                 </h2>
                 <xsl:for-each select="$configuration/editor/views/view[not(@disabled)]">
@@ -190,12 +187,20 @@
 
               <section class="gn-md-side-access">
                 <div class="well text-center">
+                  <span itemprop="identifier"
+                      itemscope="itemscope"
+                      itemtype="http://schema.org/identifier"
+                      class="hidden">
+                    <xsl:value-of select="$metadataUuid"/>
+                  </span>
                   <a itemprop="url"
+                     itemscope="itemscope"
+                     itemtype="http://schema.org/url"
                      class="btn btn-block btn-primary"
                      href="{if ($portalLink != '')
                             then replace($portalLink, '\$\{uuid\}', $metadataUuid)
                             else concat($nodeUrl, $language, '/catalog.search#/metadata/', $metadataUuid)}">
-                    <i class="fa fa-fw fa-link"><xsl:comment select="'icon'"/></i>
+                    <i class="fa fa-fw fa-link">&#160;</i>
                     <xsl:value-of select="$schemaStrings/linkToPortal"/>
                   </a>
                   <xsl:value-of select="$schemaStrings/linkToPortal-help"/>
@@ -205,7 +210,7 @@
 
             <section class="gn-md-side-associated">
               <h2>
-                <i class="fa fa-fw fa-link"><xsl:comment select="'icon'"/></i>
+                <i class="fa fa-fw fa-link">&#160;</i>
                 <span><xsl:value-of select="$schemaStrings/associatedResources"/></span>
               </h2>
               <div gn-related="md"
@@ -224,7 +229,7 @@
              data-watch=""
              data-filter="div > h3"/>-->
         <footer>
-          <xsl:comment>Not yet</xsl:comment>
+
         </footer>
       </article>
       <br/>
@@ -272,7 +277,7 @@
             No information
           </xsl:when>
           <xsl:otherwise>
-            <xsl:copy-of select="$content"/><xsl:comment select="'icon'"/>
+            <xsl:copy-of select="$content"/>&#160;
           </xsl:otherwise>
         </xsl:choose>
       </div>
@@ -288,8 +293,8 @@
   <xsl:template mode="render-view"
                 match="section[@xpath]">
     <div id="gn-view-{generate-id()}" class="gn-tab-content">
-      <xsl:apply-templates mode="render-view" select="@xpath"/>
-      <xsl:comment select="'icon'"/></div>
+      <xsl:apply-templates mode="render-view" select="@xpath"/>&#160;
+    </div>
   </xsl:template>
 
 
@@ -306,8 +311,8 @@
         </xsl:element>
       </xsl:if>
       <xsl:apply-templates mode="render-view"
-                           select="section|field"/>
-    <xsl:comment select="'icon'"/></div>
+                           select="section|field"/>&#160;
+    </div>
   </xsl:template>
 
 

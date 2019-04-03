@@ -525,10 +525,8 @@ public class LuceneQueryBuilder {
                 addNotRequiredTextField(fieldValue, LuceneIndexField.ANY, similarity, (criteriaIsASet ? bq : query));
             }
             // without
-            else if (fieldName.startsWith("without")) {
-                addProhibitedTextField(fieldValue,
-                    fieldName.contains("-") ? fieldName.split("-")[1] : LuceneIndexField.ANY,
-                    (criteriaIsASet ? bq : query));
+            else if ("without".equals(fieldName)) {
+                addProhibitedTextField(fieldValue, LuceneIndexField.ANY, (criteriaIsASet ? bq : query));
             }
             // phrase
             else if ("phrase".equals(fieldName)) {

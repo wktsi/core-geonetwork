@@ -236,8 +236,4 @@
   <east>east</east>
   <south>south</south>
   <west>west</west>
-  <trueValue>Yes</trueValue>
-  <falseValue>No</falseValue>
-  <nilValue>Undefined</nilValue>
-
 </strings>

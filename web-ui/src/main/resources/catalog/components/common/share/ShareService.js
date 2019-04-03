@@ -227,10 +227,10 @@
             clear: replace,
             privileges: ops
           })
-              .then(function(response) {
-                defer.resolve(response);
-              }, function(response) {
-                defer.reject(response);
+              .success(function(data) {
+                defer.resolve(data);
+              }).error(function(data) {
+                defer.reject(data);
               });
           return defer.promise;
         }

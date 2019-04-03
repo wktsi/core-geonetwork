@@ -193,7 +193,6 @@
     <xsl:param name="config" required="no"/>
 
     <xsl:variable name="elementName" select="name()"/>
-
     <xsl:variable name="excluded"
                   select="gn-fn-iso19139:isNotMultilingualField(., $editorConfig)"/>
 
@@ -319,7 +318,6 @@
       </xsl:choose>
     </xsl:variable>
 
-
     <xsl:call-template name="render-element">
       <xsl:with-param name="label"
                       select="$labelConfig/*"/>
@@ -357,11 +355,6 @@
       <xsl:with-param name="forceDisplayAttributes" select="$forceDisplayAttributes"/>
       <xsl:with-param name="isFirst"
                       select="count(preceding-sibling::*[name() = $elementName]) = 0"/>
-      <!-- Children of an element having an XLink using the directory
-      is in readonly mode. Search by reference because this template may be
-      called without context eg. render-table. -->
-      <xsl:with-param name="isDisabled"
-                      select="count($metadata//*[gn:element/@ref = $theElement/gn:element/@ref]/ancestor-or-self::node()[contains(@xlink:href, 'api/registries/entries')]) > 0"/>
     </xsl:call-template>
 
   </xsl:template>
@@ -472,9 +465,6 @@
       </xsl:choose>
     </xsl:variable>
 
-    <xsl:variable name="ref"
-                  select="*/gn:element/@ref"/>
-
     <xsl:call-template name="render-element">
       <xsl:with-param name="label" select="$labelConfig/*"/>
       <xsl:with-param name="value" select="*/@codeListValue"/>
@@ -489,11 +479,6 @@
                       select="gn-fn-metadata:getCodeListValues($schema, name(*[@codeListValue]), $codelists, .)"/>
       <xsl:with-param name="isFirst"
                       select="count(preceding-sibling::*[name() = $elementName]) = 0"/>
-      <!-- Children of an element having an XLink using the directory
-      is in readonly mode. Search by reference because this template may be
-      called without context eg. render-table. -->
-      <xsl:with-param name="isDisabled"
-                      select="count($metadata//*[gn:element/@ref = $ref]/ancestor-or-self::node()[contains(@xlink:href, 'api/registries/entries')]) > 0"/>
     </xsl:call-template>
 
   </xsl:template>

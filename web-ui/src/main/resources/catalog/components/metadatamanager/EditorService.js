@@ -233,14 +233,8 @@
                 if (!silent) {
                   setStatus({msg: 'saveMetadataError', saving: false});
                 }
-
                 gnCurrentEdit.working = false;
-
-                // Error is returned in XML format, convert it to JSON
-                var x2js = new X2JS();
-                var errorJson = x2js.xml_str2json(error);
-
-                defer.reject(errorJson.apiError);
+                defer.reject(error);
               });
              return defer.promise;
            },
@@ -345,7 +339,7 @@
                extent = angular.fromJson(value);
              } catch (e) {
                console.warn(
-               'Failed to parse the following extent as JSON: ' +
+                 'Failed to parse the following extent as JSON: ' +
                value);
              }
              angular.extend(gnCurrentEdit, {
@@ -381,7 +375,7 @@
                  gnCurrentEdit.allLanguages.code2iso[code] = iso;
                  gnCurrentEdit.allLanguages.iso2code[iso] = code;
                  gnCurrentEdit.allLanguages.iso.push(iso);
-
+                 ;
                });
              }
 

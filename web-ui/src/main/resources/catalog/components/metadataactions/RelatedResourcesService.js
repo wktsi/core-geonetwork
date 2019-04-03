@@ -144,13 +144,6 @@
             gnSearchLocation.setMap();
           };
 
-          function addGeoJSONToMap(record, md) {
-            var url = $filter('gnLocalized')(record.url) || record.url;
-            gnMap.addGeoJSONToMap(record.name, url,
-               gnSearchSettings.viewerMap);
-            gnSearchLocation.setMap();
-          };
-
           function addMapToMap(record, md) {
             var url = $filter('gnLocalized')(record.url) || record.url;
             gnOwsContextService.loadContextFromUrl(url,
@@ -242,11 +235,6 @@
               iconClass: 'fa-globe',
               label: 'addToMap',
               action: gnExternalViewer.isEnabled() ? null : addKMLToMap
-            },
-            'GEOJSON' : {
-              iconClass: 'fa-globe',
-              label: 'addToMap',
-              action: gnExternalViewer.isEnabled() ? null : addGeoJSONToMap
             },
             'MDFCATS' : {
               iconClass: 'fa-table',
@@ -370,8 +358,6 @@
                 return 'FILE';
               } else if (protocolOrType.match(/kml/i)) {
                 return 'KML';
-              } else if (protocolOrType.match(/geojson/i)) {
-                return 'GEOJSON';
               } else if (protocolOrType.match(/download/i)) {
                 var url = $filter('gnLocalized')(resource.url) || resource.url;
                 if (url.match(/zip/i)) {
