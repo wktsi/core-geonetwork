@@ -55,7 +55,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.fao.geonet.ApplicationContextHolder;
-import org.fao.geonet.GeonetContext;
 import org.fao.geonet.api.API;
 import org.fao.geonet.api.ApiParams;
 import org.fao.geonet.api.ApiUtils;
@@ -94,12 +93,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -111,6 +105,8 @@ import io.swagger.annotations.ApiResponses;
 import jeeves.server.UserSession;
 import jeeves.server.context.ServiceContext;
 import springfox.documentation.annotations.ApiIgnore;
+
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 
 
 /**
@@ -177,12 +173,13 @@ public class KeywordsApi {
         path = "/search",
         method = RequestMethod.GET,
         produces = {
-            MediaType.APPLICATION_JSON_VALUE
+            MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE
         })
     @ResponseStatus(
         value = HttpStatus.OK)
     @ResponseBody
-    public List<KeywordBean> searchKeywords(
+    public Object searchKeywords(
         @ApiParam(
             value = "Query",
             required = false
@@ -271,10 +268,168 @@ public class KeywordsApi {
         @ApiIgnore
             HttpServletRequest request,
         @ApiIgnore
+            HttpServletResponse response,
+        @ApiIgnore
             @ApiParam(hidden = true)
-        HttpSession httpSession
+        HttpSession httpSession,
+        @ApiIgnore
+        @RequestHeader(
+            value = "Accept",
+            defaultValue = MediaType.APPLICATION_JSON_VALUE
+        )
+        String accept
     )
         throws Exception {ConfigurableApplicationContext applicationContext = ApplicationContextHolder.get();
+        List<KeywordBean> results = getKeywords(q, lang, rows, start, targetLangs, thesaurus, type, uri, sort, request, httpSession);
+
+        boolean isJson = accept.contains(MediaType.APPLICATION_JSON_VALUE);
+
+        if (isJson) {
+            response.setHeader(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+            return results;
+        } else {
+            response.setHeader(CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE);
+            return new org.fao.geonet.api.List<KeywordBean>(results);
+        }
+    }
+
+    /**
+     * Search keywords.
+     *
+     * @param q the q
+     * @param lang the lang
+     * @param rows the rows
+     * @param start the start
+     * @param targetLangs the target langs
+     * @param thesaurus the thesaurus
+     * @param type the type
+     * @param uri the uri
+     * @param sort the sort
+     * @param request the request
+     * @param httpSession the http session
+     * @return the list
+     * @throws Exception the exception
+     */
+    @ApiOperation(
+        value = "Search keywords",
+        nickname = "searchKeywordsXml",
+        notes = "")
+    @RequestMapping(
+        path = "/search.xml",
+        method = RequestMethod.GET,
+        produces = {
+            MediaType.APPLICATION_XML_VALUE
+        })
+    @ResponseStatus(
+        value = HttpStatus.OK)
+    @ResponseBody
+    public Object searchKeywordsXml(
+        @ApiParam(
+            value = "Query",
+            required = false
+        )
+        @RequestParam(
+            required = false
+        )
+            String q,
+        @ApiParam(
+            value = "Query in that language",
+            required = false
+        )
+        @RequestParam(
+            value = "lang",
+            defaultValue = "eng"
+        )
+            String lang,
+        @ApiParam(
+            value = "Number of rows",
+            required = false
+        )
+        @RequestParam(
+            required = false,
+            defaultValue = "1000"
+        )
+            int rows,
+        @ApiParam(
+            value = "Start from",
+            required = false
+        )
+        @RequestParam(
+            defaultValue = "0",
+            required = false
+        )
+            int start,
+        @ApiParam(
+            value = "Return keyword information in one or more languages",
+            required = false
+        )
+        @RequestParam(
+            value = XmlParams.pLang,
+            required = false
+        )
+            List<String> targetLangs,
+        @ApiParam(
+            value = "Thesaurus identifier",
+            required = false
+        )
+        @RequestParam(
+            required = false
+        )
+            String[] thesaurus,
+//        @ApiParam(
+//            value = "?",
+//            required = false
+//        )
+//        @RequestParam(
+//            required = false
+//        )
+//            String thesauriDomainName,
+        @ApiParam(
+            value = "Type of search",
+            required = false
+        )
+        @RequestParam(
+            defaultValue = "CONTAINS"
+        )
+            KeywordSearchType type,
+        @ApiParam(
+            value = "URI query",
+            required = false
+        )
+        @RequestParam(
+            required = false
+        )
+            String uri,
+        @ApiParam(
+            value = "Sort by",
+            required = false
+        )
+        @RequestParam(
+            required = false,
+            defaultValue = "DESC"
+        )
+            String sort,
+        @ApiIgnore
+            HttpServletRequest request,
+        @ApiIgnore
+            HttpServletResponse response,
+        @ApiIgnore
+        @ApiParam(hidden = true)
+            HttpSession httpSession,
+        @ApiIgnore
+        @RequestHeader(
+            value = "Accept",
+            defaultValue = MediaType.APPLICATION_JSON_VALUE
+        )
+            String accept
+    )
+        throws Exception {ConfigurableApplicationContext applicationContext = ApplicationContextHolder.get();
+        List<KeywordBean> results = getKeywords(q, lang, rows, start, targetLangs, thesaurus, type, uri, sort, request, httpSession);
+        response.setHeader(CONTENT_TYPE, MediaType.APPLICATION_XML_VALUE);
+        return new org.fao.geonet.api.List<KeywordBean>(results);
+    }
+
+    private List<KeywordBean> getKeywords(@RequestParam(required = false) @ApiParam(value = "Query", required = false) String q, @RequestParam(value = "lang", defaultValue = "eng") @ApiParam(value = "Query in that language", required = false) String lang, @RequestParam(required = false, defaultValue = "1000") @ApiParam(value = "Number of rows", required = false) int rows, @RequestParam(defaultValue = "0", required = false) @ApiParam(value = "Start from", required = false) int start, @RequestParam(value = XmlParams.pLang, required = false) @ApiParam(value = "Return keyword information in one or more languages", required = false) List<String> targetLangs, @RequestParam(required = false) @ApiParam(value = "Thesaurus identifier", required = false) String[] thesaurus, @RequestParam(defaultValue = "CONTAINS") @ApiParam(value = "Type of search", required = false) KeywordSearchType type, @RequestParam(required = false) @ApiParam(value = "URI query", required = false) String uri, @RequestParam(required = false, defaultValue = "DESC") @ApiParam(value = "Sort by", required = false) String sort, @ApiIgnore HttpServletRequest request, @ApiParam(hidden = true) @ApiIgnore HttpSession httpSession) throws Exception {
         ServiceContext context = ApiUtils.createServiceContext(request);
         UserSession session = ApiUtils.getUserSession(httpSession);
 
@@ -290,9 +445,9 @@ public class KeywordsApi {
 
         String thesauriDomainName = null;
 
-        List<String> thesauri=null;
-        if (thesaurus!=null)
-            thesauri=Arrays.asList(thesaurus);
+        List<String> thesauri = null;
+        if (thesaurus != null)
+            thesauri = Arrays.asList(thesaurus);
 
         KeywordSearchParamsBuilder builder = parseBuilder(
             lang, q, rows, start,
@@ -312,12 +467,8 @@ public class KeywordsApi {
         searcher.search(builder.build());
         session.setProperty(Geonet.Session.SEARCH_KEYWORDS_RESULT,
             searcher);
-
-
-        // get the results
         return searcher.getResults();
     }
-
 
 
     /** The mapper. */

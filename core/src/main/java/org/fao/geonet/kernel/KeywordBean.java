@@ -32,11 +32,13 @@ import org.jdom.Content;
 import org.jdom.Element;
 import org.springframework.util.StringUtils;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
 
 /**
  * TODO javadoc.
  */
+@XmlRootElement(name = "keyword")
 public class KeywordBean {
 
     /**
@@ -60,6 +62,8 @@ public class KeywordBean {
     private String keywordUrl;
     private IsoLanguagesMapper isoLanguageMapper;
     private String defaultLang;
+
+    public KeywordBean(){};
 
     public KeywordBean(IsoLanguagesMapper isoLangMapper) {
         this.isoLanguageMapper = isoLangMapper;

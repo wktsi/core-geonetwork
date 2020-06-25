@@ -28,6 +28,7 @@
                 xmlns:srv="http://www.isotc211.org/2005/srv"
                 xmlns:gmd="http://www.isotc211.org/2005/gmd"
                 xmlns:gmx="http://www.isotc211.org/2005/gmx"
+                xmlns:util="java:org.fao.geonet.util.XslUtil"
                 version="2.0" exclude-result-prefixes="#all">
 
   <xsl:import href="process-utility.xsl"/>
@@ -45,8 +46,8 @@
   </xsl:variable>
 
   <!-- GeoNetwork base url -->
-  <xsl:param name="siteUrl" select="'http://localhost:8080/geonetwork/srv/eng'"/>
-  <xsl:param name="gurl" select="$siteUrl"/>
+  <xsl:param name="nodeUrl" select="util:getSettingValue('nodeUrl')"/>
+  <xsl:param name="gurl" select="$nodeUrl"/>
 
   <!-- The UI language. Thesaurus search is made according to GUI language -->
   <xsl:param name="guiLang" select="'eng'"/>
@@ -59,7 +60,7 @@
   <xsl:variable name="replaceMode"
                 select="geonet:parseBoolean($replace)"/>
   <xsl:variable name="serviceUrl"
-                select="concat($gurl, 'keywords?pNewSearch=true&amp;pTypeSearch=2&amp;pKeyword=')"/>
+                select="concat($nodeUrl, 'api/registries/vocabularies/search.xml?type=CONTAINS&amp;q=')"/>
 
 
   <xsl:template name="list-add-extent-from-geokeywords">
@@ -90,7 +91,7 @@
           <xsl:value-of select="geonet:i18n($add-extent-loc, 'b', $guiLang)"/>
         </name>
         <operational>true</operational>
-        <params>{"gurl":{"type":"string", "defaultValue":"<xsl:value-of select="$gurl"/>"},
+        <params>{"gurl":{"type":"string", "defaultValue":"<xsl:value-of select="$nodeUrl"/>"},
           "lang":{"type":"string", "defaultValue":"<xsl:value-of select="$lang"/>"},
           "replace":{"type":"boolean", "defaultValue":"<xsl:value-of select="$replace"/>"}}
         </params>
@@ -236,22 +237,23 @@
 
     <xsl:if test="normalize-space($word)!=''">
       <!-- Get keyword information -->
-      <xsl:variable name="keyword" select="document(concat($serviceUrl, encode-for-uri($word)))"/>
+      <xsl:variable name="keyword"
+                    select="document(concat($serviceUrl, encode-for-uri($word)))"/>
       <!-- It should be one but if one keyword is found in more
           thant one thesaurus, then each will be processed.-->
-      <xsl:for-each select="$keyword/response/descKeys/keyword">
-        <xsl:if test="geo">
+      <xsl:for-each select="$keyword//keyword">
+        <xsl:if test="coordWest">
           <xsl:choose>
             <xsl:when test="$srv">
               <srv:extent>
                 <xsl:copy-of
-                  select="geonet:make-iso-extent(geo/west, geo/south, geo/east, geo/north, $word)"/>
+                  select="geonet:make-iso-extent(coordWest, coordSouth, coordEast, coordNorth, $word)"/>
               </srv:extent>
             </xsl:when>
             <xsl:otherwise>
               <gmd:extent>
                 <xsl:copy-of
-                  select="geonet:make-iso-extent(geo/west, geo/south, geo/east, geo/north, $word)"/>
+                  select="geonet:make-iso-extent(coordWest, coordSouth, coordEast, coordNorth, $word)"/>
               </gmd:extent>
             </xsl:otherwise>
           </xsl:choose>
