@@ -102,5 +102,9 @@
   "searchBadRequest": "Query returned an error. Check the console for details.",
   "searchInvalidResponse": "Query returned an invalid response. Check the console for details.",
   "exactMatch": "Exact match",
-  "exactMatch-help": "Exact match means that '\"' are added to the search terms."
+  "exactMatch-help": "Exact match means that '\"' are added to the search terms.",
+  "ui-timezone": "Timezone for date formatting",
+  "ui-timezone-help": "Which timezone should be used? 'Browser' will use the timezone detected in the browser. '' will use index date timezone.",
+  "ui-dateFormat": "Date format",
+  "ui-dateFormat-help": "eg. 'DD-MM-YYYY', 'dddd, MMMM Do YYYY, h:mm:ss a ZZ'"
 }
