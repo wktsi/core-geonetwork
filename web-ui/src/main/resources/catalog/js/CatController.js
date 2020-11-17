@@ -40,7 +40,12 @@
       ['gn_search_manager', 'gn_session_service',
         'gn_admin_menu', 'gn_saved_selections']);
 
-
+  module.filter('numkeys', function() {
+	  return function(object) {
+	    return Object.keys(object).length;
+	  }
+	});
+  
   module.constant('gnSearchSettings', {});
   module.constant('gnViewerSettings', {});
   module.constant('gnGlobalSettings', function() {
@@ -75,7 +80,8 @@
             'ita' : 'it',
             'rus': 'ru',
             'chi': 'zh',
-            'slo': 'sk'
+            'slo': 'sk',
+            'por': 'pt'
           }
         },
         'home': {
@@ -224,6 +230,7 @@
     };
 
     return {
+      defaultGroup: 2, //SNIG: set default group for new metadata records
       proxyUrl: '',
       locale: {},
       isMapViewerEnabled: false,
@@ -429,7 +436,7 @@
         'fre': 'Français', 'ger': 'Deutsch', 'kor': '한국의',
         'spa': 'Español', 'cat': 'Català', 'cze': 'Czech',
         'ita': 'Italiano', 'fin': 'Suomeksi', 'ice': 'Íslenska',
-        'rus': 'русский', 'chi': '中文', 'slo': 'Slovenčina'};
+        'rus': 'русский', 'chi': '中文', 'slo': 'Slovenčina', 'por': 'Português'};
       $scope.url = '';
       $scope.gnUrl = gnGlobalSettings.gnUrl;
       $scope.gnCfg = gnGlobalSettings.gnCfg;

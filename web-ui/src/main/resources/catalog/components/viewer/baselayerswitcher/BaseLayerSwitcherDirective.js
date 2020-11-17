@@ -49,10 +49,16 @@
           scope.layers = gnViewerSettings.bgLayers;
           scope.dropup = angular.isDefined(attrs.dropup);
           var firstLayer = scope.map.getLayers().item(0);
-          if(firstLayer && scope.layers.indexOf(firstLayer) < 0 &&
-            !scope.layers.fromCtx) {
+          
+          //TODO (RS):
+          //if(firstLayer && scope.layers.indexOf(firstLayer) < 0 &&
+          //  !scope.layers.fromCtx) {
+          if(firstLayer && scope.layers.indexOf(firstLayer) < 0 && 
+        	   !(scope.map.getLayers().getLength() > 0 && scope.map.getLayers().getArray()[0].get('group'))
+          ) {        	  
             scope.map.getLayers().insertAt(0, scope.layers[0]);
           }
+          
           scope.setBgLayer = function(layer) {
             layer.setVisible(true);
             var layers = scope.map.getLayers();

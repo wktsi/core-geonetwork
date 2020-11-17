@@ -1299,6 +1299,96 @@ public class LuceneSearcher extends MetaSearcher implements MetadataRecordSelect
         LOGGER.debug("  {} returned.", suggestions.size());
     }
 
+    /**
+     * Perform a query, loop over results in order to find values containing the search value for a
+     * specific field.
+     *
+     * If the field is not stored in the index, an empty collection is returned.
+     *
+     * @param searchField      The field to search in
+     * @param searchValue      The value contained in field's value (case is ignored)
+     * @param filterField      The field to filter
+     * @param filterValue      The filter field's value
+     * @param maxNumberOfTerms The maximum number of terms to search for
+     * @param threshold        The minimum frequency for terms to be returned
+     */
+    public void getSuggestionForFieldsWithFilter(ServiceContext srvContext,
+                                       final String searchField, final String searchValue,
+                                       final String filterField, final String filterValue,
+                                       ServiceConfig config, int maxNumberOfTerms,
+                                       int threshold, Collection<SearchManager.TermFrequency> suggestions) throws Exception {
+        LOGGER.debug("Get suggestion on field: '{}'\tsearching: '{}'\tthreshold: '{}'\tmaxNumberOfTerms: '{}'",
+            new Object[] {searchField, searchValue, threshold, maxNumberOfTerms});
+
+        String searchValueWithoutWildcard = searchValue.replaceAll("[*?]", "");
+
+        // To count the number of values added and stop if maxNumberOfTerms reach
+        if (_language == null) {
+            final Element request = new Element("request").addContent(new Element("any").setText(searchValue));
+            _language = determineLanguage(srvContext, request, _sm.getSettingInfo());
+        }
+
+        _logSearch = false;
+
+        // Search for all current session could search for
+        // Do a like query to limit the size of the results
+        Element elData = new Element(Jeeves.Elem.REQUEST); // SearchDefaults.getDefaultSearch(srvContext, null);
+        elData.addContent(new Element("fast").addContent("index"));
+        elData.addContent(new Element(Geonet.SearchResult.BUILD_SUMMARY).addContent(Boolean.toString(true)));
+
+        if (!searchValue.equals("")) {
+            elData.addContent(new Element(searchField).setText(searchValue));
+        }        
+        if (!filterField.equals("") && !filterValue.equals("")) {
+            elData.addContent(new Element(filterField).setText(filterValue));
+        }                
+        elData.addContent(new Element("from").setText("1"));
+        elData.addContent(new Element("to").setText(Integer.MAX_VALUE + ""));
+        elData.addContent(new Element(Geonet.SearchResult.RESULT_TYPE).setText(Geonet.SearchResult.ResultType.SUGGESTIONS));
+        elData.addContent(new Element(Geonet.SearchResult.SUMMARY_ITEMS).setText(searchField));
+        search(srvContext, elData, config);
+
+        if (getTo() > 0) {
+            Set<String> encountered = new LinkedHashSet<String>();
+            final Iterator descendants = _elSummary.getDescendants();
+            while (descendants.hasNext()) {
+                Content next = (Content) descendants.next();
+
+                if (next instanceof Element) {
+                    Element element = (Element) next;
+
+                    if (element.getContentSize() == 0 && element.getAttribute("name") != null) {
+                        final String value = element.getAttributeValue("name");
+
+                        if (!encountered.contains(value)) {
+                            encountered.add(value);
+                            int count = Integer.parseInt(element.getAttributeValue("count"));
+
+                            if (value.toLowerCase().contains(searchValueWithoutWildcard.toLowerCase())) {
+                                TermFrequency term = new TermFrequency(value, count);
+                                suggestions.add(term);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Filter values which does not reach the threshold
+        if (threshold > 1) {
+            int size = suggestions.size();
+            Iterator<TermFrequency> it = suggestions.iterator();
+            while (it.hasNext()) {
+                TermFrequency term = it.next();
+                if (term.getFrequency() < threshold) {
+                    it.remove();
+                }
+            }
+            LOGGER.debug("  {}/{} above threshold: {}", new Object[]{suggestions.size(), size, threshold});
+        }
+        LOGGER.debug("  {} returned.", suggestions.size());
+    }
+
     public int getSize() {
         return _numHits;
     }

@@ -1,5 +1,5 @@
 <div data-ng-controller="GnAdminController">
-  <div class="row">
+  <div class="row" data-ng-show="user.isAdministratorOrMore()">
     <div class="col-md-12">
       <ul class="nav nav-pills">
         <li data-ng-repeat="t in pageMenu.tabs"
@@ -13,6 +13,6 @@
     </div>
   </div>
   <br/>
-
+  	
   <div data-ng-include="getTpl(pageMenu)"></div>
 </div>

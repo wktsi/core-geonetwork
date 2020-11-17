@@ -51,6 +51,8 @@
     <module>dublin-core</module>
     <module>iso19110</module>
     <module>iso19139</module>
+    <!-- SNIG customization -->
+    <module>iso19139.pt.mig.2.0</module>
   </modules>
   <properties>
     <rootProjectDir>../..</rootProjectDir>

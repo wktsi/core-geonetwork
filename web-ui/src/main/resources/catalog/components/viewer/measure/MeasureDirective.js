@@ -78,7 +78,7 @@
   module.service('gnMeasure', [
     function() {
 
-      var mInteraction, updateMeasuresFn, distFeature, areaFeature;
+      var mInteraction, mSnap, updateMeasuresFn, distFeature, areaFeature, pointFeature;
       var options = {
         waitClass: '',
         styleFunction: (function() {
@@ -165,9 +165,13 @@
 
         // define the draw interaction used for measure
         mInteraction = new ol.interaction.Draw({
-          type: 'Polygon',
+          type: 'LineString',
           features: featureOverlay.getSource().getFeatures(),
           style: options.drawStyleFunction
+        });
+        
+        mSnap = new ol.interaction.Snap({
+        	  source: featureOverlay.getSource()
         });
 
         Object.defineProperty(mInteraction, 'active', {
@@ -177,8 +181,10 @@
           set: function(val) {
             if (val) {
               map.addInteraction(mInteraction);
+              map.addInteraction(mSnap);
             } else {
               map.removeInteraction(mInteraction);
+              map.removeInteraction(mSnap);
               featureOverlay.getSource().clear();
             }
           }
@@ -188,26 +194,29 @@
             function(evt) {
               featureOverlay.getSource().clear();
 
-              areaFeature = evt.feature;
-              var firstPoint = areaFeature.getGeometry().getCoordinates()[0][0];
-              distFeature = new ol.Feature(
-                  new ol.geom.LineString([firstPoint]));
-
-              deregisterFeature = areaFeature.on('change',
+              distFeature = evt.feature;
+              areaFeature = new ol.Feature(
+            	  new ol.geom.Polygon([distFeature.getGeometry().getCoordinates()]));
+              featureOverlay.getSource().addFeature(areaFeature);
+              
+              pointFeature = new ol.Feature(new ol.geom.Point(distFeature.getGeometry().getCoordinates()[0]));
+              featureOverlay.getSource().addFeature(pointFeature);
+              
+              deregisterFeature = distFeature.on('change',
                   function(evt) {
                     var feature = evt.target;
-                    var lineCoords = feature.getGeometry().getCoordinates()[0];
-
-                    distFeature.getGeometry().setCoordinates(lineCoords);
-                    updateMeasuresFn();
+                    var lineCoords = feature.getGeometry().getCoordinates();                    
+                    
+                    areaFeature.getGeometry().setCoordinates([lineCoords]);
+                    updateMeasuresFn();                                        
                   }
                   );
             }, this);
 
         mInteraction.on('drawend',
             function(evt) {
-              var lineCoords = evt.feature.getGeometry().getCoordinates()[0];
-              lineCoords.pop();
+        	  var lineCoords = evt.feature.getGeometry().getCoordinates();
+              
               distFeature.getGeometry().setCoordinates(lineCoords);
 
               updateMeasuresFn();
@@ -244,7 +253,7 @@
         };
 
         // Update values of measures from features
-        updateMeasuresFn = function() {
+        updateMeasuresFn = function() { 	
           scope.$apply(function() {
             measureObj.distance = getGeodesicLength(distFeature.getGeometry());
             measureObj.surface = getGeodesicArea(areaFeature.getGeometry());

@@ -103,10 +103,15 @@
               scope.zoom = function(map, delta) {
                 gnMap.zoom(map, delta);
               };
-              scope.zoomToMaxExtent = function(map) {
-                map.getView().fit(map.getView().
-                    getProjection().getExtent(), map.getSize());
+              /* override default zoomToMapExtent method */
+              scope.maxExtent = gnViewerSettings.mapConfig && 
+	              	gnViewerSettings.mapConfig["map-viewer"] && 
+	              	gnViewerSettings.mapConfig["map-viewer"].extent;
+              scope.zoomToMaxExtent = gnViewerSettings.zoomToMapExtent || function(map) {
+                  map.getView().fit(map.getView().
+                      getProjection().getExtent(), map.getSize());
               };
+              
               scope.ol3d = null;
 
 

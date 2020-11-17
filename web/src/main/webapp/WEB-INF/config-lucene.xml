@@ -159,6 +159,9 @@
       <field name="updateFrequency" tagName="updateFrequency"/>
       <field name="lineage" tagName="lineage"/>
       <field name="responsibleParty" tagName="responsibleParty"/>
+      <!-- Custom SNIG -->
+      <field name="legalConstraintsAnchor" tagName="legalConstraints"/>
+      <!-- End Custom SNIG -->
       <field name="MD_LegalConstraintsOtherConstraints" tagName="legalConstraints"/>
       <field name="MD_LegalConstraintsUseLimitation" tagName="legalConstraints"/>
       <field name="MD_SecurityConstraintsUseLimitation" tagName="securityConstraints"/>
@@ -183,9 +186,27 @@
       <field name="standardName" tagName="standardName"/>
       <field name="_groupWebsite" tagName="groupWebsite"/>
       <field name="attributeTable" tagName="attributeTable"/>
+      <!-- Custom SNIG -->
+      <field name="cartografia" tagName="cartografia"/>
+      <field name="geographicCoverage" tagName="geographicCoverage"/>
+      <field name="geographicCoverageDesc" tagName="geographicCoverageDesc"/>
+      <field name="inspirecore" tagName="inspirecore"/>
+      <field name="denominatorRange" tagName="denominatorRange" />
+      <field name="resolutionRange" tagName="resolutionRange" />    
+      <!-- <field name="createDateYearRange" tagName="createDateYearRange"/> -->
+      <field name="dataPolicy" tagName="dataPolicy"/>
+      <field name="openServiceType" tagName="openServiceType" />
+      <field name="dataFormat" tagName="dataFormat" />
+      <field name="dataType" tagName="dataType" />
+      <field name="referenceDate" tagName="referenceDate" />
+      <field name="referenceDateRange" tagName="referenceDateRange" />
+      <field name="referenceDateOrd" tagName="referenceDateOrd" />
+      <field name="orgNameSNIG" tagName="orgNameSNIG" />
+      <field name="changeDate" tagName="changeDate" />
+      <field name="topicCatLang" tagName="topicCatLang"/>      
+      <!-- End Custom SNIG -->
     </dumpFields>
   </search>
-
 
   <!-- Default analyzer to use for all fields not defined in the fieldSpecificAnalyzer section.
     If not set, GeoNetwork use a default per field analyzer (ie. fieldSpecificAnalyzer is not
@@ -330,6 +351,10 @@
   <tokenized>
     <Field name="any"/>
     <Field name="anylight"/>
+    <!-- SNIG -->
+    <Field name="anysnig"/>
+    <Field name="anylightsnig"/>
+    <!-- End SNIG -->
     <Field name="abstract"/>
     <Field name="title"/>
     <Field name="altTitle"/>
@@ -365,6 +390,10 @@
   <fuzzyMatching enabled="true">
     <Field name="any"/>
     <Field name="anylight"/>
+    <!-- SNIG -->
+    <Field name="anysnig"/>
+    <Field name="anylightsnig"/>
+    <!-- End SNIG -->
     <Field name="title"/>
     <Field name="altTitle"/>
     <Field name="abstract"/>

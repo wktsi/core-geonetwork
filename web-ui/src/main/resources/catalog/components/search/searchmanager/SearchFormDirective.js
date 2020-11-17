@@ -338,8 +338,8 @@
     };
 
     this.resetSearch = function(searchParams, preserveGeometrySearch) {
-
-      $scope.$broadcast('beforeSearchReset', preserveGeometrySearch);
+      //SNIG: Commented to avoid conflict between Where and Facet search
+      //$scope.$broadcast('beforeSearchReset', preserveGeometrySearch);
 
       if (searchParams) {
         $scope.searchObj.params = searchParams;

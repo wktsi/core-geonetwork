@@ -290,4 +290,7 @@
   <include>config/config-service-reports.xml</include>
 
   <include>config/config-service-inspireatom.xml</include>
+
+  <!-- SNIG Customization -->	
+  <include>config/config-service-snig.xml</include>
 </geonet>

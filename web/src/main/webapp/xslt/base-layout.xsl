@@ -48,12 +48,26 @@
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
 
-        <meta name="description" content=""/>
-        <meta name="keywords" content=""/>
+        <meta name="description" content="Registo Nacional de Dados Geográficos do Sistema Nacional de Informação Geográfica (SNIG)"/>
+        <meta name="keywords" content="snig, informação geográfica, metadados, dados abertos, open data"/>
 
+        <meta property="og:url" content="https://snig.dgterritorio.gov.pt/rndg/srv/por/catalog.search#/home"/>
+	<meta property="og:image" content="https://snig.dgterritorio.gov.pt/rndg/catalog/views/snig/images/logosnig_v.png"/>
+	<meta property="og:image:type" content="image/png"/>
+	<meta property="og:image:width" content="235"/>
+	<meta property="og:image:height" content="201"/>        
+        <meta property="og:title" content="{concat($env/system/site/name, ' - ', $env/system/site/organization)}"/>
+	<meta property="og:site_name" content="{$env/system/site/name}"/>
+	<meta property="og:description" content="Registo Nacional de Dados Geográficos do Sistema Nacional de Informação Geográfica (SNIG)"/>
+	<meta property="og:type" content="website"/>
 
-        <link rel="icon" sizes="16x16 32x32 48x48" type="image/png"
+	<link rel="manifest" href="../../catalog/views/snig/manifest.json"/>
+
+	<!-- 
+        <link rel="shortcut icon" sizes="16x16 32x32 48x48" type="image/png"
               href="../../images/logos/favicon.png"/>
+        -->
+        <link rel="shortcut icon" href="../../catalog/views/snig/images/favicon.ico" />
         <link href="rss.search?sortBy=changeDate" rel="alternate" type="application/rss+xml"
               title="{concat($env/system/site/name, ' - ', $env/system/site/organization)}"/>
         <link href="portal.opensearch" rel="search" type="application/opensearchdescription+xml"

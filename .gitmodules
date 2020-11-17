@@ -13,3 +13,15 @@
 [submodule "docs/manuals"]
 	path = docs/manuals
 	url = https://github.com/geonetwork/doc.git
+[submodule "snig-services"]
+	path = snig-services
+	url = https://github.com/wktsi/snig-services.git
+	branch = 3.4.x
+[submodule "web-ui/src/main/resources/catalog/views/snig"]
+	path = web-ui/src/main/resources/catalog/views/snig
+	url = https://github.com/wktsi/geonetwork-snig-view
+	branch = 3.4.x
+[submodule "schemas/iso19139.pt.mig.2.0"]
+	path = schemas/iso19139.pt.mig.2.0
+	url = https://github.com/wktsi/iso19139.pt.mig.2.0.git
+	branch = 3.4.x

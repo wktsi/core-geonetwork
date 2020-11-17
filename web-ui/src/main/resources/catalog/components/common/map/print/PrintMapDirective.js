@@ -337,6 +337,12 @@
       if (encLegend && encLegend.classes[0] && !encLegend.classes[0].icon) {
         encLegend = undefined;
       }
+      
+      //Custom SNIG - remove proxy from service baseUrl
+      if (encLayer.baseURL.indexOf('proxy?url=') >= 0 && encLayer.baseURL.split('=').length > 1) {
+    	  encLayer.baseURL = decodeURIComponent(encLayer.baseURL.split('=')[1]);    	  
+      }
+      
       return {layer: encLayer, legend: encLegend};
     };
   };

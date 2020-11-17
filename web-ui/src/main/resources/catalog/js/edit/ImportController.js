@@ -46,7 +46,8 @@
     '$scope',
     '$rootScope',
     'gnMetadataManager',
-    function($scope,  $rootScope, gnMetadataManager) {
+    'gnGlobalSettings',
+    function($scope,  $rootScope, gnMetadataManager, gnGlobalSettings) {
       $scope.importMode = 'uploadFile';
       $scope.file_type = 'single';
       $scope.queue = [];
@@ -62,7 +63,7 @@
         publishToAll: false,
         assignToCatalog: true,
         transformWith: '_none_',
-        group: null,
+        group: gnGlobalSettings.defaultGroup || null, //SNIG: set default group
         category: null
       };
       $scope.importing = false;
@@ -134,7 +135,7 @@
       });
       $scope.importRecords = function(formId) {
         $scope.reports = [];
-        $scope.error = null;
+        $scope.error = null;        
 
         if ($scope.importMode == 'uploadFile') {
           if ($scope.uploadScope.queue.length > 0) {

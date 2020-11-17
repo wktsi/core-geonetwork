@@ -192,8 +192,7 @@
 
                 // Default view to display is default
                 // it may be overriden by route params or custom function
-                var defaultTab = 'default';
-
+                var defaultTab = 'identificationInfoMIG'; //Custom SNIG
 
                 // It may be overriden by an application
                 // settings. For example, you may have different

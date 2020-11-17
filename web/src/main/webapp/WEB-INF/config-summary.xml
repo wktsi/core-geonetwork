@@ -127,6 +127,23 @@
     <facet name="maintenanceAndUpdateFrequency" indexKey="cl_maintenanceAndUpdateFrequency"
            label="maintenanceAndUpdateFrequencies"/>
     <facet name="mdActions" indexKey="_mdActions" label="mdActions"/>
+
+    <!-- Custom SNIG -->
+     <facet name="geoDescCode" indexKey="geoDescCode" label="geoDescCode"/>
+     <facet name="cartografia" indexKey="cartografia" label="cartografia"/>
+     <facet name="geographicCoverage" indexKey="geographicCoverage" label="geographicCoverage"/>
+     <facet name="geographicCoverageDesc" indexKey="geographicCoverageDesc" label="geographicCoverageDesc"/>
+     <facet name="inspirecore" indexKey="inspirecore" label="inspirecore"/>
+     <!-- <facet name="createDateYearRange" indexKey="createDateYearRange" label="createDateYearRange"/> -->
+     <facet name="referenceDateRange" indexKey="referenceDateRange" label="referenceDateRange"/>
+     <facet name="denominatorRange" indexKey="denominatorRange" label="denominatorRange"/>
+     <facet name="resolutionRange" indexKey="resolutionRange" label="resolutionRange"/>
+     <facet name="dataPolicy" indexKey="dataPolicy" label="dataPolicy"/>
+     <facet name="openServiceType" indexKey="openServiceType" label="openServiceType"/>
+     <facet name="dataType" indexKey="dataType" label="dataType"/>
+     <facet name="dataFormat" indexKey="dataFormat" label="dataFormat"/>
+     <facet name="orgNameSNIG" indexKey="orgNameSNIG" label="orgNameSNIG" localized="true"/>
+    <!-- End Custom SNIG --> 
   </facets>
 
   <summaryTypes>
@@ -139,7 +156,11 @@
       <!--<item facet="inspireTheme" sortBy="value" sortOrder="asc" max="35"/>-->
       <!--<item facet="inspireThemeWithAc" sortBy="value" sortOrder="asc" max="35"/>-->
       <item facet="keyword" max="15"/>
-      <item facet="orgName" max="25"/>
+      <!-- Custom SNIG -->
+      <!--<item facet="orgName" sortBy="count" sortOrder="desc" max="1000"/>-->
+      <item facet="orgName" sortBy="value" sortOrder="asc" max="1000"/>
+      <item facet="orgNameSNIG" sortBy="value" sortOrder="asc" max="1000"/>
+      <!-- End Custom SNIG -->
       <item facet="sourceCatalog"
             translator="db:org.fao.geonet.repository.SourceRepository:findOneByUuid"/>
       <item facet="createDateYear" sortBy="value" sortOrder="desc" max="40"/>
@@ -158,6 +179,22 @@
       <item facet="gemetKeyword"
             translator="term:http://geonetwork-opensource.org/gemet"/>
       -->
+     
+       <!-- Custom SNIG -->
+       <item facet="geoDescCode" sortBy="value" sortOrder="desc"/>
+       <item facet="cartografia" sortBy="value" sortOrder="desc"/>
+       <item facet="geographicCoverage" sortBy="value" sortOrder="desc"/>
+       <item facet="geographicCoverageDesc" sortBy="value" sortOrder="desc"/>
+       <item facet="inspirecore" sortBy="value" sortOrder="desc"/>
+       <!-- <item facet="createDateYearRange" sortBy="value" sortOrder="desc"/> -->
+       <item facet="referenceDateRange" sortBy="value" sortOrder="desc"/>
+       <item facet="denominatorRange" sortBy="value" sortOrder="desc"/>
+       <item facet="resolutionRange" sortBy="value" sortOrder="desc"/>
+       <item facet="dataPolicy" sortBy="value" sortOrder="desc" max="25"/>
+       <item facet="openServiceType" sortBy="value" sortOrder="desc"/>
+       <item facet="dataType" sortBy="value" sortOrder="asc" translator="codelist:gmd:MD_SpatialRepresentationTypeCode"/>
+       <item facet="dataFormat" sortBy="value" sortOrder="asc"/>       
+      <!-- End Custom SNIG -->
     </summaryType>
 
     <summaryType name="manager" format="DIMENSION">

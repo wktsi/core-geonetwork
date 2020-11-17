@@ -1,0 +1,165 @@
+{
+	"ShowResults": "Pesquisar",
+	"Reset": "Limpar",
+    "SearchAny": "Qualquer palavra",
+    "AtLocation": "Localização",
+    "byCategory": "Categorias",
+    "AdvancedSearch": "Pesquisa avançada",
+    "DataAvailability": "Disponibilização",
+    "Visualisation": "Visualização",
+    "DownloadData": "Download",
+    "DataOnRequest": "A pedido",
+    "INSPIREtheme": "Tema Inspire",
+    "ByDate": "Data de criação, atualização ou publicação",
+    "ByDateExtent": "Data de validade",
+    "resultsFound": "resultados encontrados",
+    "Home": "Início",
+    "adminConsole": "Administração",
+    
+	"mdTabResponsible": "Responsável",    
+	"mdTabMetaInfo": "Informação sobre metadados",
+	"mdTabKeywords": "Palavras-chave",
+	"mdTabTechInfo": "Informação técnica",	
+	"mdId": "Identificador",
+	"mdDate": "Data",
+	"mdName": "Norma",
+	"mdVersion": "Versão",
+	"ValidationStatus": "Validação",
+    "Organization": "Organização",
+    "FilterAndFavorits": "Filtros e Favoritos",
+    "favorites": "Favoritos",
+    "emptyFavorites": "Sem Favoritos",
+      
+    "PreferredList": "Registos preferidos",
+    "WatchList": "Registos selecionados",
+    
+    "SearchWhat": "O Quê?",
+    "SearchWhere": "Onde?",
+    
+    "referenceDate": "Data de Referência",
+    "referenceDateOrd": "Data de Referência",
+    "referenceDateCreation": "Criação",
+    "referenceDateRevision": "Revisão",
+    "referenceDatePublication": "Publicação",
+    "theme": "Tema(s)",
+    "coverage": "Cobertura",
+
+    "topicCatLang": "Tema",
+    
+    "services": "Serviços",
+    "datasets": "Conjuntos de Dados Geográficos",
+    "series": "Série" ,
+    "relations": "Relações",
+    
+    "geograhicCoverage": "Cobertura Geográfica",
+    "cartography": "Cartografia",
+    "referenceSystem": "Sistema de Referência",
+    
+    "resource": "Recurso",
+    "distribution": "Distribuição",
+    "credits": "Créditos",
+    
+    "expandAllFacetLabel": "Expandir",
+    "collapseAllFacetLabel": "Recolher",
+    "expandAllFacet": "Expandir todos os filtros",
+    "collapseAllFacet": "Recolher todos os filtros",
+    
+    "viewServiceLink": "Ver URL de serviço",
+    "moreMetadataInfo": "Selecione uma das opções para obter mais informação",
+    "noResponsibleInfo": "Não possui informação sobre o responsável pelo recurso",
+    "noResourceResponsibleInfo": "Não possui informação sobre o responsável pelo recurso",
+    "noDistributionResponsibleInfo": "Não possui informação sobre o responsável pela distribuição",
+    "noMetadataResponsibleInfo": "Não possui informação sobre o responsável pelos metadados",
+    "downloadsAndResources": "Serviços de visualização e descarregamento",
+    
+    "geographicCoverageDesc": "Cobertura Geográfica",
+    "geographicCoverage_undefined": "Não definida",
+    
+    "cartografia_undefined": "Outra",
+    
+    "inspireReport": "Reportados Diretiva INSPIRE",
+    
+    "referenceDateRange": "Data de referência",
+    "01_2015_higher": "2015 ou posterior",
+    "02_2005_2015": "Entre 2005 e 2015",
+    "03_2005_lower": "Anterior a 2005",
+    
+    "dataPolicy": "Política de Dados",
+    "dl_180_2009_art20_1": "Com limitações ao acesso por razões de segurança ou defesa nacional",
+    "dl_180_2009_art20_2": "Com limitações ao acesso público",
+    "dl_180_2009_art18_2": "Com condições de acesso a serviços (cobrança de taxas)",
+    "dataPolicy_undefined": "Não definida", 
+ 
+    "openServiceType": "Serviços",
+    "view": "Visualização",
+    "download": "Descarregamento",
+    "viewAndDowload": "Visualização e descarregamento",
+    "openServiceType_undefined": "Sem serviços",
+     
+    "denominatorRange": "Escala",
+    "01_100000": "Inferior a 1:100 000",
+    "02_10000_100000": "De 1:10 000 a 1:100 000",
+    "03_10000": "Igual ou superior a 1:10 000",
+    "denominator_undefined": "Não definida",
+    
+    "resolutionRange": "Resolução",
+    "01_100": "Inferior a 100 m",
+    "02_10_100": "De 10 a 100 m",
+    "03_10": "Igual ou superior a 10m",
+    "resolution_undefined": "Não definida",
+    
+    "dataType": "Tipo de Dados",
+    "dataType_other": "Outros",
+	"dataType_undefined": "Não definido",
+	
+	"Vector": "Vetorial",
+	"Grid": "Matricial",
+	
+    "dataFormat": "Formatos de distribuição",
+	"dataFormat_undefined": "Não definido",
+	"dataFormat_other": "Outros",
+	
+	"orgResponsibleName": "Entidade Responsável",
+	"themes": "Temas",
+	
+	"atomChooseLayerToAdd": "- Selecionar Tema -",
+	
+	"results": "resultados",
+	"orgNameSNIG": "Entidade responsável",
+	
+	"metadataDate": "Data dos metadados",
+	
+	"clearText": "Limpar texto",
+	
+	"searchOver": "Pesquisar em <strong>{{records}}</strong> registos...",
+		
+	"Distance": "Distância",
+	"Surface": "Área",
+	"Graticule": "Grelha",
+	
+	"exportHTML": "Exportar (HTML)",
+	
+	"measure_instruction": "Desenhe uma linha no mapa e veja o seu comprimento e área neste painel. Faça duplo clique para concluir a medição.",
+
+	"makeYourMap": "Visualizador",
+	"contribute": "Gestão",
+	
+	"basket": "Favoritos",
+	"emptyBasket": "Sem Favoritos",
+	"usernameHelp": "Nome a utilizar para entrar",
+	"noRecordFound": "Não existem registos para",
+	"userRecord": "registo encontrado para",
+	"userRecords": "registos encontrados para",
+	
+	"GEMET - INSPIRE themes, version 1.0": "Palavras-chave GEMET - INSPIRE themes, version 1.0",
+	"INSPIRE priority data set": "Conjuntos de dados priorirários INSPIRE",
+	
+	"cookieWarning": "Este website utiliza cookies para melhorar a sua experiência de utilização",
+	"moreOnCookie": "Mais Informação",
+	"acceptCookie": "Sim, concordo",
+	"cookieDescription": "Ao clicar em qualquer link presente nesta página está a consentir a sua utilização.",
+
+	"isPublishedToAll": "Publicado para todos",
+	"rndg": "RNDG",
+	"relevancy": "Relevância"
+}

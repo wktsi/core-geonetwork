@@ -18,7 +18,8 @@
           <strong>{{(activeType || '...') | translate}}</strong>
         </div>
         <div class="panel-body">
-          <div class="list-group gn-record-type">
+          <div data-ng-show="user.isAdministratorOrMore()" 
+          	class="list-group gn-record-type">
             <a data-ng-repeat="type in mdTypes" href="" class="list-group-item"
                data-ng-click="getTemplateNamesByType(type)"
                data-ng-class="{'active': type==activeType}">
@@ -28,6 +29,33 @@
               </p>
             </a>
           </div>
+          <div data-ng-show="!user.isAdministratorOrMore()" 
+          	class="list-group gn-record-type">
+            <a href="" class="list-group-item"
+               data-ng-click="getTemplateNamesByType('dataset')"
+               data-ng-class="{'active': type==activeType}">
+              <i class="fa {{getTypeIcon('datatset')}} fa-3x"></i>
+              <p>
+                {{'dataset' | translate}}
+              </p>
+            </a>
+            <a href="" class="list-group-item"
+               data-ng-click="getTemplateNamesByType('series')"
+               data-ng-class="{'active': type==activeType}">
+              <i class="fa {{getTypeIcon('series')}} fa-3x"></i>
+              <p>
+                {{'series' | translate}}
+              </p>
+            </a>
+            <a href="" class="list-group-item"
+               data-ng-click="getTemplateNamesByType('service')"
+               data-ng-class="{'active': type==activeType}">
+              <i class="fa {{getTypeIcon('service')}} fa-3x"></i>
+              <p>
+                {{'service' | translate}}
+              </p>
+            </a>            
+          </div>          
         </div>
       </div>
     </div>
@@ -97,7 +125,7 @@
           </div>
         </div>
       </div>
-      <div class="btn-group">
+      <div class="btn-group" data-ng-show="user.isAdministratorOrMore()">
         <button type="button" class="btn btn-success"
                 data-gn-click-and-spin="createNewMetadata()"
                 data-ng-class="{'disabled': (!activeType || !activeTpl || !ownerGroup || ((!generateUuid) && (!isMdIdentifierFilled())) )}">
@@ -118,6 +146,14 @@
             createMetadataForGroup</a></li>
         </ul>
       </div>
+      <div class="btn-group" data-ng-show="!user.isAdministratorOrMore()">
+        <button type="button" class="btn btn-success"
+                data-gn-click-and-spin="createNewMetadata()"
+                data-ng-class="{'disabled': (!activeType || !activeTpl || !ownerGroup || ((!generateUuid) && (!isMdIdentifierFilled())) )}">
+          <i class="fa fa-plus"/>
+          <span data-translate="">createMetadata</span>
+        </button>
+      </div>      
       <a href="#/board" class="btn btn-default">
         <i class="fa fa-close"/>&nbsp;
         <span data-translate="">cancel</span>

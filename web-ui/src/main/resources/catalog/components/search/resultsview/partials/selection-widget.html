@@ -57,9 +57,9 @@
           <i class="fa fa-check"></i>&nbsp;<span translate>viewSelectionOnly</span>
         </a>
       </li>
-      <li class="divider" data-ng-if="user.isConnected()"></li>
+      <li class="divider" data-ng-if="user.isAdministratorOrMore() && user.isConnected()"></li>
       <li  data-ng-show="!excludePattern.test('updatePrivileges')"
-           data-ng-if="user.isEditorOrMore()">
+           data-ng-if="user.isAdministratorOrMore() && user.isEditorOrMore()">
         <a href="" data-ng-click="mdService.openPrivilegesBatchPanel(getCatScope(), searchResults.selectionBucket)">
           <i class="fa fa-key"></i>&nbsp;<span translate>updatePrivileges</span>
         </a>
@@ -97,7 +97,7 @@
       </li>
       <li class="divider" data-ng-if="user.isConnected()"></li>
       <li  data-ng-show="!excludePattern.test('updateCategories')"
-           data-ng-if="user.isEditorOrMore()">
+           data-ng-if="user.isAdministratorOrMore() && user.isEditorOrMore()">
         <a href="" data-ng-click="mdService.openCategoriesBatchPanel(searchResults.selectionBucket, getCatScope())">
           <i class="fa fa-tags"></i>&nbsp;<span translate>updateCategories</span>
         </a>

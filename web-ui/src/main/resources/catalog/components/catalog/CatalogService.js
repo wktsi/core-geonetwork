@@ -736,7 +736,7 @@
       getAllContacts: function() {
         if (angular.isUndefined(this.allContacts) &&
             angular.isDefined(this.responsibleParty)) {
-          this.allContacts = {metadata: [], resource: []};
+          this.allContacts = {metadata: [], resource: [], distribution: []};
           for (var i = 0; i < this.responsibleParty.length; i++) {
             var s = this.responsibleParty[i].split('|');
             var contact = {
@@ -751,6 +751,8 @@
             };
             if (s[1] === 'resource') {
               this.allContacts.resource.push(contact);
+            } else if (s[1] === 'distribution') {
+                this.allContacts.distribution.push(contact);            
             } else if (s[1] === 'metadata') {
               this.allContacts.metadata.push(contact);
             }
@@ -768,6 +770,8 @@
             var s = this.responsibleParty[i].split('|');
             if (s[1] === 'resource') {
               ret.resource = s[2];
+            } else if (s[1] === 'distribution') {
+            	ret.distribution = s[2];
             } else if (s[1] === 'metadata') {
               ret.metadata = s[2];
             }

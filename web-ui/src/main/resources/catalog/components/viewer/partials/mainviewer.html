@@ -48,24 +48,34 @@
       <span class="label" ng-show="showToolLabels" translate="">Contexts</span>
       <span role="tooltip" translate="">Contexts</span>
     </button>
+    
+    <!-- 
     <button class="btn btn-default" ng-model="activeTools.print"
             type="submit" gi-btn="active" ng-hide="is3dEnabled || disabledTools.print">
       <span class="fa fa-print"></span>
       <span class="label" ng-show="showToolLabels" translate="">Print</span>
       <span role="tooltip" translate="">Print</span>
     </button>
+	 -->
 
     <button class="btn btn-default" ng-model="mInteraction.active"
             type="submit" gi-btn="active" ng-hide="is3dEnabled || disabledTools.mInteraction">
       <span class="fa fa-expand"></span>
       <span class="label" ng-show="showToolLabels" translate="">Measure</span>
       <span role="tooltip" translate="">Measure</span>
-    </button>
+    </button>    
     <button class="btn btn-default" ng-model="drawVector.active"
             type="submit" gi-btn="active" ng-hide="is3dEnabled || disabledTools.drawVector">
       <span class="fa fa-pencil"></span>
       <span class="label" ng-show="showToolLabels" translate="">Annotations</span>
       <span role="tooltip" translate="">Annotations</span>
+    </button>
+
+    <button class="btn btn-default" ng-model="activeTools.print"
+            type="submit" gi-btn="active" ng-hide="is3dEnabled || disabledTools.print">
+      <span class="fa fa-print"></span>
+      <span class="label" ng-show="showToolLabels" translate="">Print</span>
+      <span role="tooltip" translate="">Print</span>
     </button>
 
     <div class="tools-spacer"></div>
@@ -75,6 +85,15 @@
       <span class="label" ng-show="showToolLabels" translate="">syncAllLayers</span>
       <span role="tooltip" translate="">syncAllLayers</span>
     </button>
+    
+    <div class="tools-spacer" ng-hide="disabledTools.syncAllLayers"></div>	
+
+    <button class="btn btn-default btn-snig-help" type="submit">
+      <a class="fa fa-question-circle" href="/sites/default/files/documentos/660/Help_RNDG-Visualizador.pdf" target="_blank"></a>
+      <span class="label" ng-show="showToolLabels" translate="">help</span>
+      <span role="tooltip" translate="">help</span>
+    </button>    
+    
   </div>
   <!--Bottom right buttons - Navigation-->
   <div class="tools control-tools">
@@ -116,17 +135,20 @@
     <div class="panel-body">
       <tabset id="info-tabset">
 
+		<!-- TODO: Override with a custom view (RS) -->
+		<!-- 
         <tab heading="{{'addLayerFromMaps' | translate}}"
              active="addLayerTabs.maps">
           <br/>
           <div data-gn-search-layer-for-map="map" data-mode="map"></div>
         </tab>
-
+ 
         <tab heading="{{'SearchLayer' | translate}}"
              active="addLayerTabs.search">
           <br/>
           <div data-gn-search-layer-for-map="map"></div>
         </tab>
+         -->
 
         <tab heading="{{'addLayerFromServices' | translate}}"
              active="addLayerTabs.services">

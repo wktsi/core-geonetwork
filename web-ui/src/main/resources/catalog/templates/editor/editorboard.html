@@ -4,7 +4,7 @@
     <div class="col-sm-12"
          data-ng-search-form=""
          data-runSearch="true"
-         data-wait-for-user="true" >
+         data-wait-for-user="true" >                    
 
       <div class="gn-sub-bar">
         <form class="form-horizontal"
@@ -14,12 +14,12 @@
             <div class="col-sm-6 col-md-6 col-lg-5">
               <div class="input-group gn-form-any">
 
-              <span class="input-group-addon">
+              <span class="input-group-addon" data-ng-show="user.isReviewerOrMore()">
                 <label>
                   <input type="checkbox" data-ng-model="onlyMyRecord.is"
                          data-ng-change="toggleOnlyMyRecord(triggerSearch);">
                   <span data-translate="">onlyMyRecord</span>
-                </label>
+                </label>                                
               </span>
 
                 <input type="text"
@@ -49,7 +49,8 @@
               </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-7 text-right">
-              <a href="#/create" class="btn btn-primary">
+              <a href="#/create" class="btn btn-primary"
+              	 ng-if="user.isEditorOrMore()">
                 <i class="fa fa-plus"/>&nbsp;<span data-translate="">addRecord</span>
               </a>
               <a href="#/import" class="btn btn-default">

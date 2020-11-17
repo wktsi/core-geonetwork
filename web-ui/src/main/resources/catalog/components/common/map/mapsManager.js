@@ -104,7 +104,8 @@
               zoom: 2
             }),
             // show zoom control in editor maps only
-            controls: type !== this.EDITOR_MAP ? [new ol.control.Attribution()] : [
+            controls: type !== this.EDITOR_MAP ? [new ol.control.Attribution({tipLabel: 'Créditos'}), 
+              new ol.control.FullScreen({source: 'fullscreen', tipLabel: 'Alternar ecrã completo'})] : [
                 new ol.control.Zoom(),
                 new ol.control.Attribution()
               ]

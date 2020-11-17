@@ -360,6 +360,13 @@
       <version>${project.version}</version>
     </dependency>
 
+    <!-- SNIG customization -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>snig-services</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>harvesters</artifactId>
@@ -512,6 +519,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>schema-dublin-core</artifactId>
+      <version>${gn.schemas.version}</version>
+    </dependency>
+    <!-- SNIG customization -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>schema-iso19139.pt.mig.2.0</artifactId>
       <version>${gn.schemas.version}</version>
     </dependency>
 
@@ -743,6 +756,11 @@
                   <directory>${project.basedir}/../schemas/csw-record/src/main/plugin</directory>
                   <targetPath>${basedir}/src/main/webapp/WEB-INF/data/config/schema_plugins
                   </targetPath>
+                </resource>
+                <!-- SNIG customization -->
+                <resource>
+                  <directory>${project.basedir}/../schemas/iso19139.pt.mig.2.0/src/main/plugin</directory>
+                  <targetPath>${basedir}/src/main/webapp/WEB-INF/data/config/schema_plugins</targetPath>
                 </resource>
                 <!-- Copy the documentation in the webapp. -->
                 <resource>

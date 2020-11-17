@@ -21,14 +21,17 @@
 
     <!-- If using the category selector in the editor
     form directly, remove this directive. -->
-    <div data-gn-metadata-category-updater="mdCategories"
+    <div data-ng-show="user.isAdministratorOrMore()"
+    	 data-gn-metadata-category-updater="mdCategories"
          data-gn-group-owner="groupOwner"
          data-metadata-uuid="gnCurrentEdit.uuid" title="{{'categories'|translate}}"/>
 
-    <div data-gn-metadata-group-updater="groupOwner"
+    <div data-ng-show="user.isReviewerOrMore()"
+    	 data-gn-metadata-group-updater="groupOwner"
          data-metadata-id="gnCurrentEdit.id" title="{{'group'|translate}}"/>
 
-    <div class="btn-group">
+    <div data-ng-show="user.isReviewerOrMore()"
+    	 class="btn-group">
       <button class="btn btn-default dropdown-toggle"
               type="button"
               data-toggle="dropdown" aria-expanded="true">
@@ -73,10 +76,12 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <li><a href="" title="{{(isTemplate() ? 'saveAsMetadata' : 'saveAsTemplate') | translate}}"
+        <li data-ng-show="user.isAdministratorOrMore()">
+        	<a href="" title="{{(isTemplate() ? 'saveAsMetadata' : 'saveAsTemplate') | translate}}"
                data-gn-click-and-spin="switchTypeAndSave(true)">
-          {{(isTemplate() ? 'saveAsMetadata' : 'saveAsTemplate') | translate}}
-        </a></li>
+          	{{(isTemplate() ? 'saveAsMetadata' : 'saveAsTemplate') | translate}}
+        	</a>
+        </li>
         <li class="dropdown-header">
           <label title="{{'minorEditHelp' | translate}}">
             <input type="checkbox" data-ng-model="gnCurrentEdit.isMinor"/>
